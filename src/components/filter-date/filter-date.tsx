@@ -47,7 +47,7 @@ const FilterDate: React.FC = () => {
   };
 
   return (
-    <div className=" flex w-full flex-col lg:flex-row items-center ">
+    <div className=" flex w-full flex-col justify-center lg:flex-row items-center ">
       <div className=" bg-[#faf9f5] flex flex-col items-start">
         <Popover>
           <PopoverTrigger asChild>
@@ -55,7 +55,7 @@ const FilterDate: React.FC = () => {
               id="date"
               variant="outline"
               className={cn(
-                "flex items-center justify-between p-2 flex-row font-normal bg-[#faf9f5] border border-orange-300  w-72 text-gray-700",
+                "flex items-center justify-between p-2 flex-row  bg-[#faf9f5] border border-orange-300  w-72 text-gray-700",
                 !date && "text-muted-foreground"
               )}
             >
@@ -64,8 +64,7 @@ const FilterDate: React.FC = () => {
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="flex w-full flex-row items-center justify-center bg-[#faf9f5]
-  p-2 opacity-100"
+            className="flex w-full flex-row items-center justify-center bg-[#faf9f5] p-2 opacity-100"
             align="start"
           >
             <Calendar
@@ -90,7 +89,7 @@ const FilterDate: React.FC = () => {
       </div>
 
       <Input
-        className=" bg-[#faf9f5] border border-orange-300 m-2 p-2 text-gray-700"
+        className="m-4 w-72 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700"
         placeholder="Huespedes: 2 adultos"
       />
 

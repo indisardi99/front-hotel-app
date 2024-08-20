@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-row w-full justify-between text-white items-center bg-black p-4">
+    <div className="relative z-50 flex flex-row w-full justify-between text-white items-center bg-black p-4">
       <Image
         className="lg:ml-20"
         src="/logo.png"
@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden absolute top-16 left-0 w-full bg-black flex flex-col space-y-4 p-4">
+        <div className="lg:hidden absolute top-16 left-0 w-full bg-black flex flex-col space-y-4 p-4 z-50">
           <Link href="/" onClick={toggleMenu}>
             Inicio
           </Link>

@@ -76,10 +76,11 @@ const FilterDate: React.FC = () => {
               numberOfMonths={2}
               disabled={[{ before: today }]}
               classNames={{
-                day_disabled: "text-gray-400",
-                day_range_start: "bg-gray-400 ",
-                day_range_middle: "bg-gray-300",
-                day_range_end: "bg-gray-400 ",
+                day_disabled: "text-gray-450",
+                day_range_start: "bg-gray-400 text-black",
+                day_range_middle: "bg-gray-300 text-black",
+                day_range_end: "bg-gray-400 text-black",
+                day_selected: "",
               }}
             />
           </PopoverContent>

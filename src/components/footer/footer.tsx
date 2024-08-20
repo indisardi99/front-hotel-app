@@ -3,8 +3,8 @@ import Link from "next/link";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full mt-[20px] bg-black py-4 text-white">
-      <div className="flex flex-row justify-around px-32">
+    <footer className="flex flex-col w-full mt-[20px] bg-black py-4 text-white">
+      <div className="flex flex-row justify-around ">
         <div className="flex flex-col ">
           <h3 className="pb-1 text-lg">Eclipse Royal</h3>
           <p className="text-sm">Dirección: Calle Falsa 123, Ciudad</p>

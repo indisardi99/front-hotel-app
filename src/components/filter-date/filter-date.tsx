@@ -47,7 +47,7 @@ const FilterDate: React.FC = () => {
   };
 
   return (
-    <div className=" flex w-full flex-row items-center ">
+    <div className=" flex w-full flex-col lg:flex-row items-center ">
       <div className=" bg-[#faf9f5] flex flex-col items-start">
         <Popover>
           <PopoverTrigger asChild>

@@ -43,7 +43,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
   services,
 }) => {
   return (
-    <div className="mb-4 flex rounded-lg  bg-[#faf9f5] border border-orange-300 p-4">
+    <div className="flex flex-col w-full mb-4 lg:flex-row rounded-lg  bg-[#faf9f5] border border-orange-300 p-4">
       <div className="shrink-0">
         <Image
           src={imageUrl}
@@ -53,7 +53,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
           className="rounded-lg object-cover"
         />
       </div>
-      <div className="ml-5 flex flex-1 flex-col">
+      <div className="ml-5 flex flex-1 flex-col ">
         <h2 className="mb-2 text-xl font-semibold">{title}</h2>
         <p className="mb-2 text-lg text-gray-600">{price}</p>
         <p className="mb-4 text-lg text-gray-500">{description}</p>

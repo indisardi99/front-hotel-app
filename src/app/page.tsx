@@ -1,3 +1,4 @@
+import FilterDate from "@/components/filter-date/filter-date";
 import Image from "next/image";
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
             height={300}
           />
           <div className=" absolute bottom-0 left-1/2  -translate-x-1/2 translate-y-1/2 rounded-md bg-gray-950 p-2">
-            {/* <FilterDate /> */}
+            <FilterDate />
           </div>
         </div>
       </div>

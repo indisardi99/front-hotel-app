@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col w-full mt-[20px] bg-black py-4 text-white">
+    <footer className="flex flex-col w-full bg-black py-4 text-white">
       <div className="flex text-center flex-col justify-center lg:flex-row lg:justify-around ">
         <div className="flex flex-col ">
           <h3 className="pb-1 text-lg">Eclipse Royal</h3>

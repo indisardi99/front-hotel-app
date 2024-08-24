@@ -1,76 +1,69 @@
-import React from "react";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { CalendarIcon, Wifi, Dumbbell, Leaf, Lock, Tv } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-export interface ServicesProps {
+interface Service {
   id: string;
-  title: string;
-  icon: string;
+  price: number;
+  type: string;
 }
 
-const iconMap: { [key: string]: React.ReactNode } = {
-  calendar: <CalendarIcon className="m-2 size-4" />,
-  wifi: <Wifi className="m-2 size-4" />,
-  dumbbell: <Dumbbell className="m-2 size-4" />,
-  leaf: <Leaf className="m-2 size-4" />,
-  lock: <Lock className="m-2 size-4" />,
-  tv: <Tv className="m-2 size-4" />,
-};
+const RoomDetail = () => {
+  const [services, setServices] = useState<Service[]>([]);
+  const router = useRouter();
+  const { id } = router.query;
 
-const Services: React.FC<ServicesProps> = ({ title, icon }) => {
+  useEffect(() => {
+    if (id && typeof id === "string") {
+      // Verificar que el `id` tiene el formato de un UUID
+      const isValidUUID = (uuid: string) => {
+        const uuidRegex =
+          /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+        return uuidRegex.test(uuid);
+      };
+
+      if (isValidUUID(id)) {
+        const fetchRoomData = async () => {
+          try {
+            const response = await fetch(
+              `http://localhost:3000/room/getRoomById/${id}`
+            );
+            if (!response.ok) {
+              throw new Error("Error fetching room data");
+            }
+            const [, servicesData] = await response.json();
+            setServices(servicesData);
+          } catch (error) {
+            console.error("Error fetching room data:", error);
+          }
+        };
+
+        fetchRoomData();
+      } else {
+        console.error("Invalid UUID format");
+      }
+    }
+  }, [id]);
+
+  if (services.length === 0) {
+    return <div>Cargando...</div>;
+  }
+
   return (
-    <div className="flex size-20 flex-col items-center rounded-md border text-black">
-      <h1 className="mt-2 text-xs">{title}</h1>
-      <h1>{iconMap[icon]}</h1>
-    </div>
-  );
-};
-
-interface RoomCardProps {
-  imageUrl: string;
-  title: string;
-  price: string;
-  description: string;
-  services: ServicesProps[];
-}
-
-const RoomCard: React.FC<RoomCardProps> = ({
-  imageUrl,
-  title,
-  price,
-  description,
-  services,
-}) => {
-  return (
-    <div className="flex flex-col w-full mb-4 lg:flex-row rounded-lg  bg-[#faf9f5] border border-orange-300 p-4">
-      <div className="shrink-0">
-        <Image
-          src={imageUrl}
-          alt={title}
-          width={450}
-          height={0}
-          className="rounded-lg object-cover"
-        />
-      </div>
-      <div className="ml-5 flex flex-1 flex-col ">
-        <h2 className="mb-2 text-xl font-semibold">{title}</h2>
-        <p className="mb-2 text-lg text-gray-600">{price}</p>
-        <p className="mb-4 text-lg text-gray-500">{description}</p>
-        <div className="mb-4 flex flex-wrap gap-2">
+    <div>
+      <h1>Servicios Disponibles</h1>
+      <div>
+        <h2>Servicios:</h2>
+        <ul>
           {services.map((service) => (
-            <Services key={service.id} {...service} />
+            <li key={service.id}>
+              {service.type} - ${service.price}
+            </li>
           ))}
-        </div>
-        <Button
-          className="bg-[#faf9f5] border border-orange-300 mt-auto w-32 self-end p-2"
-          variant="outline"
-        >
-          Ver detalle
-        </Button>
+        </ul>
       </div>
+      {/* Aquí podrías agregar más detalles según la estructura de tu respuesta */}
     </div>
   );
 };
 
-export default RoomCard;
+export default RoomDetail;

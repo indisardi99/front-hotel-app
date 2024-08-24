@@ -1,6 +1,7 @@
 import RoomCard from "@/components/room-card/room-card";
 
 interface Room {
+  id: string;
   number: number;
   price: number;
   category: string;
@@ -20,8 +21,6 @@ const page = async () => {
     }
 
     const data = await res.json();
-
-    // Asegúrate de acceder a la propiedad 'data'
     const rooms: Room[] = data.data ? data.data : [];
 
     return (
@@ -29,7 +28,8 @@ const page = async () => {
         {rooms.length > 0 ? (
           rooms.map((room) => (
             <RoomCard
-              key={room.number}
+              key={room.id}
+              id={room.id}
               imageUrl="/room.jpg"
               title={room.category}
               price={`$${room.price} por noche`}

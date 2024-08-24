@@ -23,19 +23,19 @@ const formSchema = z.object({
     .email({ message: "Debe ser un correo electrónico válido." }),
   password: z
     .string()
-    .min(8, { message: "La contraseña debe tener por lo menos 8 caracteres." })
+    .min(3, { message: "La contraseña debe tener por lo menos 8 caracteres." })
     .regex(/[a-z]/, {
       message: "La contraseña debe contener al menos una letra minúscula.",
-    })
-    .regex(/[A-Z]/, {
-      message: "La contraseña debe contener al menos una letra mayúscula.",
-    })
-    .regex(/[0-9]/, {
-      message: "La contraseña debe contener al menos un número.",
-    })
-    .regex(/[^a-zA-Z0-9]/, {
-      message: "La contraseña debe contener al menos un carácter especial.",
     }),
+  //     .regex(/[A-Z]/, {
+  //       message: "La contraseña debe contener al menos una letra mayúscula.",
+  //     })
+  //     .regex(/[0-9]/, {
+  //       message: "La contraseña debe contener al menos un número.",
+  //     })
+  //     .regex(/[^a-zA-Z0-9]/, {
+  //       message: "La contraseña debe contener al menos un carácter especial.",
+  //     }),
 });
 
 export function Login() {
@@ -48,7 +48,7 @@ export function Login() {
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await fetch("http://localhost:3001/login", {
+      const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const FilterDate: React.FC = () => {
   const today = new Date();
@@ -21,6 +22,7 @@ const FilterDate: React.FC = () => {
     to: addDays(today, 20),
   });
   const [error, setError] = React.useState<string | null>(null);
+  const router = useRouter();
 
   const handleSelect = (selectedDate: DateRange | undefined) => {
     if (selectedDate?.from && selectedDate?.to) {
@@ -44,6 +46,16 @@ const FilterDate: React.FC = () => {
       return format(date.from, "LLL dd, y");
     }
     return <span>Check in - Check out</span>;
+  };
+
+  const handleCheckAvailability = () => {
+    if (date?.from && date?.to) {
+      const startDay = format(date.from, "yyyy-MM-dd");
+      const endDay = format(date.to, "yyyy-MM-dd");
+      router.push(`/search?startDay=${startDay}&endDay=${endDay}`);
+    } else {
+      setError("Por favor selecciona un rango de fechas válido.");
+    }
   };
 
   return (
@@ -85,7 +97,7 @@ const FilterDate: React.FC = () => {
             />
           </PopoverContent>
         </Popover>
-        {error && <div className="text-xs text-red-500">{error}</div>}
+        {error && <div className="text-xs text-orange-500">{error}</div>}
       </div>
 
       <Input
@@ -96,6 +108,7 @@ const FilterDate: React.FC = () => {
       <Button
         className="m-2  bg-[#faf9f5] border border-orange-300 p-2 text-gray-700"
         variant="outline"
+        onClick={handleCheckAvailability}
       >
         Revisar Disponibilidad
       </Button>

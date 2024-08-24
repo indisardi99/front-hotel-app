@@ -49,7 +49,6 @@ const RoomCard: React.FC<RoomCardProps> = ({
   const router = useRouter();
 
   const handleViewDetails = () => {
-    console.log(`Navigating to room with id: ${id}`);
     router.push(`/detail-room/${id}`);
   };
 

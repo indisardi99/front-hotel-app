@@ -1,8 +1,12 @@
+import React from "react";
+import Image from "next/image";
 import ServiceCard from "@/components/service-card/services-card";
+import FeatureCard from "@/components/feature-card/feature-card";
 
 interface Feature {
   id: string;
   name: string;
+  icon: string;
 }
 
 interface Room {
@@ -11,6 +15,8 @@ interface Room {
   price: number;
   category: string;
   features: Feature[];
+  imageUrl: string;
+  description: string;
 }
 
 interface Service {
@@ -31,20 +37,33 @@ export default async function RoomDetail({
   const [roomDetails, services] = response;
 
   return (
-    <div>
-      <h1>Habitación Detalles</h1>
-      <div>
-        <h2>Habitación ID: {params.id}</h2>
-        <p>Número: {roomDetails.number}</p>
-        <p>Precio: ${roomDetails.price}</p>
-        <p>Categoría: {roomDetails.category}</p>
-        <h3>Características:</h3>
-        <ul>
+    <div className="flex flex-col w-full mb-4 lg:flex-row rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
+      <div className="shrink-0">
+        <Image
+          src={"/loft.jpg"}
+          alt={"roomDetails.category"}
+          width={450}
+          height={0}
+          className="rounded-lg object-cover"
+        />
+      </div>
+      <div className="ml-5 flex flex-1 flex-col">
+        <h2 className="mb-2 text-xl font-semibold">{roomDetails.category}</h2>
+        <p className="mb-2 text-lg text-gray-600">${roomDetails.price}</p>
+        {/* <p className="mb-4 text-lg text-gray-500">{roomDetails.description}</p> */}
+
+        {/* <h3 className="text-lg font-semibold">Características:</h3>
+        <div className="mb-4 flex flex-wrap gap-2">
           {roomDetails.features.map((feature: Feature) => (
-            <li key={feature.id}>{feature.name}</li>
+            <FeatureCard
+              key={feature.id}
+              title={feature.name}
+              icon={feature.icon}
+            />
           ))}
-        </ul>
-        <h3>Servicios:</h3>
+        </div> */}
+
+        <h3 className="text-lg font-semibold">Servicios:</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((service: Service) => (
             <ServiceCard

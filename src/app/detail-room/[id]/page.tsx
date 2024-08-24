@@ -16,9 +16,9 @@ export default async function RoomDetail({
 
   return (
     <div>
-      <h1>Servicios Disponibles</h1>
+      <h1>habitacion</h1>
       <div>
-        <h2>Servicios: {params.id}</h2>
+        <h2>habitacion por id: {params.id}</h2>
         <ul>
           {/*    {services.map((service) => (
             <li key={service.id}>

@@ -21,6 +21,7 @@ const page = async () => {
     }
 
     const data = await res.json();
+    console.log(data);
     const rooms: Room[] = data.data ? data.data : [];
 
     return (

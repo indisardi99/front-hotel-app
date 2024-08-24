@@ -15,27 +15,28 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
-const formSchema = z
-  .object({
-    username: z.string().min(4, {
-      message: "El nombre de usuario debe tener al menos 4 caracteres.",
+const formSchema = z.object({
+  email: z
+    .string()
+    .email({ message: "Debe ser un correo electrónico válido." }),
+  password: z
+    .string()
+    .min(3, { message: "La contraseña debe tener por lo menos 8 caracteres." })
+    .regex(/[a-z]/, {
+      message: "La contraseña debe contener al menos una letra minúscula.",
     }),
-    email: z.string().email({
-      message: "Debe ser un correo electrónico válido.",
-    }),
-    password: z.string().min(8, {
-      message: "La contraseña debe tener al menos 8 caracteres.",
-    }),
-    confirmPassword: z.string().min(8, {
-      message:
-        "La confirmación de la contraseña debe tener al menos 8 caracteres.",
-    }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden.",
-    path: ["confirmPassword"],
-  });
+  //     .regex(/[A-Z]/, {
+  //       message: "La contraseña debe contener al menos una letra mayúscula.",
+  //     })
+  //     .regex(/[0-9]/, {
+  //       message: "La contraseña debe contener al menos un número.",
+  //     })
+  //     .regex(/[^a-zA-Z0-9]/, {
+  //       message: "La contraseña debe contener al menos un carácter especial.",
+  //     }),
+});
 
 export function Login() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,10 +46,36 @@ export function Login() {
       password: "",
     },
   });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login exitoso:", data);
+        localStorage.setItem("token", data.token);
+        router.push("/");
+      } else {
+        const errorData = await response.json();
+        console.error("Error en el login:", errorData.message);
+      }
+    } catch (error) {
+      console.error("Error al conectar con el backend:", error);
+    }
   }
+
+  const router = useRouter();
+
+  function onRegister() {
+    router.push("/register");
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -69,6 +96,7 @@ export function Login() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="password"
@@ -82,9 +110,14 @@ export function Login() {
             </FormItem>
           )}
         />
-
         <Button type="submit">Enviar</Button>
       </form>
+      <div className="mt-4 text-center">
+        <p className="text-black">¿Aún no estás registrado?</p>
+        <Button onClick={onRegister} type="button" className=" rounded">
+          Registrarme
+        </Button>
+      </div>
     </Form>
   );
 }

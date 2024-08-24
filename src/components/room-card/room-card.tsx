@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import { CalendarIcon, Wifi, Dumbbell, Leaf, Lock, Tv } from "lucide-react";
 
 export interface ServicesProps {
@@ -28,6 +30,7 @@ const Services: React.FC<ServicesProps> = ({ title, icon }) => {
 };
 
 interface RoomCardProps {
+  id: string;
   imageUrl: string;
   title: string;
   price: string;
@@ -36,14 +39,21 @@ interface RoomCardProps {
 }
 
 const RoomCard: React.FC<RoomCardProps> = ({
+  id,
   imageUrl,
   title,
   price,
   description,
   services,
 }) => {
+  const router = useRouter();
+
+  const handleViewDetails = () => {
+    router.push(`/detail-room/${id}`);
+  };
+
   return (
-    <div className="flex flex-col w-full mb-4 lg:flex-row rounded-lg  bg-[#faf9f5] border border-orange-300 p-4">
+    <div className="flex flex-col w-full mb-4 lg:flex-row rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
       <div className="shrink-0">
         <Image
           src={imageUrl}
@@ -53,7 +63,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
           className="rounded-lg object-cover"
         />
       </div>
-      <div className="ml-5 flex flex-1 flex-col ">
+      <div className="ml-5 flex flex-1 flex-col">
         <h2 className="mb-2 text-xl font-semibold">{title}</h2>
         <p className="mb-2 text-lg text-gray-600">{price}</p>
         <p className="mb-4 text-lg text-gray-500">{description}</p>
@@ -65,6 +75,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
         <Button
           className="bg-[#faf9f5] border border-orange-300 mt-auto w-32 self-end p-2"
           variant="outline"
+          onClick={handleViewDetails}
         >
           Ver detalle
         </Button>

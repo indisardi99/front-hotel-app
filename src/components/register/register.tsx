@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -61,9 +62,39 @@ export function Register() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch("http://localhost:3001/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: values.username,
+          address: values.address,
+          phone: values.phone,
+          email: values.email,
+          password: values.password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Registro exitoso:", data);
+      } else {
+        console.error("Error en el registro");
+      }
+    } catch (error) {
+      console.error("Error al conectar con el backend:", error);
+    }
   }
+
+  const router = useRouter();
+
+  function onLogin() {
+    router.push("/login");
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -155,6 +186,12 @@ export function Register() {
         />
         <Button type="submit">Enviar</Button>
       </form>
+      <div className="mt-4 text-center">
+        <p className="text-black">¿ya estas logueado?</p>
+        <Button onClick={onLogin} type="button" className=" rounded">
+          loguearse
+        </Button>
+      </div>
     </Form>
   );
 }

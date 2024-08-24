@@ -12,7 +12,6 @@ const page = () => {
         <div className="w-full bg-[#faf9f5] border border-orange-300 max-w-md">
           <Login />
         </div>
-        <h1>Aun no estas Registrado?</h1>
       </div>
     </div>
   );

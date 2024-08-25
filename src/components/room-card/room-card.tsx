@@ -4,12 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { CalendarIcon, Wifi, Dumbbell, Leaf, Lock, Tv } from "lucide-react";
-
-export interface ServicesProps {
-  id: string;
-  title: string;
-  icon: string;
-}
+import { RoomCardProps, ServicesProps } from "@/lib/interfaces";
 
 const iconMap: { [key: string]: React.ReactNode } = {
   calendar: <CalendarIcon className="m-2 size-4" />,
@@ -29,21 +24,12 @@ const Services: React.FC<ServicesProps> = ({ title, icon }) => {
   );
 };
 
-interface RoomCardProps {
-  id: string;
-  imageUrl: string;
-  title: string;
-  price: string;
-  description: string;
-  services: ServicesProps[];
-}
-
 const RoomCard: React.FC<RoomCardProps> = ({
   id,
   imageUrl,
   title,
   price,
-  description,
+  number,
   services,
 }) => {
   const router = useRouter();
@@ -66,7 +52,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
       <div className="ml-5 flex flex-1 flex-col">
         <h2 className="mb-2 text-xl font-semibold">{title}</h2>
         <p className="mb-2 text-lg text-gray-600">{price}</p>
-        <p className="mb-4 text-lg text-gray-500">{description}</p>
+        <p className="mb-4 text-lg text-gray-500">{`Habitación número ${number} con las siguientes características:`}</p>
         <div className="mb-4 flex flex-wrap gap-2">
           {services.map((service) => (
             <Services key={service.id} {...service} />

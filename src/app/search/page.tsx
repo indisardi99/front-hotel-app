@@ -216,5 +216,9 @@ export default async function Page({
     totalPages: 8,
   };
 
-  return <h1>{searchParams?.start}</h1>;
+  return (
+    <div>
+      <h1>{searchParams?.start}</h1>;<h1>{searchParams?.end}</h1>;
+    </div>
+  );
 }

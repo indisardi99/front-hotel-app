@@ -1,13 +1,6 @@
 import FilterDate from "@/components/filter-date/filter-date";
 import RoomCard from "@/components/room-card/room-card";
-
-interface Room {
-  id: string;
-  number: number;
-  price: number;
-  category: string;
-  features: { name: string }[];
-}
+import { Room } from "@/lib/interfaces";
 
 const page = async () => {
   const page = 1;
@@ -36,10 +29,10 @@ const page = async () => {
               <RoomCard
                 key={room.id}
                 id={room.id}
+                number={room.number}
                 imageUrl="/room.jpg"
                 title={room.category}
-                price={`$${room.price} por noche`}
-                description={`Habitación número ${room.number} con las siguientes características:`}
+                price={room.price}
                 services={room.features.map((feature, index) => ({
                   id: `${room.number}-${index}`,
                   title: feature.name,

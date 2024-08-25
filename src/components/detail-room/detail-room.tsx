@@ -34,12 +34,16 @@ const RoomDetails: React.FC<{ room: Room; services: Array<Service> }> = ({
   >([]);
 
   const handleServiceClick = (service: Service) => {
-    setSelectedServices((prevServices) => [
-      ...prevServices,
-      { name: service.type, price: service.price },
-    ]);
-  };
+    setSelectedServices((prevServices) => {
+      const isSelected = prevServices.some((s) => s.name === service.type);
 
+      if (isSelected) {
+        return prevServices.filter((s) => s.name !== service.type);
+      } else {
+        return [...prevServices, { name: service.type, price: service.price }];
+      }
+    });
+  };
   const handleContinue = () => {
     alert("Continuing to reservation...");
   };

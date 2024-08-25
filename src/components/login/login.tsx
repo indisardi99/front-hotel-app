@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import useAuthStore from "@/hooks/store/useAuthStore";
 
 const formSchema = z.object({
   email: z
@@ -38,7 +39,7 @@ const formSchema = z.object({
   //     }),
 });
 
-export function Login() {
+export default function Login() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,9 +47,12 @@ export function Login() {
       password: "",
     },
   });
+
+  const { login } = useAuthStore();
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,8 +62,8 @@ export function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Login exitoso:", data);
         localStorage.setItem("token", data.token);
+        login({ email: values.email }, data.token);
         router.push("/");
       } else {
         const errorData = await response.json();

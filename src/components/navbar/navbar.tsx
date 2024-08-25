@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
         <Link href="/">Inicio</Link>
         <Link href="/all-rooms">Habitaciones</Link>
         <Link href="/register">Registrate</Link>
-        <Link href="/login">Logueate</Link>
+        <Link href="/login">Ingresa</Link>
       </div>
 
       {isOpen && (
@@ -47,6 +47,12 @@ const Navbar: React.FC = () => {
           </Link>
           <Link href="" onClick={toggleMenu}>
             Perfil
+          </Link>
+          <Link href="/register" onClick={toggleMenu}>
+            Registrate
+          </Link>
+          <Link href="/login" onClick={toggleMenu}>
+            Ingresa
           </Link>
         </div>
       )}

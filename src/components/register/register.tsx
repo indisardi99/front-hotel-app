@@ -64,6 +64,13 @@ export function Register() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      console.log({
+        username: values.username,
+        address: values.address,
+        phone: values.phone,
+        email: values.email,
+        password: values.password,
+      });
       const response = await fetch("http://localhost:3000/auth/register", {
         method: "POST",
         headers: {
@@ -80,7 +87,8 @@ export function Register() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Registro exitoso:", data);
+        alert(`Registro exitoso:${data}`);
+        router.push("/login");
       } else {
         console.error("Error en el registro");
       }
@@ -187,7 +195,7 @@ export function Register() {
         <Button type="submit">Enviar</Button>
       </form>
       <div className="mt-4 text-center">
-        <p className="text-black">¿ya estas logueado?</p>
+        <p className="text-black">¿ya estas registrado?</p>
         <Button onClick={onLogin} type="button" className=" rounded">
           loguearse
         </Button>

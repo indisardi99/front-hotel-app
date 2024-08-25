@@ -1,6 +1,7 @@
 import FilterDate from "@/components/filter-date/filter-date";
 import RoomCard from "@/components/room-card/room-card";
 import Image from "next/image";
+import AboutUs from "./about-us/page";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
         <div className="flex flex-col items-center p-2 justify-center bg-[#faf9f5] border border-orange-300 max-w-[320px] lg:hidden mt-4">
           <FilterDate />
         </div>
+        <AboutUs />
       </div>
     </main>
   );

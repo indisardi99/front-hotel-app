@@ -1,3 +1,4 @@
+import FilterDate from "@/components/filter-date/filter-date";
 import RoomCard from "@/components/room-card/room-card";
 
 interface Room {
@@ -26,25 +27,30 @@ const page = async () => {
 
     return (
       <div className="w-full flex flex-col mt-5 lg:mt-20 p-1 lg:px-32">
-        {rooms.length > 0 ? (
-          rooms.map((room) => (
-            <RoomCard
-              key={room.id}
-              id={room.id}
-              imageUrl="/room.jpg"
-              title={room.category}
-              price={`$${room.price} por noche`}
-              description={`Habitación número ${room.number} con las siguientes características:`}
-              services={room.features.map((feature, index) => ({
-                id: `${room.number}-${index}`,
-                title: feature.name,
-                icon: "wifi",
-              }))}
-            />
-          ))
-        ) : (
-          <p>No hay habitaciones disponibles</p>
-        )}
+        <div className="m-6 border border-orange-300  rounded-md bg-[#faf9f5] p-2">
+          <FilterDate />
+        </div>
+        <div>
+          {rooms.length > 0 ? (
+            rooms.map((room) => (
+              <RoomCard
+                key={room.id}
+                id={room.id}
+                imageUrl="/room.jpg"
+                title={room.category}
+                price={`$${room.price} por noche`}
+                description={`Habitación número ${room.number} con las siguientes características:`}
+                services={room.features.map((feature, index) => ({
+                  id: `${room.number}-${index}`,
+                  title: feature.name,
+                  icon: "wifi",
+                }))}
+              />
+            ))
+          ) : (
+            <p>No hay habitaciones disponibles</p>
+          )}
+        </div>
       </div>
     );
   } catch (error) {

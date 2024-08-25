@@ -52,7 +52,7 @@ const FilterDate: React.FC = () => {
     if (date?.from && date?.to) {
       const startDay = format(date.from, "yyyy-MM-dd");
       const endDay = format(date.to, "yyyy-MM-dd");
-      router.push(`/search?startDay=${startDay}&endDay=${endDay}`);
+      router.push(`/search?start=${startDay}&end=${endDay}`);
     } else {
       setError("Por favor selecciona un rango de fechas válido.");
     }

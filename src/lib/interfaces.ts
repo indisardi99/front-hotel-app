@@ -4,6 +4,7 @@ export interface Room {
   price: number;
   category: string;
   features: { name: string }[];
+  imageUrl: string[];
 }
 
 export interface ServicesProps {
@@ -19,4 +20,28 @@ export interface RoomCardProps {
   title: string;
   price: number;
   services: ServicesProps[];
+}
+
+export interface SummaryItem {
+  name: string;
+  price: number;
+}
+
+export interface SummaryProps {
+  title: string;
+  basePrice: number;
+  additionalItems: SummaryItem[];
+  onContinue: () => void;
+}
+
+export interface Feature {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+export interface Service {
+  id: string;
+  price: number;
+  type: string;
 }

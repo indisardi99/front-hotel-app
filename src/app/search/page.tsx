@@ -1,3 +1,5 @@
+import RoomCard from "@/components/room-card/room-card";
+
 export default async function Page({
   searchParams,
 }: {
@@ -217,8 +219,28 @@ export default async function Page({
   };
 
   return (
-    <div>
-      <h1>{searchParams?.start}</h1>;<h1>{searchParams?.end}</h1>;
+    <div className="flex flex-col">
+      <h1>{searchParams?.start}</h1>
+      <h1>{searchParams?.end}</h1>
+      <div className="m-2 p-2">
+        {response.data.map((room) => (
+          <RoomCard
+            key={room.id}
+            id={room.id}
+            imageUrl={room.images[0]}
+            title={room.category}
+            price={room.price}
+            number={room.number}
+            services={room.features.map((feature) => ({
+              id: feature.id,
+              title: feature.name,
+              icon: feature.name.toLowerCase().includes("king")
+                ? "leaf"
+                : "calendar",
+            }))}
+          />
+        ))}
+      </div>
     </div>
   );
 }

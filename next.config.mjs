@@ -8,7 +8,11 @@ const nextConfig = {
         port: "",
       },
     ],
-    domains: ["assets.milestoneinternet.com", "www.lamasu.it"],
+    domains: [
+      "assets.milestoneinternet.com",
+      "www.lamasu.it",
+      "www.athinasuites.com",
+    ],
   },
 };
 

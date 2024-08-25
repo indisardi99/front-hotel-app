@@ -22,6 +22,12 @@ export interface RoomCardProps {
   services: ServicesProps[];
 }
 
+export interface Service {
+  id: string;
+  type: string;
+  price: number;
+}
+
 export interface SummaryItem {
   name: string;
   price: number;
@@ -38,10 +44,4 @@ export interface Feature {
   id: string;
   name: string;
   icon: string;
-}
-
-export interface Service {
-  id: string;
-  price: number;
-  type: string;
 }

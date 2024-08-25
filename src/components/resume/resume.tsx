@@ -13,6 +13,7 @@ const Summary: React.FC<SummaryProps> = ({
   );
 
   const totalPrice = basePrice + totalAdditionalPrice;
+
   return (
     <div className="summary">
       <h2>{title}</h2>

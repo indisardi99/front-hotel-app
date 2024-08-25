@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { CalendarIcon, Wifi, Dumbbell, Leaf, Lock, Tv } from "lucide-react";
 import Image from "next/image";
 import ServiceCard from "@/components/service-card/services-card";
@@ -28,11 +29,16 @@ const RoomDetails: React.FC<{ room: Room; services: Array<Service> }> = ({
   room,
   services,
 }) => {
-  const additionalItems = [
-    { name: "Breakfast", price: 20.0 },
-    { name: "Spa Access", price: 50.0 },
-    { name: "Late Checkout", price: 30.0 },
-  ];
+  const [selectedServices, setSelectedServices] = useState<
+    Array<{ name: string; price: number }>
+  >([]);
+
+  const handleServiceClick = (service: Service) => {
+    setSelectedServices((prevServices) => [
+      ...prevServices,
+      { name: service.type, price: service.price },
+    ]);
+  };
 
   const handleContinue = () => {
     alert("Continuing to reservation...");
@@ -73,14 +79,19 @@ const RoomDetails: React.FC<{ room: Room; services: Array<Service> }> = ({
             <h3 className="text-lg font-semibold">Servicios:</h3>
             <div className="flex max-w-52 max-h-32">
               {services.map((service: Service) => (
-                <ServiceCard
+                <div
+                  className="cursor-pointer"
                   key={service.id}
-                  type={service.type}
-                  price={service.price}
-                  icon={
-                    iconMap[service.type] || <Leaf className="m-2 size-4" />
-                  }
-                />
+                  onClick={() => handleServiceClick(service)}
+                >
+                  <ServiceCard
+                    type={service.type}
+                    price={service.price}
+                    icon={
+                      iconMap[service.type] || <Leaf className="m-2 size-4" />
+                    }
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -90,7 +101,7 @@ const RoomDetails: React.FC<{ room: Room; services: Array<Service> }> = ({
         <Summary
           title={room.category}
           basePrice={room.price}
-          additionalItems={additionalItems}
+          additionalItems={selectedServices}
           onContinue={handleContinue}
         />
       </div>

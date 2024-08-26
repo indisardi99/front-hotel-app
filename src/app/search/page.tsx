@@ -15,8 +15,6 @@ export default async function Page({
 
   return (
     <div className="flex flex-col">
-      <h1>{searchParams?.start}</h1>
-      <h1>{searchParams?.end}</h1>
       <div className="m-2 p-2">
         {response.data.map((room: RoomSearch) => (
           <RoomCard

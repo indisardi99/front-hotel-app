@@ -100,10 +100,10 @@ const FilterDate: React.FC = () => {
         {error && <div className="text-xs text-orange-500">{error}</div>}
       </div>
 
-      <Input
+      {/* <Input
         className="m-4 w-72 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700"
         placeholder="Huespedes: 2 adultos"
-      />
+      /> */}
 
       <Button
         className="m-2  bg-[#faf9f5] border border-orange-300 p-2 text-gray-700"

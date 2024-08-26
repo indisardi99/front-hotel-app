@@ -5,13 +5,19 @@ const page = () => {
   return (
     <div className="flex flex-row bg-slate-50 w-full h-screen">
       <div className="flex flex-1 items-center justify-center bg-black">
-        <Image src="/propaganda.png" alt="Logo" width={700} height={0} />
+        <Image
+          src="/eclipse.png"
+          alt="eclipse register"
+          width={400}
+          height={0}
+          className="shadow-[0_4px_15px_rgba(255,255,255,0.2)] rounded-lg"
+        />
       </div>
       <div className="flex flex-1 flex-col items-center justify-center">
-        <h1>Registrate</h1>
-        <div className="w-full bg-[#faf9f5] border border-orange-300 max-w-md">
-          <Register />
-        </div>
+        <h1 className="text-3xl font-bold text-gray-800 m-2 text-center">
+          Registrate en Eclipse Royal.
+        </h1>
+        <Register />
       </div>
     </div>
   );

@@ -85,7 +85,10 @@ export default function Login() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col w-full items-center "
+      >
         <FormField
           control={form.control}
           name="email"
@@ -94,10 +97,10 @@ export default function Login() {
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
                 <Input
+                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
                   type="email"
                   placeholder="tu_correo@dominio.com"
                   {...field}
-                  className="m-2 p-2"
                 />
               </FormControl>
               <FormMessage />
@@ -112,17 +115,31 @@ export default function Login() {
             <FormItem>
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Tu contraseña" {...field} />
+                <Input
+                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  type="password"
+                  placeholder="Tu contraseña"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Enviar</Button>
+        <Button
+          className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
+          type="submit"
+        >
+          Enviar
+        </Button>
       </form>
       <div className="mt-4 text-center">
         <p className="text-black">¿Aún no estás registrado?</p>
-        <Button onClick={onRegister} type="button" className=" rounded">
+        <Button
+          onClick={onRegister}
+          type="button"
+          className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
+        >
           Registrarme
         </Button>
       </div>

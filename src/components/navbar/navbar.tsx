@@ -33,8 +33,8 @@ const Navbar: React.FC = () => {
       <div className="hidden pr-20 lg:flex space-x-4">
         <Link href="/">Inicio</Link>
         <Link href="/all-rooms">Habitaciones</Link>
-        <Link href="/register">Registrate</Link>
-        <Link href="/login">Ingresa</Link>
+        <Link href="/register">Registrarse</Link>
+        <Link href="/login">Ingresar</Link>
       </div>
 
       {isOpen && (

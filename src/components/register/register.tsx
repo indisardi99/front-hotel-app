@@ -19,10 +19,10 @@ import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
-    username: z.string().min(4, {
+    name: z.string().min(4, {
       message: "El nombre de usuario debe tener al menos 4 caracteres.",
     }),
-    address: z.string().min(5, {
+    adress: z.string().min(5, {
       message: "La dirección debe tener al menos 5 caracteres.",
     }),
     phone: z
@@ -53,8 +53,8 @@ export function Register() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      address: "",
+      name: "",
+      adress: "",
       phone: "",
       email: "",
       password: "",
@@ -65,8 +65,8 @@ export function Register() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log({
-        username: values.username,
-        address: values.address,
+        name: values.name,
+        adress: values.adress,
         phone: values.phone,
         email: values.email,
         password: values.password,
@@ -79,8 +79,8 @@ export function Register() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username: values.username,
-            address: values.address,
+            name: values.name,
+            adress: values.adress,
             phone: values.phone,
             email: values.email,
             password: values.password,
@@ -90,12 +90,15 @@ export function Register() {
 
       if (response.ok) {
         const data = await response.json();
-        alert(`Registro exitoso:${data}`);
+        //TODO TOAST
+        alert(`Registro exitoso:por favor ingresa`);
         router.push("/login");
       } else {
+        //TODO TOAST
         console.error("Error en el registro");
       }
     } catch (error) {
+      //TODO TOAST
       console.error("Error al conectar con el backend:", error);
     }
   }
@@ -108,15 +111,22 @@ export function Register() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col w-full items-center "
+      >
         <FormField
           control={form.control}
-          name="username"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nombre de usuario</FormLabel>
               <FormControl>
-                <Input placeholder="nombre de usuario" {...field} />
+                <Input
+                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  placeholder="nombre de usuario"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -124,12 +134,16 @@ export function Register() {
         />
         <FormField
           control={form.control}
-          name="address"
+          name="adress"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Dirección</FormLabel>
               <FormControl>
-                <Input placeholder="Tu dirección" {...field} />
+                <Input
+                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  placeholder="Tu dirección"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -142,7 +156,11 @@ export function Register() {
             <FormItem>
               <FormLabel>Teléfono</FormLabel>
               <FormControl>
-                <Input placeholder="11 22334455" {...field} />
+                <Input
+                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  placeholder="11 22334455"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -156,6 +174,7 @@ export function Register() {
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
                 <Input
+                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
                   type="email"
                   placeholder="tu_correo@dominio.com"
                   {...field}
@@ -172,7 +191,12 @@ export function Register() {
             <FormItem>
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Tu contraseña" {...field} />
+                <Input
+                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  type="password"
+                  placeholder="Tu contraseña"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -186,6 +210,7 @@ export function Register() {
               <FormLabel>Confirmar contraseña</FormLabel>
               <FormControl>
                 <Input
+                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
                   type="password"
                   placeholder="Confirma tu contraseña"
                   {...field}
@@ -195,12 +220,21 @@ export function Register() {
             </FormItem>
           )}
         />
-        <Button type="submit">Enviar</Button>
+        <Button
+          className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
+          type="submit"
+        >
+          Enviar
+        </Button>
       </form>
       <div className="mt-4 text-center">
         <p className="text-black">¿ya estas registrado?</p>
-        <Button onClick={onLogin} type="button" className=" rounded">
-          loguearse
+        <Button
+          className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
+          onClick={onLogin}
+          type="button"
+        >
+          Ingresar
         </Button>
       </div>
     </Form>

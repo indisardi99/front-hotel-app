@@ -3,9 +3,11 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MenuIcon, XIcon } from "lucide-react";
+import useAuthStore from "@/hooks/store/useAuthStore";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -29,12 +31,17 @@ const Navbar: React.FC = () => {
           )}
         </button>
       </div>
-
       <div className="hidden pr-20 lg:flex space-x-4">
         <Link href="/">Inicio</Link>
         <Link href="/all-rooms">Habitaciones</Link>
-        <Link href="/register">Registrarse</Link>
-        <Link href="/login">Ingresar</Link>
+        {isAuthenticated ? (
+          <Link href="/profile">Mi Perfil</Link>
+        ) : (
+          <>
+            <Link href="/register">Registrarse</Link>
+            <Link href="/login">Ingresar</Link>
+          </>
+        )}
       </div>
 
       {isOpen && (
@@ -45,15 +52,20 @@ const Navbar: React.FC = () => {
           <Link href="/rooms" onClick={toggleMenu}>
             Habitaciones
           </Link>
-          <Link href="" onClick={toggleMenu}>
-            Perfil
-          </Link>
-          <Link href="/register" onClick={toggleMenu}>
-            Registrate
-          </Link>
-          <Link href="/login" onClick={toggleMenu}>
-            Ingresa
-          </Link>
+          {isAuthenticated ? (
+            <Link href="/profile" onClick={toggleMenu}>
+              Mi Perfil
+            </Link>
+          ) : (
+            <>
+              <Link href="/register" onClick={toggleMenu}>
+                Registrarse
+              </Link>
+              <Link href="/login" onClick={toggleMenu}>
+                Ingresar
+              </Link>
+            </>
+          )}
         </div>
       )}
     </div>

@@ -12,6 +12,7 @@ const nextConfig = {
       "assets.milestoneinternet.com",
       "www.lamasu.it",
       "www.athinasuites.com",
+      "cdn.loewshotels.com",
     ],
   },
 };

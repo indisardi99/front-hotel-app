@@ -7,7 +7,8 @@ const page = async () => {
   const limit = 10;
   try {
     const res = await fetch(
-      `http://localhost:3000/room/getAllRooms?page=${page}&limit=${limit}`
+      `http://localhost:3000/room/getAllRooms?page=${page}&limit=${limit}`,
+      { next: { revalidate: 1 } }
     );
 
     if (!res.ok) {

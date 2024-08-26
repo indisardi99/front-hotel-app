@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CalendarIcon, Wifi, Dumbbell, Leaf, Lock, Tv } from "lucide-react";
 import Image from "next/image";
 import ServiceCard from "@/components/service-card/services-card";
-import { Feature, Service } from "@/lib/interfaces";
+import { Feature, RoomSearch, Service } from "@/lib/interfaces";
 import Summary from "../resume/resume";
 
 const iconMap: { [key: string]: React.ReactNode } = {
@@ -15,17 +15,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
   tv: <Tv className="m-2 size-4" />,
 };
 
-interface Room {
-  id: string;
-  number: number;
-  price: number;
-  category: string;
-  features: Feature[];
-  images: string[];
-  description: string;
-}
-
-const RoomDetails: React.FC<{ room: Room; services: Array<Service> }> = ({
+const RoomDetails: React.FC<{ room: RoomSearch; services: Array<Service> }> = ({
   room,
   services,
 }) => {

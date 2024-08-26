@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -36,9 +36,23 @@ const formSchema = z
     email: z.string().email({
       message: "Debe ser un correo electrónico válido.",
     }),
-    password: z.string().min(8, {
-      message: "La contraseña debe tener al menos 8 caracteres.",
-    }),
+    password: z
+      .string()
+      .min(8, {
+        message: "La contraseña debe tener por lo menos 8 caracteres.",
+      })
+      .regex(/[a-z]/, {
+        message: "La contraseña debe contener al menos una letra minúscula.",
+      })
+      .regex(/[A-Z]/, {
+        message: "La contraseña debe contener al menos una letra mayúscula.",
+      })
+      .regex(/[0-9]/, {
+        message: "La contraseña debe contener al menos un número.",
+      })
+      .regex(/[^a-zA-Z0-9]/, {
+        message: "La contraseña debe contener al menos un carácter especial.",
+      }),
     confirmPassword: z.string().min(8, {
       message:
         "La confirmación de la contraseña debe tener al menos 8 caracteres.",
@@ -87,19 +101,15 @@ export function Register() {
           }),
         }
       );
-
       if (response.ok) {
         const data = await response.json();
-        //TODO TOAST
-        alert(`Registro exitoso:por favor ingresa`);
+        toast.success("Registro exitoso: por favor ingresa");
         router.push("/login");
       } else {
-        //TODO TOAST
-        console.error("Error en el registro");
+        toast.error("Error en el registro");
       }
     } catch (error) {
-      //TODO TOAST
-      console.error("Error al conectar con el backend:", error);
+      toast.error("Error al conectar con el backend");
     }
   }
 

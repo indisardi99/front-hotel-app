@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -27,16 +27,16 @@ const formSchema = z.object({
     .min(3, { message: "La contraseña debe tener por lo menos 8 caracteres." })
     .regex(/[a-z]/, {
       message: "La contraseña debe contener al menos una letra minúscula.",
+    })
+    .regex(/[A-Z]/, {
+      message: "La contraseña debe contener al menos una letra mayúscula.",
+    })
+    .regex(/[0-9]/, {
+      message: "La contraseña debe contener al menos un número.",
+    })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: "La contraseña debe contener al menos un carácter especial.",
     }),
-  //     .regex(/[A-Z]/, {
-  //       message: "La contraseña debe contener al menos una letra mayúscula.",
-  //     })
-  //     .regex(/[0-9]/, {
-  //       message: "La contraseña debe contener al menos un número.",
-  //     })
-  //     .regex(/[^a-zA-Z0-9]/, {
-  //       message: "La contraseña debe contener al menos un carácter especial.",
-  //     }),
 });
 
 export default function Login() {
@@ -67,13 +67,14 @@ export default function Login() {
         const data = await response.json();
         localStorage.setItem("token", data.token);
         login({ email: values.email }, data.token);
+        toast.success("ingresando a Eclipse Royal");
         router.push("/");
       } else {
         const errorData = await response.json();
-        console.error("Error en el login:", errorData.message);
+        toast.error("Error al ingresar", errorData.message);
       }
     } catch (error) {
-      console.error("Error al conectar con el backend:", error);
+      toast.error("Error al conectar con el backend:");
     }
   }
 

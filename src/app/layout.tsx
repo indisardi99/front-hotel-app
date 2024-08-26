@@ -5,7 +5,7 @@ import { Playfair_Display as FontSans } from "next/font/google";
 import type { ReactNode } from "react";
 import Footer from "@/components/footer/footer";
 import { cn } from "@/lib/utils";
-
+import { Toaster } from "react-hot-toast";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -30,6 +30,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           fontSans.variable
         )}
       >
+        <Toaster position="top-center" />
         <Navbar />
         <main className="grow">{children}</main>
         <Footer />

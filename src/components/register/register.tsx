@@ -78,13 +78,6 @@ export function Register() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      console.log({
-        name: values.name,
-        adress: values.adress,
-        phone: values.phone,
-        email: values.email,
-        password: values.password,
-      });
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
         {

@@ -65,7 +65,6 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("token", data.token);
         login({ email: values.email }, data.token);
         toast.success("ingresando a Eclipse Royal");
         router.push("/");

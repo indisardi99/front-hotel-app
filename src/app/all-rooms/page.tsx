@@ -36,7 +36,7 @@ const page = async () => {
                 services={room.features.map((feature, index) => ({
                   id: `${room.number}-${index}`,
                   title: feature.name,
-                  icon: "wifi",
+                  icon: "",
                 }))}
               />
             ))

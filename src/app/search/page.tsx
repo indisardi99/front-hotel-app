@@ -1,17 +1,42 @@
 import RoomCard from "@/components/room-card/room-card";
 import { Room, RoomSearch } from "@/lib/interfaces";
 
+interface SearchParams {
+  page?: number;
+  limit?: number;
+  category?: string;
+  maxPrice?: number;
+  minPrice?: number;
+  startingDate?: string;
+  endingDate?: string;
+}
+
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: SearchParams;
 }) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/room/getAllRooms?start=${searchParams?.start}&end=${searchParams?.end}`,
-    {
-      next: { revalidate: 1 },
-    }
-  ).then((res) => res.json());
+  const buildUrl = (baseUrl: string, params: SearchParams) => {
+    const query = (Object.keys(params) as (keyof SearchParams)[])
+      .filter((key) => params[key] !== undefined && params[key] !== null)
+      .map((key) => `${key}=${encodeURIComponent(params[key] as string)}`)
+      .join("&");
+    return `${baseUrl}?${query}`;
+  };
+
+  const url = buildUrl(`${process.env.NEXT_PUBLIC_API_URL}/room/getAllRooms`, {
+    page: searchParams?.page,
+    limit: searchParams?.limit,
+    category: searchParams?.category,
+    maxPrice: searchParams?.maxPrice,
+    minPrice: searchParams?.minPrice,
+    startingDate: searchParams?.startingDate,
+    endingDate: searchParams?.endingDate,
+  });
+
+  const response = await fetch(url, {
+    next: { revalidate: 1 },
+  }).then((res) => res.json());
 
   return (
     <div className="flex flex-col">

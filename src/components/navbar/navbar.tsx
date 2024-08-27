@@ -3,11 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MenuIcon, XIcon } from "lucide-react";
-import useAuthStore from "@/hooks/store/useAuthStore";
-
+import { useAuth } from "@/app/context/auth-context";
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { isAuthenticated } = useAuth();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);

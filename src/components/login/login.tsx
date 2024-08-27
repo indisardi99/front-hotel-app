@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import useAuthStore from "@/hooks/store/useAuthStore";
+import { useAuth } from "@/app/context/auth-context";
 
 const formSchema = z.object({
   email: z
@@ -48,7 +47,7 @@ export default function Login() {
     },
   });
 
-  const { login } = useAuthStore();
+  const { login } = useAuth();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -137,7 +136,7 @@ export default function Login() {
         <p className="text-black">¿Aún no estás registrado?</p>
         <Button
           onClick={onRegister}
-          type="button"
+          type="submit"
           className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
         >
           Registrarme

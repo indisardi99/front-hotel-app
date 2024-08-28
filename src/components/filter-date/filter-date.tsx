@@ -12,16 +12,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CalendarIcon, CheckIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "../ui/command";
+import { Command, CommandGroup, CommandItem, CommandList } from "../ui/command";
 
 const FilterDate: React.FC = () => {
   const today = new Date();
@@ -64,11 +56,13 @@ const FilterDate: React.FC = () => {
     return <span>Check in - Check out</span>;
   };
 
+  // &category=${category}&min=${minPrice}&max=${maxPrice}
+
   const handleCheckAvailability = () => {
     if (date?.from && date?.to) {
       const startDay = format(date.from, "yyyy-MM-dd");
       const endDay = format(date.to, "yyyy-MM-dd");
-      router.push(`/search?start=${startDay}&end=${endDay}`);
+      const category = router.push(`/search?start=${startDay}&end=${endDay}`);
     } else {
       setError("Por favor selecciona un rango de fechas válido.");
     }
@@ -129,7 +123,6 @@ const FilterDate: React.FC = () => {
         <PopoverContent className="w-[200px] p-0">
           <Command>
             <CommandList>
-              <CommandEmpty>No se encontraron opciones.</CommandEmpty>
               <CommandGroup>
                 {guestOptions.map((option) => (
                   <CommandItem

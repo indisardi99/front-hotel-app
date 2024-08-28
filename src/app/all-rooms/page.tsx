@@ -1,4 +1,5 @@
 import FilterDate from "@/components/filter-date/filter-date";
+import PriceFilter from "@/components/filter-price/filter-price";
 import RoomCard from "@/components/room-card/room-card";
 import { Room } from "@/lib/interfaces";
 
@@ -20,8 +21,11 @@ const page = async () => {
 
     return (
       <div className="w-full flex flex-col mt-5 lg:mt-20 p-1 lg:px-32">
-        <div className="m-6 border border-orange-300  rounded-md bg-[#faf9f5] p-2">
+        <div className="mb-2 border border-orange-300  rounded-md bg-[#faf9f5] p-2">
           <FilterDate />
+        </div>
+        <div className="m-2 border border-orange-300  rounded-md bg-[#faf9f5] p-2">
+          <PriceFilter />
         </div>
         <div>
           {rooms.length > 0 ? (

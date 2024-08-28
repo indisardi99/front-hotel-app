@@ -1,5 +1,4 @@
 import FilterDate from "@/components/filter-date/filter-date";
-import RoomCard from "@/components/room-card/room-card";
 import Image from "next/image";
 import AboutUs from "./about-us/page";
 

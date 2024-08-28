@@ -1,3 +1,4 @@
+import FilterDate from "@/components/filter-date/filter-date";
 import RoomCard from "@/components/room-card/room-card";
 import { Room, RoomSearch } from "@/lib/interfaces";
 
@@ -9,6 +10,8 @@ interface SearchParams {
   minPrice?: number;
   startingDate?: string;
   endingDate?: string;
+  start?: string;
+  end?: string;
 }
 
 export default async function Page({
@@ -32,6 +35,8 @@ export default async function Page({
     minPrice: searchParams?.minPrice,
     startingDate: searchParams?.startingDate,
     endingDate: searchParams?.endingDate,
+    start: searchParams?.start,
+    end: searchParams?.end,
   });
 
   const response = await fetch(url, {
@@ -39,7 +44,19 @@ export default async function Page({
   }).then((res) => res.json());
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full lg:ml-28 lg:max-w-[1300px] p-2 m-2 justify-center">
+      <div className=" m-2 flex flex-row rounded-lg bg-[#faf9f5] border border-orange-300 p-1">
+        <FilterDate />
+      </div>
+      <div className="m-2 flex items-center flex-row font-bold rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
+        {searchParams?.start && (
+          <p className="m-2 ">
+            Habitaciones disponibles en las fechas seccionadas: inicio:{" "}
+            {searchParams.start}
+          </p>
+        )}
+        {searchParams?.end && <p>fin: {searchParams.end}</p>}
+      </div>
       <div className="m-2 p-2">
         {response.data.map((room: RoomSearch) => (
           <RoomCard

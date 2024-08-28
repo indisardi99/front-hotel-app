@@ -224,7 +224,7 @@ export function Register() {
           )}
         />
         <Button
-          className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
+          className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           type="submit"
         >
           Enviar
@@ -233,7 +233,7 @@ export function Register() {
       <div className="mt-4 text-center">
         <p className="text-black">¿ya estas registrado?</p>
         <Button
-          className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
+          className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           onClick={onLogin}
           type="button"
         >

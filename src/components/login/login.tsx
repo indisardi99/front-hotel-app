@@ -83,7 +83,7 @@ export default function Login() {
   }
 
   function handleGoogleLogin() {
-    router.push(`${process.env.NEXT_PUBLIC_API_URL}/auth/google/login`);
+    router.push(`${process.env.NEXT_PUBLIC_API_URL}/auth/googleLogin`);
   }
 
   return (

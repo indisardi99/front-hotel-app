@@ -124,7 +124,6 @@ const FilterDate: React.FC = () => {
             className="m-4 w-72 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700 justify-between"
           >
             {guests || "Selecciona los huéspedes"}
-            {/* <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">

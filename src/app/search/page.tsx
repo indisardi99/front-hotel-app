@@ -47,13 +47,13 @@ export default async function Page({
   }).then((res) => res.json());
 
   return (
-    <div className="">
-      <div className="">
+    <div className="flex flex-col ml-32 justify-center lg:w-[1200px]">
+      <div className="flex flex-row w-full">
         <FilterDate />
       </div>
       <div></div>
 
-      <div className="">
+      <div className="flex flex-col w-full">
         {response.data.map((room: RoomSearch) => (
           <RoomCard
             key={room.id}

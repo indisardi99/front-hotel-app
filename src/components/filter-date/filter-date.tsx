@@ -88,7 +88,7 @@ const FilterDate: React.FC = () => {
   return (
     <Form {...form}>
       <form
-        className="flex flex-row w-full items-center justify-between m-2 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700 "
+        className="flex flex-row w-full items-center justify-between rounded-md m-2 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700 "
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex w-full items-center justify-around flex-row">
@@ -187,12 +187,12 @@ const FilterDate: React.FC = () => {
                         variant="outline"
                         role="combobox"
                         aria-expanded={open}
-                        className=""
+                        className="border border-orange-300 p-2 m-2"
                       >
                         {category || "Selecciona los huéspedes"}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="">
+                    <PopoverContent className="border border-orange-300 p-2 m-2">
                       <Command>
                         <CommandList>
                           <CommandGroup>

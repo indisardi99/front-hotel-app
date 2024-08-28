@@ -19,8 +19,8 @@ const page = async () => {
     const rooms: Room[] = data.data ? data.data : [];
 
     return (
-      <div className="w-full flex flex-col mt-5 lg:mt-20 p-1 lg:px-32">
-        <div className="mb-2 border border-orange-300  rounded-md bg-[#faf9f5] p-2">
+      <div className="w-full flex flex-col mt-5 lg:mt-2 p-1 ">
+        <div className=" border border-orange-300  rounded-md bg-[#faf9f5] ">
           <FilterDate />
         </div>
         <div>

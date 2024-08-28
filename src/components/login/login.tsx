@@ -82,6 +82,10 @@ export default function Login() {
     router.push("/register");
   }
 
+  function handleGoogleLogin() {
+    router.push(`${process.env.NEXT_PUBLIC_API_URL}/auth/google/login`);
+  }
+
   return (
     <Form {...form}>
       <form
@@ -126,10 +130,10 @@ export default function Login() {
           )}
         />
         <Button
-          className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
+          className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           type="submit"
         >
-          Enviar
+          Ingresar
         </Button>
       </form>
       <div className="mt-4 text-center">
@@ -137,11 +141,18 @@ export default function Login() {
         <Button
           onClick={onRegister}
           type="submit"
-          className="text-black min-w-16 mt-3 hover:bg-orange-200 bg-[#faf9f5] border border-orange-300"
+          className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
         >
           Registrarme
         </Button>
       </div>
+      <Button
+        onClick={handleGoogleLogin}
+        type="submit"
+        className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
+      >
+        Ingresar con google
+      </Button>
     </Form>
   );
 }

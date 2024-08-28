@@ -48,6 +48,7 @@ export default async function Page({
       <div className=" m-2 flex flex-row rounded-lg bg-[#faf9f5] border border-orange-300 p-1">
         <FilterDate />
       </div>
+      <div></div>
       <div className="m-2 flex items-center flex-row font-bold rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
         {searchParams?.start && (
           <p className="m-2 ">
@@ -57,6 +58,7 @@ export default async function Page({
         )}
         {searchParams?.end && <p>fin: {searchParams.end}</p>}
       </div>
+
       <div className="m-2 p-2">
         {response.data.map((room: RoomSearch) => (
           <RoomCard

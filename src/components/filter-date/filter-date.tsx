@@ -33,19 +33,19 @@ const FilterDate: React.FC = () => {
   const [error, setError] = React.useState<string | null>(null);
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
-  const [guests, setGuests] = React.useState("");
+  const [category, setcategory] = React.useState("");
 
   const guestOptions = [
-    { value: "4 personas", label: "4 personas" },
-    { value: "3 personas", label: "3 personas" },
-    { value: "2 personas", label: "2 personas" },
-    { value: "1 persona", label: "1 persona" },
+    { value: "4", label: "4 personas" },
+    { value: "3", label: "3 personas" },
+    { value: "2", label: "2 personas" },
+    { value: "1", label: "1 persona" },
   ];
 
   const formSchema = z.object({
     minPrice: z.string(),
     maxPrice: z.string(),
-    guests: z.string(),
+    category: z.string(),
     date: z.object({
       from: z.date(),
       to: z.date(),
@@ -58,7 +58,7 @@ const FilterDate: React.FC = () => {
       minPrice: "",
       maxPrice: "",
       date: undefined,
-      guests: "",
+      category: "",
     },
   });
 
@@ -68,7 +68,7 @@ const FilterDate: React.FC = () => {
     router.push(
       `/search?startingDate=${startingDate}&endingDate=${endingDate}&maxPrice=${
         values.minPrice ?? ""
-      }&minPrice=${values.minPrice ?? ""}`
+      }&minPrice=${values.minPrice ?? ""}&category=${values.category}`
     );
   }
 
@@ -87,9 +87,12 @@ const FilterDate: React.FC = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex w-full flex-col justify-center lg:flex-row items-center">
-          <div className="bg-[#faf9f5] flex flex-col items-start">
+      <form
+        className="flex flex-row w-full items-center justify-between m-2 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700 "
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <div className="flex w-full items-center justify-around flex-row">
+          <div className="flex flex-row justify-around items-center">
             <FormField
               control={form.control}
               name="minPrice"
@@ -97,7 +100,11 @@ const FilterDate: React.FC = () => {
                 <FormItem>
                   <FormLabel>Precio mínimo</FormLabel>
                   <FormControl>
-                    <Input placeholder="Mínimo" {...field} />
+                    <Input
+                      className="border border-orange-300 p-2 m-2"
+                      placeholder="Mínimo"
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>Este es tu precio mínimo.</FormDescription>
                   <FormMessage />
@@ -111,7 +118,11 @@ const FilterDate: React.FC = () => {
                 <FormItem>
                   <FormLabel>Precio máximo</FormLabel>
                   <FormControl>
-                    <Input placeholder="Máximo" {...field} />
+                    <Input
+                      className="border border-orange-300 p-2 m-2"
+                      placeholder="Máximo"
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>Este es tu precio máximo.</FormDescription>
                   <FormMessage />
@@ -128,9 +139,9 @@ const FilterDate: React.FC = () => {
                       <PopoverTrigger asChild>
                         <Button
                           variant="outline"
-                          className={cn(
-                            "flex items-center justify-between p-2 flex-row bg-[#faf9f5] border border-orange-300 w-72 text-gray-700"
-                          )}
+                          className={
+                            (cn(""), "border border-orange-300 p-2 m-2")
+                          }
                         >
                           <CalendarIcon className="m-2 size-4" />
                           {renderDateRange(field.value)}
@@ -166,7 +177,7 @@ const FilterDate: React.FC = () => {
           </div>
           <FormField
             control={form.control}
-            name="guests"
+            name="category"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
@@ -176,12 +187,12 @@ const FilterDate: React.FC = () => {
                         variant="outline"
                         role="combobox"
                         aria-expanded={open}
-                        className="m-4 w-72 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700 justify-between"
+                        className=""
                       >
-                        {guests || "Selecciona los huéspedes"}
+                        {category || "Selecciona los huéspedes"}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
+                    <PopoverContent className="">
                       <Command>
                         <CommandList>
                           <CommandGroup>
@@ -190,8 +201,10 @@ const FilterDate: React.FC = () => {
                                 key={option.value}
                                 value={option.value}
                                 onSelect={(currentValue) => {
-                                  setGuests(
-                                    currentValue === guests ? "" : currentValue
+                                  setcategory(
+                                    currentValue === category
+                                      ? ""
+                                      : currentValue
                                   );
                                   setOpen(false);
                                   field.onChange(currentValue);
@@ -201,7 +214,7 @@ const FilterDate: React.FC = () => {
                                 <CheckIcon
                                   className={cn(
                                     "ml-auto h-4 w-4",
-                                    guests === option.value
+                                    category === option.value
                                       ? "opacity-100"
                                       : "opacity-0"
                                   )}

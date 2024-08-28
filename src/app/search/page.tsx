@@ -21,9 +21,13 @@ export default async function Page({
 }) {
   const buildUrl = (baseUrl: string, params: SearchParams) => {
     const query = (Object.keys(params) as (keyof SearchParams)[])
-      .filter((key) => params[key] !== undefined && params[key] !== null)
+      .filter(
+        (key) =>
+          params[key] !== undefined && params[key] !== null && params[key]
+      )
       .map((key) => `${key}=${encodeURIComponent(params[key] as string)}`)
       .join("&");
+
     return `${baseUrl}?${query}`;
   };
 

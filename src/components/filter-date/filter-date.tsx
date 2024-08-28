@@ -30,10 +30,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const FilterDate: React.FC = () => {
   const today = new Date();
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: today,
-    to: addDays(today, 20),
-  });
   const [error, setError] = React.useState<string | null>(null);
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
@@ -47,16 +43,13 @@ const FilterDate: React.FC = () => {
   ];
 
   const formSchema = z.object({
-    minPrice: z
-      .string()
-      .min(2, "El precio mínimo debe tener al menos 2 caracteres")
-      .max(50),
-    maxPrice: z
-      .string()
-      .min(2, "El precio máximo debe tener al menos 2 caracteres")
-      .max(50),
-    date: z.any(),
+    minPrice: z.string(),
+    maxPrice: z.string(),
     guests: z.string(),
+    date: z.object({
+      from: z.date(),
+      to: z.date(),
+    }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -70,27 +63,16 @@ const FilterDate: React.FC = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (date?.from && date?.to) {
-      const startDay = format(date.from, "yyyy-MM-dd");
-      const endDay = format(date.to, "yyyy-MM-dd");
-      router.push(`/search?start=${startDay}&end=${endDay}`);
-    } else {
-      setError("Por favor selecciona un rango de fechas válido.");
-    }
+    const startingDate = format(values.date.from, "yyyy-MM-dd");
+    const endingDate = format(values.date.to, "yyyy-MM-dd");
+    router.push(
+      `/search?startingDate=${startingDate}&endingDate=${endingDate}&maxPrice=${
+        values.minPrice ?? ""
+      }&minPrice=${values.minPrice ?? ""}`
+    );
   }
 
-  const handleSelect = (selectedDate: DateRange | undefined) => {
-    if (selectedDate?.from && selectedDate?.to) {
-      if (selectedDate.from.getTime() === selectedDate.to.getTime()) {
-        setError("El check-in y el check-out no pueden ser el mismo día.");
-        return;
-      }
-      setError(null);
-    }
-    setDate(selectedDate);
-  };
-
-  const renderDateRange = () => {
+  const renderDateRange = (date: any) => {
     if (date?.from) {
       if (date.to) {
         return `${format(date.from, "LLL dd, y")} - ${format(
@@ -145,15 +127,13 @@ const FilterDate: React.FC = () => {
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
-                          id="date"
                           variant="outline"
                           className={cn(
-                            "flex items-center justify-between p-2 flex-row bg-[#faf9f5] border border-orange-300 w-72 text-gray-700",
-                            !date && "text-muted-foreground"
+                            "flex items-center justify-between p-2 flex-row bg-[#faf9f5] border border-orange-300 w-72 text-gray-700"
                           )}
                         >
                           <CalendarIcon className="m-2 size-4" />
-                          {renderDateRange()}
+                          {renderDateRange(field.value)}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent
@@ -163,12 +143,9 @@ const FilterDate: React.FC = () => {
                         <Calendar
                           initialFocus
                           mode="range"
-                          defaultMonth={date?.from}
-                          selected={date}
-                          onSelect={(selected) => {
-                            handleSelect(selected);
-                            field.onChange(selected);
-                          }}
+                          defaultMonth={field.value?.from}
+                          selected={field.value}
+                          onSelect={field.onChange}
                           numberOfMonths={2}
                           disabled={[{ before: today }]}
                           classNames={{
@@ -182,7 +159,7 @@ const FilterDate: React.FC = () => {
                       </PopoverContent>
                     </Popover>
                   </FormControl>
-                  {error && <FormMessage>{error}</FormMessage>}
+                  <FormMessage />
                 </FormItem>
               )}
             />

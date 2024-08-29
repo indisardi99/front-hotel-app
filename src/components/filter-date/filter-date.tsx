@@ -91,22 +91,20 @@ const FilterDate: React.FC = () => {
         className="flex flex-row w-full items-center justify-between rounded-md m-2 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700 "
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex w-full items-center justify-around flex-row">
-          <div className="flex flex-row justify-around items-center">
+        <div className="flex w-full items-center justify-around flex-row gap-x-4">
+          <div className="flex flex-row justify-around items-center gap-x-4">
             <FormField
               control={form.control}
               name="minPrice"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Precio mínimo</FormLabel>
                   <FormControl>
                     <Input
-                      className="border border-orange-300 p-2 m-2"
-                      placeholder="Mínimo"
+                      className="border border-orange-300  p-2 m-2"
+                      placeholder="Precio Mínimo"
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>Este es tu precio mínimo.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -116,15 +114,13 @@ const FilterDate: React.FC = () => {
               name="maxPrice"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Precio máximo</FormLabel>
                   <FormControl>
                     <Input
                       className="border border-orange-300 p-2 m-2"
-                      placeholder="Máximo"
+                      placeholder="PrecioMáximo"
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>Este es tu precio máximo.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

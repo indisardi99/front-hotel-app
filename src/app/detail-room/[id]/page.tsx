@@ -14,7 +14,7 @@ export default async function RoomDetail({
 
   return (
     <div className="flex w-full">
-      <RoomDetails room={roomDetails} services={services} />
+      <RoomDetails room={roomDetails} services={services} id={params.id} />
     </div>
   );
 }

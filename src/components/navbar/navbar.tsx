@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
           )}
         </button>
       </div>
-      <div className="hidden pr-20 lg:flex space-x-4">
+      <div className="hidden pr-20 items-center lg:flex space-x-4">
         <Link href="/">Inicio</Link>
         <Link href="/all-rooms">Habitaciones</Link>
         {isAuthenticated ? (

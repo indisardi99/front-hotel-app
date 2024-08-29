@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MenuIcon, XIcon } from "lucide-react";
 import { useAuth } from "@/app/context/auth-context";
+import ComboboxDemo from "../ui/bombobox-demo";
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated } = useAuth();
@@ -34,7 +35,7 @@ const Navbar: React.FC = () => {
         <Link href="/">Inicio</Link>
         <Link href="/all-rooms">Habitaciones</Link>
         {isAuthenticated ? (
-          <Link href="/profile">Mi Perfil</Link>
+          <ComboboxDemo />
         ) : (
           <>
             <Link href="/register">Registrarse</Link>

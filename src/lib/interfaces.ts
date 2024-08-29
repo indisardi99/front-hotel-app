@@ -47,7 +47,7 @@ export interface SummaryProps {
   title: string;
   basePrice: number;
   additionalItems: SummaryItem[];
-  onContinue: () => void;
+  id: string;
 }
 
 export interface Feature {

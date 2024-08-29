@@ -8,7 +8,7 @@ interface ServiceCardProps {
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ type, price, icon }) => {
   return (
-    <div className="min-w-40 flex-col lg:flex-row m-2 border p-4 rounded shadow-md mb-4 flex items-center">
+    <div className="min-w-32 flex-col lg:flex-row flex items-center">
       <div className="mr-4">{icon}</div>
       <div>
         <h4 className="font-semibold">{type}</h4>

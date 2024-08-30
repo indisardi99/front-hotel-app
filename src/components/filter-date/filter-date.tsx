@@ -18,9 +18,7 @@ import {
   Form,
   FormField,
   FormItem,
-  FormLabel,
   FormControl,
-  FormDescription,
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
@@ -30,7 +28,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const FilterDate: React.FC = () => {
   const today = new Date();
-  const [error, setError] = React.useState<string | null>(null);
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [category, setcategory] = React.useState("");
@@ -67,7 +64,7 @@ const FilterDate: React.FC = () => {
     const endingDate = format(values.date.to, "yyyy-MM-dd");
     router.push(
       `/search?startingDate=${startingDate}&endingDate=${endingDate}&maxPrice=${
-        values.minPrice ?? ""
+        values.maxPrice ?? ""
       }&minPrice=${values.minPrice ?? ""}&category=${values.category}`
     );
   }

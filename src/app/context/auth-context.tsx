@@ -9,8 +9,14 @@ import {
 } from "react";
 import { setCookie, deleteCookie, getCookie } from "cookies-next";
 
+type Role = "user" | "admin";
 type User = {
+  id: string;
   email: string;
+  role?: Role;
+  phone?: number;
+  address?: string;
+  name?: string;
 };
 
 export type AuthContextType = {
@@ -20,6 +26,8 @@ export type AuthContextType = {
   isLoading: boolean;
   login: (user: User, accessToken: string) => void;
   logout: () => void;
+  isUser: () => boolean;
+  isAdmin: () => boolean;
   updateUser: (updatedUser: User) => void;
 };
 
@@ -30,6 +38,8 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   login: (_user: User, _accessToken: string) => {},
   logout: () => {},
+  isUser: () => false,
+  isAdmin: () => false,
   updateUser: (_updatedUser: User) => {},
 });
 
@@ -83,6 +93,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsAuthenticated(false);
     localStorage.removeItem("cartItems");
   };
+  const isUser = () => user?.role === "user";
+  const isAdmin = () => user?.role === "admin";
 
   const updateUser = (updatedUser: User) => {
     setUser(updatedUser);
@@ -96,6 +108,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         isAuthenticated,
         login,
         logout,
+        isUser,
+        isAdmin,
         accessToken,
         isLoading,
         updateUser,

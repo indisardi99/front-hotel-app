@@ -7,6 +7,7 @@ import Footer from "@/components/footer/footer";
 import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/app/context/auth-context";
+import { CartProvider } from "./context/cart-context";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -34,7 +35,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <Toaster position="top-center" />
         <AuthProvider>
           <Navbar />
-          <main className="grow">{children}</main>
+          <CartProvider>
+            <main className="grow">{children}</main>
+          </CartProvider>
         </AuthProvider>
         <Footer />
       </body>

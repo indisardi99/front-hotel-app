@@ -64,7 +64,17 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        login({ email: values.email }, data.token);
+        login(
+          {
+            email: values.email,
+            role: data.role,
+            id: data.id,
+            name: data.name,
+            phone: data.phone,
+            address: data.adress,
+          },
+          data.token
+        );
         toast.success("ingresando a Eclipse Royal");
         router.push("/");
       } else {

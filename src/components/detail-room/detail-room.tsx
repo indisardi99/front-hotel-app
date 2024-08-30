@@ -6,6 +6,7 @@ import ServiceCard from "@/components/service-card/services-card";
 import { Feature, RoomSearch, Service } from "@/lib/interfaces";
 import Summary from "../resume/resume";
 import { Wind, Droplet } from "lucide-react";
+import { useCart } from "@/app/context/cart-context";
 
 const featureIconMap: { [key: string]: React.ReactNode } = {
   "Dos camas individuales": <Leaf className="m-2 size-4" />,
@@ -31,7 +32,7 @@ const RoomDetails: React.FC<{
   const [selectedServices, setSelectedServices] = useState<
     Array<{ name: string; price: number }>
   >([]);
-
+  const { updateReserve, reserve } = useCart();
   const handleServiceClick = (service: Service) => {
     setSelectedServices((prevServices) => {
       const isSelected = prevServices.some((s) => s.name === service.type);

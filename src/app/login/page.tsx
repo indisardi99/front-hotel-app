@@ -14,8 +14,8 @@ const page = () => {
         />
       </div>
       <div className="flex flex-1 flex-col items-center justify-center">
-        <h1 className="text-3xl font-bold text-gray-800 m-2 text-center">
-          Ingresa a Eclipse Royal.
+        <h1 className="text-3xl mb-10 font-bold text-gray-800 m-2 text-center">
+          Ingresa a Eclipse Royal
         </h1>
         <Login />
       </div>

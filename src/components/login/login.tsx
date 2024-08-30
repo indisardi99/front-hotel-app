@@ -16,6 +16,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/auth-context";
+import { FaGoogle } from "react-icons/fa";
+import { Eye, EyeOff } from "lucide-react"; // Importa los íconos
+import { useState } from "react"; // Importa useState para manejar la visibilidad de la contraseña
 
 const formSchema = z.object({
   email: z
@@ -48,6 +51,9 @@ export default function Login() {
   });
 
   const { login } = useAuth();
+  const router = useRouter();
+
+  const [passwordVisible, setPasswordVisible] = useState(false); // Estado para manejar la visibilidad de la contraseña
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -79,14 +85,12 @@ export default function Login() {
         router.push("/");
       } else {
         const errorData = await response.json();
-        toast.error("Error al ingresar", errorData.message);
+        toast.error("correo o contraseña incorrectos", errorData.message);
       }
     } catch (error) {
-      toast.error("Error al conectar con el backend:");
+      toast.error("Error de servidor, intenta mas tarde");
     }
   }
-
-  const router = useRouter();
 
   function onRegister() {
     router.push("/register");
@@ -100,7 +104,7 @@ export default function Login() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col w-full items-center "
+        className="flex flex-col w-full justify-center items-center "
       >
         <FormField
           control={form.control}
@@ -110,13 +114,13 @@ export default function Login() {
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
                   type="email"
-                  placeholder="tu_correo@dominio.com"
+                  placeholder="Tu correo"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -127,18 +131,28 @@ export default function Login() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Contraseña</FormLabel>
-              <FormControl>
-                <Input
-                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
-                  type="password"
-                  placeholder="Tu contraseña"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
+              <div className="relative w-full">
+                <FormControl>
+                  <Input
+                    className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300 pr-10" // Ajusta padding para espacio del ícono
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="Tu contraseña"
+                    {...field}
+                  />
+                </FormControl>
+                <button
+                  type="button"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                >
+                  {passwordVisible ? <EyeOff /> : <Eye />}
+                </button>
+              </div>
+              <FormMessage className="flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
+
         <Button
           className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           type="submit"
@@ -146,6 +160,14 @@ export default function Login() {
           Ingresar
         </Button>
       </form>
+
+      <Button
+        onClick={handleGoogleLogin}
+        type="submit"
+        className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
+      >
+        <FaGoogle className="mr-2" /> Ingresar con Google
+      </Button>
       <div className="mt-4 text-center">
         <p className="text-black">¿Aún no estás registrado?</p>
         <Button
@@ -156,13 +178,6 @@ export default function Login() {
           Registrarme
         </Button>
       </div>
-      <Button
-        onClick={handleGoogleLogin}
-        type="submit"
-        className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
-      >
-        Ingresar con google
-      </Button>
     </Form>
   );
 }

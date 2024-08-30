@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,6 +14,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 const formSchema = z
   .object({
@@ -75,6 +76,9 @@ export function Register() {
     },
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await fetch(
@@ -98,10 +102,10 @@ export function Register() {
         toast.success("Registro exitoso: por favor ingresa");
         router.push("/login");
       } else {
-        toast.error("Error en el registro");
+        toast.error("Error en el registro, intenta de nuevo");
       }
     } catch (error) {
-      toast.error("Error al conectar con el backend");
+      toast.error("Error del servidor, intenta mas tarde");
     }
   }
 
@@ -115,22 +119,22 @@ export function Register() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col w-full items-center "
+        className="flex flex-col w-full justify-center items-center "
       >
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nombre de usuario</FormLabel>
+              <FormLabel>Nombre Completo</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
-                  placeholder="nombre de usuario"
+                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  placeholder="Tu nombre"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -142,12 +146,12 @@ export function Register() {
               <FormLabel>Dirección</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
-                  placeholder="Tu dirección"
+                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  placeholder="calle y altura"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -159,12 +163,12 @@ export function Register() {
               <FormLabel>Teléfono</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
                   placeholder="11 22334455"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -176,13 +180,13 @@ export function Register() {
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
                   type="email"
-                  placeholder="tu_correo@dominio.com"
+                  placeholder="Tu Correo"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -193,17 +197,26 @@ export function Register() {
             <FormItem>
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
-                <Input
-                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
-                  type="password"
-                  placeholder="Tu contraseña"
-                  {...field}
-                />
+                <div className="relative w-full">
+                  <Input
+                    className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Tu contraseña"
+                    {...field}
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </div>
+                </div>
               </FormControl>
-              <FormMessage />
+              <FormMessage className="flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="confirmPassword"
@@ -211,17 +224,26 @@ export function Register() {
             <FormItem>
               <FormLabel>Confirmar contraseña</FormLabel>
               <FormControl>
-                <Input
-                  className="min-w-72 max-w-80 bg-[#faf9f5] border border-orange-300"
-                  type="password"
-                  placeholder="Confirma tu contraseña"
-                  {...field}
-                />
+                <div className="relative w-full">
+                  <Input
+                    className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="Confirma tu contraseña"
+                    {...field}
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  >
+                    {showConfirmPassword ? <EyeOff /> : <Eye />}
+                  </div>
+                </div>
               </FormControl>
-              <FormMessage />
+              <FormMessage className="flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
+
         <Button
           className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           type="submit"

@@ -147,7 +147,7 @@ export function Register() {
               <FormControl>
                 <Input
                   className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
-                  placeholder="calle y altura"
+                  placeholder="Calle y Altura"
                   {...field}
                 />
               </FormControl>
@@ -252,7 +252,7 @@ export function Register() {
         </Button>
       </form>
       <div className="mt-4 text-center">
-        <p className="text-black">¿ya estas registrado?</p>
+        <p className="text-black">¿Ya estas Registrado?</p>
         <Button
           className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           onClick={onLogin}

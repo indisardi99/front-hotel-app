@@ -43,10 +43,15 @@ const FilterDate: React.FC = () => {
     minPrice: z.string(),
     maxPrice: z.string(),
     category: z.string(),
-    date: z.object({
-      from: z.date(),
-      to: z.date(),
-    }),
+    date: z
+      .object({
+        from: z.date(),
+        to: z.date(),
+      })
+      .refine((data) => data.from && data.to, {
+        message: "Campo obligatorio",
+        path: ["date"],
+      }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -85,11 +90,11 @@ const FilterDate: React.FC = () => {
   return (
     <Form {...form}>
       <form
-        className="flex flex-row w-full items-start justify-between rounded-md m-2 p-2 text-gray-700"
+        className="flex flex-row w-full items-start justify-between rounded-md m-4 p-2 text-gray-700"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex justify-between">
-          <div className="w-64">
+        <div className="flex flex-row gap-4">
+          <div className="w-64 ">
             <FormField
               control={form.control}
               name="date"
@@ -102,9 +107,9 @@ const FilterDate: React.FC = () => {
                           variant="outline"
                           className="border border-orange-300 w-full"
                         >
-                          <CalendarIcon className="m-2 size-4" />
+                          <CalendarIcon className=" size-4" />
                           {renderDateRange(field.value)}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          <ChevronsUpDown className="m-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent
@@ -130,7 +135,7 @@ const FilterDate: React.FC = () => {
                       </PopoverContent>
                     </Popover>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="absolute  mt-0" />
                 </FormItem>
               )}
             />
@@ -151,7 +156,7 @@ const FilterDate: React.FC = () => {
                           className="border border-orange-300 w-full"
                         >
                           {category || "Selecciona los huéspedes"}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          <ChevronsUpDown className="m-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="border border-orange-300">

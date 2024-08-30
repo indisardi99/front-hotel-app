@@ -17,7 +17,7 @@ const Summary: React.FC<SummaryProps> = ({
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
 
   const { reserve } = useCart();
-  const { login, user } = useAuth();
+  const { user } = useAuth();
 
   const calculateDays = (startDate: string, endDate: string): number => {
     const start = new Date(startDate);

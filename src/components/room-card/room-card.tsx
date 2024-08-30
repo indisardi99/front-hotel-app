@@ -34,10 +34,11 @@ const RoomCard: React.FC<RoomCardProps> = ({
   services,
 }) => {
   const router = useRouter();
-  const { updateReserve } = useCart();
+  const { updateReserve, reserve } = useCart();
 
   const handleViewDetails = () => {
     updateReserve({
+      ...reserve,
       roomId: id,
       roomPrice: price,
       category: title,

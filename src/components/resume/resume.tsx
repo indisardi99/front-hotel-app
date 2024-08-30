@@ -4,6 +4,7 @@ import { SummaryProps } from "@/lib/interfaces";
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { useCart } from "@/app/context/cart-context";
 
 //* http://localhost:3000/reservation/create-reservation/bf869636-2f87-416b-a969-c715b9c7e91d
 const Summary: React.FC<SummaryProps> = ({
@@ -17,6 +18,15 @@ const Summary: React.FC<SummaryProps> = ({
     (sum, item) => sum + item.price,
     0
   );
+
+  const { reserve } = useCart();
+
+  useEffect(() => {
+    if (reserve) {
+      console.log("Información de la reserva:", reserve);
+    }
+  }, [reserve]);
+
   const totalPrice = basePrice + totalAdditionalPrice;
   useEffect(() => {
     initMercadoPago("TEST-c51dee68-4858-486f-b364-2caa5853ead4", {
@@ -31,9 +41,7 @@ const Summary: React.FC<SummaryProps> = ({
   const createReservation = async () => {
     try {
       const res = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_URL
-        }/reservation/create-reservation/${"cd791e07-26c6-4cbd-8bc6-55457febc2a7"}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/reservation/create-reservation/${id}`,
         {
           method: "POST",
           headers: {
@@ -42,8 +50,8 @@ const Summary: React.FC<SummaryProps> = ({
           body: JSON.stringify({
             roomId: id,
             services: newservices,
-            startDate: "2024-08-05",
-            endDate: "2024-08-10",
+            startDate: reserve?.startDate,
+            endDate: reserve?.endDate,
           }),
         }
       );
@@ -127,11 +135,11 @@ const Summary: React.FC<SummaryProps> = ({
   return (
     <div className="flex flex-col rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
       <h2>{title}</h2>
-      <p>Base Price: ${basePrice.toFixed(2)}</p>
+      <p>Precio de habitacion: ${basePrice.toFixed(2)}</p>
 
       {additionalItems.length > 0 && (
         <div className="additional-items">
-          <h3>Additional Services:</h3>
+          <h3>Servicios adicionales:</h3>
           <ul>
             {additionalItems.map((item, index) => (
               <li key={index}>
@@ -139,6 +147,28 @@ const Summary: React.FC<SummaryProps> = ({
               </li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {reserve && (
+        <div className="mt-4">
+          <h4>Estadia:</h4>
+          <p>{reserve.category}</p>
+          <p>check-in: {reserve.startDate}</p>
+          <p>Check-out: {reserve.endDate}</p>
+          <p>Cantidad de huespedes: {reserve.guestsNumber}</p>
+          {reserve.services && reserve.services.length > 0 && (
+            <div>
+              <h4>Servicios extras seleccionados:</h4>
+              <ul>
+                {reserve.services.map((service, index) => (
+                  <li key={index}>
+                    {service.name}: ${service.price.toFixed(2)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 

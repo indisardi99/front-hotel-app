@@ -1,32 +1,25 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useCart } from "@/app/context/cart-context";
 
 const Search: React.FC<{ searchParams: Record<string, any> }> = ({
   searchParams,
 }) => {
-  const { updateReserve } = useCart();
-  const router = useRouter();
-
-  const previousParams = useRef(searchParams);
+  const { updateReserve, reserve } = useCart();
 
   useEffect(() => {
-    if (previousParams.current !== searchParams) {
-      const reserveData = {
-        category: searchParams.category,
-        roomPrice: searchParams.maxPrice,
-        startDate: searchParams.startingDate,
-        endDate: searchParams.endingDate,
-      };
+    const reserveData = {
+      category: searchParams.category,
+      roomPrice: searchParams.maxPrice,
+      startDate: searchParams.startingDate,
+      endDate: searchParams.endingDate,
+      guestsNumber: searchParams.category,
+    };
+    updateReserve({ ...reserve, ...reserveData });
+  }, [searchParams]);
 
-      updateReserve(reserveData);
-      previousParams.current = searchParams;
-    }
-  }, [searchParams, updateReserve]);
-
-  return null;
+  return <></>;
 };
 
 export default Search;

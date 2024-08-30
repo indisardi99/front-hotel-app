@@ -32,7 +32,7 @@ const RoomDetails: React.FC<{
   const [selectedServices, setSelectedServices] = useState<
     Array<{ name: string; price: number }>
   >([]);
-  const { updateReserve, reserve } = useCart();
+
   const handleServiceClick = (service: Service) => {
     setSelectedServices((prevServices) => {
       const isSelected = prevServices.some((s) => s.name === service.type);

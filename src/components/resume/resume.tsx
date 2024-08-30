@@ -5,8 +5,9 @@ import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useCart } from "@/app/context/cart-context";
+import { useAuth } from "@/app/context/auth-context";
+import toast from "react-hot-toast";
 
-//* http://localhost:3000/reservation/create-reservation/bf869636-2f87-416b-a969-c715b9c7e91d
 const Summary: React.FC<SummaryProps> = ({
   title,
   basePrice,
@@ -20,12 +21,7 @@ const Summary: React.FC<SummaryProps> = ({
   );
 
   const { reserve } = useCart();
-
-  useEffect(() => {
-    if (reserve) {
-      console.log("Información de la reserva:", reserve);
-    }
-  }, [reserve]);
+  const { login, user } = useAuth();
 
   const totalPrice = basePrice + totalAdditionalPrice;
   useEffect(() => {
@@ -41,14 +37,14 @@ const Summary: React.FC<SummaryProps> = ({
   const createReservation = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/reservation/create-reservation/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/reservation/create-reservation/${user?.id}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            roomId: id,
+            roomId: reserve?.roomId,
             services: newservices,
             startDate: reserve?.startDate,
             endDate: reserve?.endDate,
@@ -58,7 +54,6 @@ const Summary: React.FC<SummaryProps> = ({
 
       if (!res.ok) {
         const errorMessage = await res.text();
-        console.error(`Error ${res.status}: ${errorMessage}`);
         throw new Error("Error al crear la reserva");
       }
       const data = await res.json();
@@ -102,7 +97,6 @@ const Summary: React.FC<SummaryProps> = ({
       );
       if (!response.ok) {
         const errorMessage = await response.text();
-        console.error(`Error ${response.status}: ${errorMessage}`);
         throw new Error("Error al crear la preferencia");
       }
 
@@ -114,6 +108,10 @@ const Summary: React.FC<SummaryProps> = ({
   };
 
   const handleContinue = async () => {
+    if (!user) {
+      toast.error("por favor inicia sesion para reservar");
+      return;
+    }
     try {
       const res = await createReservation();
       if (res.id) {

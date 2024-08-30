@@ -163,7 +163,7 @@ export default function Login() {
       <Button
         onClick={handleGoogleLogin}
         type="submit"
-        className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
+        className="shadow-xl mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
       >
         <FaGoogle className="mr-2" /> Ingresar con Google
       </Button>

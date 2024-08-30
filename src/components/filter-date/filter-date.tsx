@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { addDays, format } from "date-fns";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -84,43 +85,11 @@ const FilterDate: React.FC = () => {
   return (
     <Form {...form}>
       <form
-        className="flex flex-row w-full items-center justify-between rounded-md m-2 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700 "
+        className="flex flex-row w-full items-start justify-between rounded-md m-2 p-2 text-gray-700"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex w-full items-center justify-around flex-row gap-x-4">
-          <div className="flex flex-row justify-around items-center gap-x-4">
-            <FormField
-              control={form.control}
-              name="minPrice"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      className="border border-orange-300  p-2 m-2"
-                      placeholder="Precio Mínimo"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="maxPrice"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      className="border border-orange-300 p-2 m-2"
-                      placeholder="PrecioMáximo"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <div className="flex justify-between">
+          <div className="w-64">
             <FormField
               control={form.control}
               name="date"
@@ -131,12 +100,11 @@ const FilterDate: React.FC = () => {
                       <PopoverTrigger asChild>
                         <Button
                           variant="outline"
-                          className={
-                            (cn(""), "border border-orange-300 p-2 m-2")
-                          }
+                          className="border border-orange-300 w-full"
                         >
                           <CalendarIcon className="m-2 size-4" />
                           {renderDateRange(field.value)}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent
@@ -167,63 +135,113 @@ const FilterDate: React.FC = () => {
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={open}
-                        className="border border-orange-300 p-2 m-2"
-                      >
-                        {category || "Selecciona los huéspedes"}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="border border-orange-300 p-2 m-2">
-                      <Command>
-                        <CommandList>
-                          <CommandGroup>
-                            {guestOptions.map((option) => (
-                              <CommandItem
-                                key={option.value}
-                                value={option.value}
-                                onSelect={(currentValue) => {
-                                  setcategory(
-                                    currentValue === category
-                                      ? ""
-                                      : currentValue
-                                  );
-                                  setOpen(false);
-                                  field.onChange(currentValue);
-                                }}
-                              >
-                                {option.label}
-                                <CheckIcon
-                                  className={cn(
-                                    "ml-auto h-4 w-4",
-                                    category === option.value
-                                      ? "opacity-100"
-                                      : "opacity-0"
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                </FormControl>
-              </FormItem>
-            )}
-          />
+          <div className="w-64">
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Popover open={open} onOpenChange={setOpen}>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          aria-expanded={open}
+                          className="border border-orange-300 w-full"
+                        >
+                          {category || "Selecciona los huéspedes"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="border border-orange-300">
+                        <Command>
+                          <CommandList>
+                            <CommandGroup>
+                              {guestOptions.map((option) => (
+                                <CommandItem
+                                  key={option.value}
+                                  value={option.value}
+                                  onSelect={(currentValue) => {
+                                    setcategory(
+                                      currentValue === category
+                                        ? ""
+                                        : currentValue
+                                    );
+                                    setOpen(false);
+                                    field.onChange(currentValue);
+                                  }}
+                                >
+                                  {option.label}
+                                  <CheckIcon
+                                    className={cn(
+                                      "ml-auto h-4 w-4",
+                                      category === option.value
+                                        ? "opacity-100"
+                                        : "opacity-0"
+                                    )}
+                                  />
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-64">
+            <FormField
+              control={form.control}
+              name="minPrice"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="relative">
+                      <span className="absolute left-2 top-2 text-gray-500">
+                        Min: $
+                      </span>
+                      <Input
+                        className="pl-14 border border-orange-300 w-full"
+                        placeholder="0"
+                        {...field}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-64">
+            <FormField
+              control={form.control}
+              name="maxPrice"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="relative">
+                      <span className="absolute left-2 top-2 text-gray-500">
+                        Max: $
+                      </span>
+                      <Input
+                        className="pl-14 border border-orange-300 w-full"
+                        placeholder="0"
+                        {...field}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <Button
-            className="m-2 bg-[#faf9f5] border border-orange-300 p-2 text-gray-700"
+            className=" bg-[#faf9f5] border border-orange-300 p-2 text-gray-700"
             variant="outline"
             type="submit"
           >

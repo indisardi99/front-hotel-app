@@ -67,11 +67,11 @@ export default function Login() {
         login(
           {
             email: values.email,
-            role: data.role,
-            id: data.id,
-            name: data.name,
-            phone: data.phone,
-            address: data.adress,
+            role: data.user.role,
+            id: data.user.id,
+            name: data.user.name,
+            phone: data.user.phone,
+            address: data.user.adress,
           },
           data.token
         );

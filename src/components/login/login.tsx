@@ -17,8 +17,8 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/auth-context";
 import { FaGoogle } from "react-icons/fa";
-import { Eye, EyeOff } from "lucide-react"; // Importa los íconos
-import { useState } from "react"; // Importa useState para manejar la visibilidad de la contraseña
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z
@@ -53,8 +53,7 @@ export default function Login() {
   const { login } = useAuth();
   const router = useRouter();
 
-  const [passwordVisible, setPasswordVisible] = useState(false); // Estado para manejar la visibilidad de la contraseña
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await fetch(
@@ -134,7 +133,7 @@ export default function Login() {
               <div className="relative w-full">
                 <FormControl>
                   <Input
-                    className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300 pr-10" // Ajusta padding para espacio del ícono
+                    className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300 pr-10"
                     type={passwordVisible ? "text" : "password"}
                     placeholder="Tu contraseña"
                     {...field}

@@ -38,8 +38,12 @@ const Navbar: React.FC = () => {
           <ComboboxDemo />
         ) : (
           <>
-            <Link href="/register">Registrarse</Link>
-            <Link href="/login">Ingresar</Link>
+            <Link
+              className="border border-orange-300 p-2 m-2 rounded-md"
+              href="/login"
+            >
+              Ingresar
+            </Link>
           </>
         )}
       </div>

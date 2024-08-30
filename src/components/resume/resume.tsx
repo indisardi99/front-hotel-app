@@ -15,15 +15,29 @@ const Summary: React.FC<SummaryProps> = ({
   id,
 }) => {
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
+
+  const { reserve } = useCart();
+  const { login, user } = useAuth();
+
+  const calculateDays = (startDate: string, endDate: string): number => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
   const totalAdditionalPrice = additionalItems.reduce(
     (sum, item) => sum + item.price,
     0
   );
 
-  const { reserve } = useCart();
-  const { login, user } = useAuth();
+  const days = reserve
+    ? calculateDays(reserve.startDate!, reserve.endDate!)
+    : 1;
 
-  const totalPrice = basePrice + totalAdditionalPrice;
+  const totalPrice = (basePrice + totalAdditionalPrice) * days;
+
   useEffect(() => {
     initMercadoPago("TEST-c51dee68-4858-486f-b364-2caa5853ead4", {
       locale: "es-AR",

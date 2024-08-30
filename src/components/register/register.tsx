@@ -28,7 +28,6 @@ const formSchema = z
       .string()
       .regex(/^\d+$/, {
         message: "El número de teléfono solo debe contener dígitos.",
-        //TODO VALIDAR CANTIDAD DE NUMEROS, FORMATO VALIDO
       })
       .min(9, {
         message: "El número de teléfono debe tener al menos 9 dígitos.",

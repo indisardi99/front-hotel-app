@@ -56,6 +56,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (user?.id) {
+      console.log("user id", user.id);
+    }
+  }, [user]);
+
+  const storedUser = getCookie("user");
+  if (storedUser) {
+    const parsedUser = JSON.parse(storedUser as string);
+    console.log("Stored user ID:", parsedUser.id);
+  }
+
+  useEffect(() => {
     const loadAuthState = async () => {
       const storedUser = getCookie("user");
       if (storedUser) {

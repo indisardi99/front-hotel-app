@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { CalendarIcon, Wifi, Dumbbell, Leaf, Lock, Tv } from "lucide-react";
 import { RoomCardProps, ServicesProps } from "@/lib/interfaces";
+import { useCart } from "@/app/context/cart-context";
 
 const iconMap: { [key: string]: React.ReactNode } = {
   calendar: <CalendarIcon className="m-2 size-4" />,
@@ -33,8 +34,14 @@ const RoomCard: React.FC<RoomCardProps> = ({
   services,
 }) => {
   const router = useRouter();
+  const { updateReserve } = useCart();
 
   const handleViewDetails = () => {
+    updateReserve({
+      roomId: id,
+      roomPrice: price,
+      category: title,
+    });
     router.push(`/detail-room/${id}`);
   };
 

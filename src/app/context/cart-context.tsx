@@ -3,13 +3,13 @@
 import { createContext, useState, ReactNode, useContext } from "react";
 
 type Reserve = {
-  roomId: string;
-  category: string;
+  roomId?: string;
+  category?: string;
   guestsNumber?: string;
-  roomPrice: number;
+  roomPrice?: number;
   services?: Array<{ name: string; price: number }>;
-  startDate: string;
-  endDate: string;
+  startDate?: string;
+  endDate?: string;
   guest?: Guest[];
 };
 

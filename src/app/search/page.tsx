@@ -1,5 +1,7 @@
 import FilterDate from "@/components/filter-date/filter-date";
+import FiltersSummary from "@/components/filter-sumary/filter-summary";
 import RoomCard from "@/components/room-card/room-card";
+import Search from "@/components/search/search";
 import { Room, RoomSearch } from "@/lib/interfaces";
 
 interface SearchParams {
@@ -45,13 +47,23 @@ export default async function Page({
   const response = await fetch(url, {
     next: { revalidate: 1 },
   }).then((res) => res.json());
-
   return (
     <div className="flex flex-col ml-32 justify-center lg:w-[1200px]">
       <div className="flex flex-row w-full">
         <FilterDate />
+        {searchParams && <Search searchParams={searchParams} />}
       </div>
-      <div></div>
+      <div>
+        <FiltersSummary
+          filters={{
+            category: searchParams?.category,
+            maxPrice: searchParams?.maxPrice,
+            minPrice: searchParams?.minPrice,
+            startDate: searchParams?.startingDate,
+            endDate: searchParams?.endingDate,
+          }}
+        />
+      </div>
 
       <div className="flex flex-col w-full">
         {response.data.map((room: RoomSearch) => (

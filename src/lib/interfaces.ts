@@ -30,9 +30,6 @@ export interface RoomCardProps {
   title: string;
   price: number;
   services: ServicesProps[];
-  guests: string;
-  startDate: string;
-  endDate: string;
 }
 
 export interface Service {

@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { addDays, format } from "date-fns";
-import type { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -64,8 +63,8 @@ const FilterDate: React.FC = () => {
     const endingDate = format(values.date.to, "yyyy-MM-dd");
     router.push(
       `/search?startingDate=${startingDate}&endingDate=${endingDate}&maxPrice=${
-        values.maxPrice ?? ""
-      }&minPrice=${values.minPrice ?? ""}&category=${values.category}`
+        values?.maxPrice ?? ""
+      }&minPrice=${values?.minPrice ?? ""}&category=${values.category}`
     );
   }
 

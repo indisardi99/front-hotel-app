@@ -17,7 +17,9 @@ const Footer: React.FC = () => {
           </Link>
 
           <h3 className="cursor-pointer underline">Contáctanos</h3>
-          <h3 className="cursor-pointer underline">Términos y Condiciones</h3>
+          <Link className="cursor-pointer underline" href="/conditions">
+            Términos y Condiciones
+          </Link>
         </div>
         <div className="flex flex-col space-y-2">
           <h3 className="cursor-pointer underline">Twitter</h3>

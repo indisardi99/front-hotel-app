@@ -10,7 +10,7 @@ export default function Home() {
           <div className="hidden lg:block">
             <Image
               className="opacity-50"
-              src="/hero.jpg"
+              src="/hero.png"
               alt="Home"
               width={1550}
               height={0}

@@ -65,7 +65,7 @@ export default function ComboboxDemo() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] border-black hover:bg-black hover:text-white bg-black text-white justify-center"
+          className="w-[150px] border border-orange-300 p-2 m-2 rounded-md hover:bg-black hover:text-white bg-black text-white justify-center"
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label

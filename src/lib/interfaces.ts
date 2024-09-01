@@ -7,6 +7,13 @@ export interface Room {
   imageUrl: string[];
 }
 
+export interface Preference {
+  id: string;
+  title: string;
+  number: number;
+  unit_price: number;
+}
+
 export interface RoomSearch {
   id: string;
   number: number;

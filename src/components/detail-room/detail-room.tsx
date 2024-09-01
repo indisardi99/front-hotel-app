@@ -48,7 +48,6 @@ const RoomDetails: React.FC<{
     return selectedServices.some((service) => service.name === serviceType);
   };
 
-  // Determinar la capacidad máxima según la categoría de la habitación
   const getCapacityMessage = (category: string) => {
     if (category.includes("loft")) {
       return "Hasta 4 personas";

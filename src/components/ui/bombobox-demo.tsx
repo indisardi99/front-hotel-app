@@ -46,7 +46,7 @@ export default function ComboboxDemo() {
     setOpen(false);
 
     if (currentValue === "Ver mis Reservas") {
-      router.push("/mis-reservas");
+      router.push("/my-reservations");
     }
     if (currentValue === "Editar informacion") {
       router.push("/editar-perfil");

@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 const page = () => {
-  // Datos de ejemplo hardcodeados
   const reservations = [
     {
       id: 1,

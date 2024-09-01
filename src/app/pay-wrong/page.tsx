@@ -20,7 +20,6 @@ const PayWrong = () => {
         onClick={onRetry}
         type="button"
       >
-        {" "}
         Intentar de Nuevo
       </Button>
     </div>

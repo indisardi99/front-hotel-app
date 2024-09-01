@@ -34,29 +34,31 @@ const page = () => {
   return (
     <div className="text-black lg:p-10 ">
       <h1 className="text-2xl font-bold mb-4">Mis Reservas</h1>
-      <div className="flex flex-col justify-around m-2 ">
+      <div className="flex flex-col justify-between m-2 ">
         {reservations.map((reservation) => (
           <div
             key={reservation.id}
-            className="flex items-center justify-around p-4 border border-gray-300 rounded-lg"
+            className="flex items-center p-4 border justify-between bg-[#faf9f5] border-orange-300 rounded-lg"
           >
-            <Image
-              src={"/loftt.jpg"}
-              alt={"loft"}
-              width={300}
-              height={200}
-              className="rounded-lg object-cover m-2"
-            />
-
-            <h2 className="text-xl font-semibold m-2 ">
-              {reservation.category}
-            </h2>
-            <p className=" ">Fecha de inicio: {reservation.startDate}</p>
-            <p>Fecha de fin: {reservation.endDate}</p>
-            <p>Reserva: {reservation.status}</p>
-
-            <div className=" flex flex-end justify-end bg-red-500">
-              <p>Valor pagado: ${reservation.price}</p>
+            <div className="flex flex-row">
+              <Image
+                src={"/loftt.jpg"}
+                alt={"loft"}
+                width={300}
+                height={200}
+                className="rounded-lg object-cover m-2"
+              />
+              <div className="flex flex-col">
+                <h2 className="text-xl font-semibold m-2 ">
+                  {reservation.category}
+                </h2>
+                <p className=" ">Fecha de inicio: {reservation.startDate}</p>
+                <p>Fecha de fin: {reservation.endDate}</p>
+                <p>Reserva: {reservation.status}</p>
+              </div>
+            </div>
+            <div className="m-2 p-2 flex flex-end justify-end rounded-lg bg-[#faf9f5] border border-orange-300">
+              <p>${reservation.price}</p>
             </div>
           </div>
         ))}

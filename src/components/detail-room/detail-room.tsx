@@ -48,6 +48,17 @@ const RoomDetails: React.FC<{
     return selectedServices.some((service) => service.name === serviceType);
   };
 
+  // Determinar la capacidad máxima según la categoría de la habitación
+  const getCapacityMessage = (category: string) => {
+    if (category.includes("loft")) {
+      return "Hasta 4 personas";
+    } else if (category.includes("suite")) {
+      return "Hasta 2 personas";
+    } else {
+      return "Capacidad no especificada";
+    }
+  };
+
   return (
     <div className="flex flex-col justify-around lg:flex-row w-full mb-4 rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
       <div className="flex-row ">
@@ -69,6 +80,9 @@ const RoomDetails: React.FC<{
                 {room.category}
               </h2>
               <p className="text-lg text-black font-semibold">${room.price}</p>
+              <p className="text-lg text-gray-600">
+                {getCapacityMessage(room.category)}
+              </p>
               <h2 className="text-xl font-semibold text-gray-600">
                 Habitación Nro. {room.number}
               </h2>
@@ -90,7 +104,12 @@ const RoomDetails: React.FC<{
               </div>
             </div>
             <div className="w-full">
-              <h3 className="text-lg font-semibold">Servicios:</h3>
+              <h3 className="text-lg font-semibold">
+                Puedes añadir servicios adicionales:
+              </h3>
+              <h3 className="text-xs text-gray-500">
+                Se agrega a tu habitacion diariamente.
+              </h3>
               <div className="mb-4 flex flex-wrap gap-2">
                 {services.map((service: Service) => (
                   <div

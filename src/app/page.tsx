@@ -1,6 +1,7 @@
 import FilterDate from "@/components/filter-date/filter-date";
 import Image from "next/image";
 import Inicio from "./inicio/page";
+import ScrollButton from "@/components/scroll-bottom/scroll-buttom";
 
 export default function Home() {
   return (
@@ -38,6 +39,7 @@ export default function Home() {
           <Inicio />
         </div>
       </div>
+      <ScrollButton />
     </main>
   );
 }

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import FilterDate from "@/components/filter-date/filter-date";
 import AllRoomCard from "@/components/all-room-card/all-room-card";
 import PaginationComponent from "@/components/pagination/pagination";
+import ScrollButton from "@/components/scroll-bottom/scroll-buttom";
 
 interface Room {
   id: string;
@@ -83,6 +84,7 @@ const Page = () => {
           <p>No se encontraron habitaciones.</p>
         )}
       </div>
+      <ScrollButton />
     </div>
   );
 };

@@ -1,3 +1,5 @@
+"use client";
+
 import Login from "@/components/login/login";
 import Image from "next/image";
 

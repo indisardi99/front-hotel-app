@@ -8,8 +8,8 @@ const page = () => {
         <Image
           src="/eclipse.png"
           alt="Logo"
-          width={400}
-          height={0}
+          width={1587}
+          height={2245}
           className="shadow-[0_4px_15px_rgba(255,255,255,0.2)] rounded-lg"
         />
       </div>

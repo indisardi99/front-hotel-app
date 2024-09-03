@@ -15,13 +15,15 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="relative z-50 flex flex-row w-full justify-between text-white items-center bg-black p-4">
-      <Image
-        className="lg:ml-20"
-        src="/logo.png"
-        alt="Logo"
-        width={150}
-        height={100}
-      />
+      <Link href="/">
+        <Image
+          className="lg:ml-20"
+          src="/logo.png"
+          alt="Logo"
+          width={150}
+          height={100}
+        />
+      </Link>
       <div className="lg:hidden flex items-center">
         <button onClick={toggleMenu} className="text-white focus:outline-none">
           {isOpen ? (

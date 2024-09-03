@@ -19,9 +19,14 @@ import { Eye, EyeOff } from "lucide-react";
 
 const formSchema = z
   .object({
-    name: z.string().min(4, {
-      message: "El nombre de usuario debe tener al menos 4 caracteres.",
-    }),
+    name: z
+      .string()
+      .min(4, {
+        message: "El nombre de usuario debe tener al menos 4 caracteres.",
+      })
+      .regex(/^[^0-9]*$/, {
+        message: "El nombre de usuario no puede contener números.",
+      }),
     adress: z.string().min(5, {
       message: "La dirección debe tener al menos 5 caracteres.",
     }),

@@ -59,7 +59,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
       </div>
       <div className="ml-5 flex flex-1 flex-col">
         <h2 className="mb-2 text-xl font-semibold">{title}</h2>
-        <p className="mb-2 text-lg text-gray-600">{price}</p>
+        <p className="mb-2 text-lg text-gray-600">$ {price}</p>
         <p className="mb-4 text-lg text-gray-500">{`Habitación número ${number} con las siguientes características:`}</p>
         <div className="mb-4 flex flex-wrap gap-2">
           {services.map((service) => (

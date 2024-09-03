@@ -22,7 +22,6 @@ const PayOk = () => {
 
   function onReservations() {
     if (reservations) {
-      // Puedes redirigir a la página de reservas con los datos
       router.push("/my-reservations");
     } else {
       console.error("No reservations found");

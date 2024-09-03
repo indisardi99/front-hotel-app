@@ -1,14 +1,13 @@
-"use client";
-
 import Login from "@/components/login/login";
 import Image from "next/image";
+import eclipse from "../../public/eclipse.png";
 
 const page = () => {
   return (
     <div className="flex flex-col md:flex-row bg-slate-50 w-full h-screen">
       <div className="hidden md:flex flex-1 items-center justify-center bg-black">
         <Image
-          src="/eclipse.png"
+          src={eclipse}
           alt="Logo"
           width={1587}
           height={2245}

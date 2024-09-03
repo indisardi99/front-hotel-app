@@ -84,7 +84,7 @@ const FilterDate: React.FC = () => {
       }
       return format(date.from, "LLL dd, y");
     }
-    return <span>Check in - Check out</span>;
+    return <span className="ml-4">Check in - Check out</span>;
   };
 
   return (
@@ -155,7 +155,9 @@ const FilterDate: React.FC = () => {
                           aria-expanded={open}
                           className="border border-orange-300 w-full"
                         >
-                          {category || "Selecciona los huéspedes"}
+                          {category
+                            ? category + " huéspedes"
+                            : "Selecciona los huéspedes"}
                           <ChevronsUpDown className="m-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                       </PopoverTrigger>
@@ -177,7 +179,7 @@ const FilterDate: React.FC = () => {
                                     field.onChange(currentValue);
                                   }}
                                 >
-                                  {option.label}
+                                  {option.label} huéspedes
                                   <CheckIcon
                                     className={cn(
                                       "ml-auto h-4 w-4",

@@ -1,6 +1,6 @@
 import Login from "@/components/login/login";
 import Image from "next/image";
-import eclipse from "../../../public/eclipse.png";
+import eclipse from "../../../public/eclipse1.png";
 
 const page = () => {
   return (

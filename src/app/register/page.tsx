@@ -1,15 +1,16 @@
 import { Register } from "@/components/register/register";
 import Image from "next/image";
+import eclipse from "../../../public/eclipse1.png";
 
 const page = () => {
   return (
     <div className="flex flex-col md:flex-row bg-slate-50 w-full h-full">
       <div className="hidden md:flex flex-1 items-center justify-center bg-black">
         <Image
-          src="/eclipse.png"
-          alt="eclipse register"
-          width={400}
-          height={0}
+          src={eclipse}
+          alt="Logo"
+          width={1587}
+          height={2245}
           className="shadow-[0_4px_15px_rgba(255,255,255,0.2)] rounded-lg"
         />
       </div>

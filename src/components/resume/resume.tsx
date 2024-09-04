@@ -9,6 +9,7 @@ import { useAuth } from "@/app/context/auth-context";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Spinner from "../spinner/spinner";
+import { useRouter } from "next/navigation";
 
 const Summary: React.FC<SummaryProps> = ({
   title,
@@ -20,7 +21,7 @@ const Summary: React.FC<SummaryProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const { reserve, updateReserve } = useCart();
   const { user } = useAuth();
-
+  const router = useRouter();
   const calculateDays = (startDate: string, endDate: string): number => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -119,6 +120,13 @@ const Summary: React.FC<SummaryProps> = ({
   const handleContinue = async () => {
     if (!user) {
       toast.error("Por favor inicia sesión para reservar");
+      router.push("/login");
+      return;
+    }
+
+    if (!user.phone || !user.address) {
+      toast.error("Por favor completa tu perfil");
+      router.push("/update-information");
       return;
     }
 

@@ -177,6 +177,7 @@ export function Register() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="email"

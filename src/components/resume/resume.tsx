@@ -8,6 +8,7 @@ import { useCart } from "@/app/context/cart-context";
 import { useAuth } from "@/app/context/auth-context";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import Spinner from "../spinner/spinner";
 
 const Summary: React.FC<SummaryProps> = ({
   title,
@@ -16,6 +17,7 @@ const Summary: React.FC<SummaryProps> = ({
   id,
 }) => {
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const { reserve, updateReserve } = useCart();
   const { user } = useAuth();
 
@@ -146,6 +148,8 @@ const Summary: React.FC<SummaryProps> = ({
       }
     }
 
+    setLoading(true);
+
     try {
       const res = await createReservation();
       if (res.id) {
@@ -161,14 +165,16 @@ const Summary: React.FC<SummaryProps> = ({
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="flex min-w-[310px] h-full shadow-lg flex-col rounded-lg bg-[#fffdf9] border border-orange-300 p-4">
       <h1 className="text-2xl mb-4 font-bold">Resumen de la estadia</h1>
       <h2 className="font-semibold">{title}</h2>
       <p>Precio de habitación: ${basePrice.toFixed(2)} por dia.</p>
-
       {additionalItems.length > 0 && (
         <div className="additional-items">
           <h3 className="font-semibold mt-4">Servicios adicionales:</h3>
@@ -181,7 +187,6 @@ const Summary: React.FC<SummaryProps> = ({
           </ul>
         </div>
       )}
-
       {reserve && (
         <div className="mt-4">
           <h4 className="font-semibold">Estadia:</h4>
@@ -203,9 +208,11 @@ const Summary: React.FC<SummaryProps> = ({
           )}
         </div>
       )}
-
       <h3 className="font-semibold mt-4 ">Total: ${totalPrice.toFixed(2)} </h3>
-      <Button onClick={handleContinue}>Presiona para reservar</Button>
+      <Button onClick={handleContinue} disabled={loading} className="relative">
+        {loading && <Spinner />}
+        {!loading && "Presiona para reservar"}
+      </Button>
       {preferenceId && (
         <Wallet initialization={{ preferenceId: preferenceId }} />
       )}

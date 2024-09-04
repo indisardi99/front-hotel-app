@@ -109,17 +109,17 @@ export default function Login() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="m-4">
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   type="email"
                   placeholder="Tu correo"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="flex flex-col w-72 m-1" />
+              <FormMessage className=" absolute flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -128,12 +128,12 @@ export default function Login() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="m-6">
               <FormLabel>Contraseña</FormLabel>
               <div className="relative w-full">
                 <FormControl>
                   <Input
-                    className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300 pr-10"
+                    className="w-[310px] bg-[#faf9f5] border border-orange-300 pr-10"
                     type={passwordVisible ? "text" : "password"}
                     placeholder="Tu contraseña"
                     {...field}
@@ -147,13 +147,13 @@ export default function Login() {
                   {passwordVisible ? <EyeOff /> : <Eye />}
                 </button>
               </div>
-              <FormMessage className="flex flex-col w-72 m-1" />
+              <FormMessage className="absolute flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
 
         <Button
-          className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
+          className=" mt-10 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           type="submit"
         >
           Ingresar

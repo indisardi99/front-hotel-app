@@ -130,16 +130,16 @@ export function Register() {
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-12">
               <FormLabel>Nombre Completo</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="Tu nombre"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="flex flex-col w-72 m-1" />
+              <FormMessage className="absolute flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -147,16 +147,16 @@ export function Register() {
           control={form.control}
           name="adress"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-12">
               <FormLabel>Dirección</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="Calle y Altura"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="flex flex-col w-72 m-1" />
+              <FormMessage className="absolute flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -164,16 +164,16 @@ export function Register() {
           control={form.control}
           name="phone"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-12">
               <FormLabel>Teléfono</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="11 22334455"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="flex flex-col w-72 m-1" />
+              <FormMessage className="absolute flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -182,17 +182,17 @@ export function Register() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-12">
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
                 <Input
-                  className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   type="email"
                   placeholder="Tu Correo"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="flex flex-col w-72 m-1" />
+              <FormMessage className="absolute flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -200,12 +200,12 @@ export function Register() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-12">
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
                 <div className="relative w-full">
                   <Input
-                    className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                    className="w-[310px] bg-[#faf9f5] border border-orange-300"
                     type={showPassword ? "text" : "password"}
                     placeholder="Tu contraseña"
                     {...field}
@@ -218,7 +218,7 @@ export function Register() {
                   </div>
                 </div>
               </FormControl>
-              <FormMessage className="flex flex-col w-72 m-1" />
+              <FormMessage className="absolute flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />
@@ -227,12 +227,12 @@ export function Register() {
           control={form.control}
           name="confirmPassword"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-12">
               <FormLabel>Confirmar contraseña</FormLabel>
               <FormControl>
                 <div className="relative w-full">
                   <Input
-                    className="min-w-80 max-w-80 bg-[#faf9f5] border border-orange-300"
+                    className="w-[310px] bg-[#faf9f5] border border-orange-300"
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Confirma tu contraseña"
                     {...field}
@@ -245,7 +245,7 @@ export function Register() {
                   </div>
                 </div>
               </FormControl>
-              <FormMessage className="flex flex-col w-72 m-1" />
+              <FormMessage className="absolute flex flex-col w-72 m-1" />
             </FormItem>
           )}
         />

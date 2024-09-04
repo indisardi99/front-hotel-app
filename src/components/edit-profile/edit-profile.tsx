@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -14,8 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../context/auth-context";
+import { useAuth } from "@/app/context/auth-context";
 
 const formSchema = z.object({
   name: z
@@ -52,9 +50,8 @@ const formSchema = z.object({
   status: z.string().optional(),
 });
 
-export function EditProfile() {
+export function ProfileEditForm() {
   const { user, updateUser } = useAuth();
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,10 +61,7 @@ export function EditProfile() {
       password: "",
       oldPassword: "",
       address: user?.address || "",
-      role: user?.role || "",
       phone: user?.phone?.toString() || "",
-      image: user?.image || "",
-      status: user?.status || "",
     },
   });
 
@@ -91,10 +85,7 @@ export function EditProfile() {
             password: values.password,
             oldPassword: values.oldPassword,
             address: values.address,
-            role: values.role,
             phone: values.phone,
-            image: values.image,
-            status: values.status,
           }),
         }
       );
@@ -114,22 +105,22 @@ export function EditProfile() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col w-full justify-center items-center"
+        className="grid grid-cols-2 gap-6"
       >
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="mb-12">
+            <FormItem className="mb-6">
               <FormLabel>Nombre Completo</FormLabel>
               <FormControl>
                 <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
+                  className="w-full bg-[#faf9f5] border border-orange-300"
                   placeholder="Tu nombre"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
+              <FormMessage className="mt-1" />
             </FormItem>
           )}
         />
@@ -137,17 +128,17 @@ export function EditProfile() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="mb-12">
+            <FormItem className="mb-6">
               <FormLabel>Correo Electrónico</FormLabel>
               <FormControl>
                 <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
+                  className="w-full bg-[#faf9f5] border border-orange-300"
                   type="email"
                   placeholder="Tu Correo"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
+              <FormMessage className="mt-1" />
             </FormItem>
           )}
         />
@@ -155,17 +146,17 @@ export function EditProfile() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="mb-12">
+            <FormItem className="mb-6">
               <FormLabel>Nueva Contraseña</FormLabel>
               <FormControl>
                 <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
+                  className="w-full bg-[#faf9f5] border border-orange-300"
                   type="password"
                   placeholder="Nueva contraseña"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
+              <FormMessage className="mt-1" />
             </FormItem>
           )}
         />
@@ -173,17 +164,17 @@ export function EditProfile() {
           control={form.control}
           name="oldPassword"
           render={({ field }) => (
-            <FormItem className="mb-12">
+            <FormItem className="mb-6">
               <FormLabel>Contraseña Antigua</FormLabel>
               <FormControl>
                 <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
+                  className="w-full bg-[#faf9f5] border border-orange-300"
                   type="password"
                   placeholder="Contraseña antigua"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
+              <FormMessage className="mt-1" />
             </FormItem>
           )}
         />
@@ -191,33 +182,16 @@ export function EditProfile() {
           control={form.control}
           name="address"
           render={({ field }) => (
-            <FormItem className="mb-12">
+            <FormItem className="mb-6">
               <FormLabel>Dirección</FormLabel>
               <FormControl>
                 <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
+                  className="w-full bg-[#faf9f5] border border-orange-300"
                   placeholder="Calle y Altura"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="role"
-          render={({ field }) => (
-            <FormItem className="mb-12">
-              <FormLabel>Rol</FormLabel>
-              <FormControl>
-                <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
-                  placeholder="Rol del usuario"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
+              <FormMessage className="mt-1" />
             </FormItem>
           )}
         />
@@ -225,56 +199,21 @@ export function EditProfile() {
           control={form.control}
           name="phone"
           render={({ field }) => (
-            <FormItem className="mb-12">
+            <FormItem className="mb-6">
               <FormLabel>Teléfono</FormLabel>
               <FormControl>
                 <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
+                  className="w-full bg-[#faf9f5] border border-orange-300"
                   placeholder="11 22334455"
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
+              <FormMessage className="mt-1" />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem className="mb-12">
-              <FormLabel>Imagen de Perfil (URL)</FormLabel>
-              <FormControl>
-                <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
-                  placeholder="URL de la imagen"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="status"
-          render={({ field }) => (
-            <FormItem className="mb-12">
-              <FormLabel>Estado</FormLabel>
-              <FormControl>
-                <Input
-                  className="w-[310px] bg-[#faf9f5] border border-orange-300"
-                  placeholder="Estado del usuario"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="absolute flex flex-col w-72 m-1" />
-            </FormItem>
-          )}
-        />
-
         <Button
-          className="mt-4 w-[290px] hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
+          className="col-span-2 mt-4 w-full hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           type="submit"
         >
           Actualizar Perfil
@@ -283,5 +222,3 @@ export function EditProfile() {
     </Form>
   );
 }
-
-export default EditProfile;

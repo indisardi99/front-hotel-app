@@ -27,8 +27,8 @@ const frameworks = [
     label: "Ver mis reservas",
   },
   {
-    value: "Editar informacion",
-    label: "Editar informacion",
+    value: "Ver mi perfil",
+    label: "Ver mi perfil",
   },
   {
     value: "Cerrar Sesion",
@@ -48,8 +48,8 @@ export default function ComboboxDemo() {
     if (currentValue === "Ver mis Reservas") {
       router.push("/my-reservations");
     }
-    if (currentValue === "Editar informacion") {
-      router.push("/editar-perfil");
+    if (currentValue === "Ver mi perfil") {
+      router.push("/view-profile");
     }
 
     if (currentValue === "Cerrar Sesion") {

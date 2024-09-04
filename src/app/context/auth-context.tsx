@@ -17,6 +17,8 @@ type User = {
   phone?: number;
   address?: string;
   name?: string;
+  image?: string;
+  status?: string;
 };
 
 export type AuthContextType = {

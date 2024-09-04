@@ -45,11 +45,13 @@ const FilterDate: React.FC = () => {
     category: z.string(),
     date: z
       .object({
-        from: z.date(),
-        to: z.date(),
+        from: z.date({ required_error: "La fecha de inicio es obligatoria" }),
+        to: z.date({
+          required_error: "La fecha de finalización es obligatoria",
+        }),
       })
       .refine((data) => data.from && data.to, {
-        message: "Campo obligatorio",
+        message: "Ambas fechas son obligatorias",
         path: ["date"],
       }),
   });
@@ -90,10 +92,10 @@ const FilterDate: React.FC = () => {
   return (
     <Form {...form}>
       <form
-        className="flex flex-row w-full items-start justify-between rounded-md m-4 p-2 text-gray-700"
+        className="flex flex-col lg:flex-row w-full items-start justify-between rounded-md m-4 p-2 text-gray-700"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           <div className="w-64 ">
             <FormField
               control={form.control}

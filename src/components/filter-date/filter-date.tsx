@@ -95,7 +95,7 @@ const FilterDate: React.FC = () => {
         className="flex flex-col lg:flex-row w-full items-start justify-between rounded-md m-4 p-2 text-gray-700"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex lg:flex-row gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           <div className="w-64 ">
             <FormField
               control={form.control}

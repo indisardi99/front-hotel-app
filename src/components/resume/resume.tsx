@@ -164,13 +164,14 @@ const Summary: React.FC<SummaryProps> = ({
     }
   };
   return (
-    <div className="flex flex-col rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
-      <h2>{title}</h2>
-      <p>Precio de habitación: ${basePrice.toFixed(2)}</p>
+    <div className="flex min-w-[310px] h-full shadow-lg flex-col rounded-lg bg-[#fffdf9] border border-orange-300 p-4">
+      <h1 className="text-2xl mb-4 font-bold">Resumen de la estadia</h1>
+      <h2 className="font-semibold">{title}</h2>
+      <p>Precio de habitación: ${basePrice.toFixed(2)} por dia.</p>
 
       {additionalItems.length > 0 && (
         <div className="additional-items">
-          <h3>Servicios adicionales:</h3>
+          <h3 className="font-semibold mt-4">Servicios adicionales:</h3>
           <ul>
             {additionalItems.map((item, index) => (
               <li key={index}>
@@ -183,7 +184,7 @@ const Summary: React.FC<SummaryProps> = ({
 
       {reserve && (
         <div className="mt-4">
-          <h4>Estadia:</h4>
+          <h4 className="font-semibold">Estadia:</h4>
           <p>{reserve.category}</p>
           <p>Check-in: {reserve.startDate}</p>
           <p>Check-out: {reserve.endDate}</p>
@@ -203,7 +204,7 @@ const Summary: React.FC<SummaryProps> = ({
         </div>
       )}
 
-      <h3>Total: ${totalPrice.toFixed(2)}</h3>
+      <h3 className="font-semibold mt-4 ">Total: ${totalPrice.toFixed(2)} </h3>
       <Button onClick={handleContinue}>Presiona para reservar</Button>
       {preferenceId && (
         <Wallet initialization={{ preferenceId: preferenceId }} />

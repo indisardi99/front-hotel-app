@@ -50,6 +50,7 @@ const Summary: React.FC<SummaryProps> = ({
   });
 
   const createReservation = async () => {
+    console.log("reservando: ", user, reserve);
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/reservation/create-reservation/${user?.id}`,
@@ -74,7 +75,7 @@ const Summary: React.FC<SummaryProps> = ({
       const data = await res.json();
       return data;
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
     }
   };
 

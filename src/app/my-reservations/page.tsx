@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useAuth } from "@/app/context/auth-context"; // Asegúrate de que la ruta es correcta
+import { useAuth } from "@/app/context/auth-context";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useCart } from "../context/cart-context";
 
 interface Room {
   id: string;
@@ -30,6 +32,7 @@ interface Reservation {
 }
 
 const MyReservations = () => {
+  const { reserve, updateReserve } = useCart();
   const { user, isAuthenticated } = useAuth();
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const router = useRouter();
@@ -49,6 +52,32 @@ const MyReservations = () => {
         .catch((error) => console.error("Error fetching reservations:", error));
     }
   }, [user, isAuthenticated, router]);
+
+  const cancelReservation = async (reservationId: string) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/reservation/cancel/${reservationId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error canceling reservation");
+      }
+
+      toast.success("Reserva cancelada con éxito");
+
+      setReservations((prevReservations) =>
+        prevReservations.filter(
+          (reservation) => reservation.id !== reservationId
+        )
+      );
+    } catch (error) {
+      toast.error("Hubo un error al cancelar la reserva.");
+      console.error("Error canceling reservation:", error);
+    }
+  };
 
   return (
     <div className="text-black lg:p-10">
@@ -80,8 +109,16 @@ const MyReservations = () => {
                   <p>Habitación: {reservation.room?.number}</p>
                 </div>
               </div>
-              <div className="m-2 p-2 flex flex-end justify-end rounded-lg bg-[#faf9f5] border border-orange-300">
-                <p>${reservation.price}</p>
+              <div className="flex flex-col items-end justify-between">
+                <div className="m-2 p-2 rounded-lg bg-[#faf9f5] border border-orange-300">
+                  <p>${reservation.price}</p>
+                </div>
+                <button
+                  onClick={() => cancelReservation(reservation.id)}
+                  className="m-2 p-2 text-red-600 bg-red-300 border-red-500 rounded-md"
+                >
+                  Cancelar Reserva
+                </button>
               </div>
             </div>
           ))

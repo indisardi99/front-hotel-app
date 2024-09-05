@@ -67,13 +67,14 @@ export function ProfileEditForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!user) {
-      toast.error("Usuario no autenticado");
+      console.log(user), toast.error("Usuario no autenticado");
       return;
     }
 
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/user/${user.id}`,
+
         {
           method: "PUT",
           headers: {

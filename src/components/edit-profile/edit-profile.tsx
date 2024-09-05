@@ -73,7 +73,7 @@ export function ProfileEditForm() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/${user.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}`,
 
         {
           method: "PUT",

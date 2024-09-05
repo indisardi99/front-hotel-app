@@ -1,7 +1,16 @@
-import React from "react";
-import Link from "next/link";
+'use client'
+import React from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation' // Importa el hook para obtener la ruta actual
 
 const Footer: React.FC = () => {
+  const pathname = usePathname() // Obtiene la ruta actual
+
+  // Si la ruta empieza con /admin, no renderizamos el Footer
+  if (pathname.startsWith('/admin')) {
+    return null
+  }
+
   return (
     <footer className="flex flex-col w-full bg-black py-4 text-white">
       <div className="flex text-center flex-col justify-center lg:flex-row lg:justify-around ">
@@ -31,7 +40,7 @@ const Footer: React.FC = () => {
         &copy; 2024 Eclipse Royal. Todos los derechos reservados.
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

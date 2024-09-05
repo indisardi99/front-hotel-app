@@ -125,11 +125,11 @@ const Summary: React.FC<SummaryProps> = ({
       return;
     }
 
-    // if (!user.phone || !user.adress) {
-    //   toast.error("Por favor completa tu perfil");
-    //   router.push("/update-information");
-    //   return;
-    // }
+    if (!user.phone || !user.adress) {
+      toast.error("Por favor completa tu perfil");
+      router.push("/update-information");
+      return;
+    }
 
     if (!reserve?.startDate || !reserve?.endDate) {
       const { value: dates } = await Swal.fire({

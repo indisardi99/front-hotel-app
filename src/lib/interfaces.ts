@@ -41,7 +41,7 @@ export interface RoomCardProps {
 
 export interface Service {
   id: string;
-  type: string;
+  name: string;
   price: number;
 }
 

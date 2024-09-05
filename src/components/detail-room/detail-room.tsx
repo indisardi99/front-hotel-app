@@ -35,11 +35,11 @@ const RoomDetails: React.FC<{
 
   const handleServiceClick = (service: Service) => {
     setSelectedServices((prevServices) => {
-      const isSelected = prevServices.some((s) => s.name === service.type);
+      const isSelected = prevServices.some((s) => s.name === service.name);
       if (isSelected) {
-        return prevServices.filter((s) => s.name !== service.type);
+        return prevServices.filter((s) => s.name !== service.name);
       } else {
-        return [...prevServices, { name: service.type, price: service.price }];
+        return [...prevServices, { name: service.name, price: service.price }];
       }
     });
   };
@@ -154,7 +154,7 @@ const RoomDetails: React.FC<{
                 {services.map((service: Service) => (
                   <div
                     className={`cursor-pointer rounded-lg ${
-                      isSelected(service.type)
+                      isSelected(service.name)
                         ? "bg-orange-300 hover:translate-y-2 transition-all duration-300 shadow-lg py-2 px-3  mt-2"
                         : "bg-white shadow-lg py-2 px-3 mt-2 hover:translate-y-2 transition-all duration-300"
                     }`}
@@ -162,10 +162,10 @@ const RoomDetails: React.FC<{
                     onClick={() => handleServiceClick(service)}
                   >
                     <ServiceCard
-                      type={service.type}
+                      name={service.name}
                       price={service.price}
                       icon={
-                        iconMap[service.type] || <Leaf className="m-2 size-4" />
+                        iconMap[service.name] || <Leaf className="m-2 size-4" />
                       }
                     />
                   </div>

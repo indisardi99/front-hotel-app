@@ -15,7 +15,7 @@ type User = {
   email: string;
   role?: Role;
   phone?: number;
-  address?: string;
+  adress?: string;
   name?: string;
   image?: string;
   status?: string;

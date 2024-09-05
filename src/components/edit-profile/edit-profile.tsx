@@ -29,7 +29,7 @@ const formSchema = z.object({
   }),
   password: z.string().optional(),
   oldPassword: z.string().optional(),
-  address: z.string().min(5, {
+  adress: z.string().min(5, {
     message: "La dirección debe tener al menos 5 caracteres.",
   }),
   role: z.string().optional(),
@@ -60,7 +60,7 @@ export function ProfileEditForm() {
       email: user?.email || "",
       password: "",
       oldPassword: "",
-      address: user?.address || "",
+      adress: user?.adress || "",
       phone: user?.phone?.toString() || "",
     },
   });
@@ -85,7 +85,7 @@ export function ProfileEditForm() {
             email: values.email,
             password: values.password,
             oldPassword: values.oldPassword,
-            address: values.address,
+            adress: values.adress,
             phone: values.phone,
           }),
         }
@@ -143,24 +143,7 @@ export function ProfileEditForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="mb-6">
-              <FormLabel>Nueva Contraseña</FormLabel>
-              <FormControl>
-                <Input
-                  className="w-full bg-[#faf9f5] border border-orange-300"
-                  type="password"
-                  placeholder="Nueva contraseña"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="mt-1" />
-            </FormItem>
-          )}
-        />
+
         <FormField
           control={form.control}
           name="oldPassword"
@@ -181,7 +164,25 @@ export function ProfileEditForm() {
         />
         <FormField
           control={form.control}
-          name="address"
+          name="password"
+          render={({ field }) => (
+            <FormItem className="mb-6">
+              <FormLabel>Nueva Contraseña</FormLabel>
+              <FormControl>
+                <Input
+                  className="w-full bg-[#faf9f5] border border-orange-300"
+                  type="password"
+                  placeholder="Nueva contraseña"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="adress"
           render={({ field }) => (
             <FormItem className="mb-6">
               <FormLabel>Dirección</FormLabel>

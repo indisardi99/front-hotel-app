@@ -76,7 +76,7 @@ export default function Login() {
             id: data.user.id,
             name: data.user.name,
             phone: data.user.phone,
-            address: data.user.adress,
+            adress: data.user.adress,
           },
           data.token
         );

@@ -27,7 +27,6 @@ interface Room {
   }[];
 }
 
-// Mapa de íconos para las características
 const featureIconMap: { [key: string]: React.ReactNode } = {
   "Dos camas individuales": <BedDouble className="m-2 size-4" />,
   "Cama King Size": <BedDouble className="m-2 size-4" />,

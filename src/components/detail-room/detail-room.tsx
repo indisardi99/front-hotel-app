@@ -17,6 +17,14 @@ import ServiceCard from "@/components/service-card/services-card";
 import { Feature, RoomSearch, Service } from "@/lib/interfaces";
 import Summary from "../resume/resume";
 import { Guests } from "../gusts/guests";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
+import { Card, CardContent } from "../ui/card";
 
 const featureIconMap: { [key: string]: React.ReactNode } = {
   "Dos camas individuales": <BedDouble className="m-2 size-4" />,
@@ -89,15 +97,27 @@ const RoomDetails: React.FC<{
       <div className="flex-row ">
         <div className="flex flex-row">
           <div className="flex flex-col">
-            <div className=" w-[600px] h-96 flex mt-2 flex-col justify-center items-center">
-              {room?.images && (
-                <Image
-                  src={room.images[0]}
-                  alt={room.category}
-                  width={600}
-                  height={0}
-                  className="rounded-lg object-cover"
-                />
+            <div className="flex mt-2 flex-col justify-center items-center">
+              {room?.images && room.images.length > 0 && (
+                <Carousel className="w-full max-w-md">
+                  <CarouselContent>
+                    {room.images.slice(0, 3).map((image, index) => (
+                      <CarouselItem key={index}>
+                        <div className="p-1">
+                          <Image
+                            src={image}
+                            alt={`${room.category} image ${index + 1}`}
+                            width={600}
+                            height={600}
+                            className="rounded-lg object-cover"
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
               )}
             </div>
             <div className="flex w-[500px]">
@@ -163,7 +183,7 @@ const RoomDetails: React.FC<{
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-end">
+      <div className="flex flex-col mt-7 mb-7 items-end">
         <Summary
           title={room.category}
           basePrice={room.price}

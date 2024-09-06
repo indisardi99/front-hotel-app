@@ -1,4 +1,5 @@
-import { Leaf } from "lucide-react";
+// components/all-room-card.tsx
+import { Leaf, BedDouble, Wind, Droplet } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -26,48 +27,55 @@ interface Room {
   }[];
 }
 
+// Mapa de íconos para las características
+const featureIconMap: { [key: string]: React.ReactNode } = {
+  "Dos camas individuales": <BedDouble className="m-2 size-4" />,
+  "Cama King Size": <BedDouble className="m-2 size-4" />,
+  "Balcón Privado": <Wind className="m-2 size-4" />,
+  Jacuzzi: <Droplet className="m-2 size-4" />,
+};
+
 const AllRoomCard: React.FC<{ room: Room }> = ({ room }) => {
   return (
-    <div>
-      <div className="flex flex-col lg:flex-row w-full mb-4 rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
-        <div className=" flex flex-row ">
-          <div className=" flex flex-row ">
-            {room?.images && (
-              <Image
-                src={room.images[0]}
-                alt={room.category}
-                width={600}
-                height={0}
-                className="rounded-lg "
-              />
-            )}
+    <div className="flex flex-col lg:flex-row w-full mb-4 rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
+      <div className="flex flex-row">
+        <div className="flex flex-row">
+          {room?.images && (
+            <Image
+              src={room.images[0]}
+              alt={room.category}
+              width={600}
+              height={0}
+              className="rounded-lg"
+            />
+          )}
+        </div>
+        <div className="ml-5 flex flex-col">
+          <div className="mt-5 flex flex-col">
+            <h2 className="text-xl font-semibold uppercase m-2">
+              {room.category}
+            </h2>
+            <p className="text-lg text-black font-semibold m-2">
+              $ {room.price}
+            </p>
+            <h2 className="text-xl font-semibold text-gray-600 m-2">
+              Habitación Nro. {room.number}
+            </h2>
           </div>
-          <div className="ml-5 flex flex-col">
-            <div className="mt-5 flex flex-col">
-              <h2 className="text-xl font-semibold uppercase m-2">
-                {room.category}
-              </h2>
-              <p className="text-lg text-black font-semibold m-2">
-                $ {room.price}
-              </p>
-              <h2 className="text-xl font-semibold text-gray-600 m-2">
-                Habitación Nro. {room.number}
-              </h2>
-            </div>
-            <div className="flex flex-col">
-              <h3 className="text-lg font-semibold m-2">Características:</h3>
-              <div className="mb-4 flex flex-wrap gap-2">
-                {room.features.map((feature) => (
-                  <div
-                    key={feature.id}
-                    className="flex size-20 flex-col items-center rounded-md border text-black"
-                  >
+          <div className="flex flex-col">
+            <h3 className="text-lg font-semibold m-2">Características:</h3>
+            <div className="mb-4 flex flex-wrap gap-2">
+              {room.features.map((feature) => (
+                <div
+                  key={feature.id}
+                  className="flex size-20 flex-col items-center rounded-md border text-black"
+                >
+                  {featureIconMap[feature.name] || (
                     <Leaf className="m-2 size-4" />
-
-                    <h1 className="mt-2 text-xs">{feature.name}</h1>
-                  </div>
-                ))}
-              </div>
+                  )}
+                  <h1 className="mt-2 text-xs">{feature.name}</h1>
+                </div>
+              ))}
             </div>
           </div>
         </div>

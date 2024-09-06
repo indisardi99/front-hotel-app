@@ -25,7 +25,10 @@ export default async function Page({
     const query = (Object.keys(params) as (keyof SearchParams)[])
       .filter(
         (key) =>
-          params[key] !== undefined && params[key] !== null && params[key]
+          params[key] !== undefined &&
+          params[key] !== null &&
+          params[key] &&
+          params[key] !== ""
       )
       .map((key) => `${key}=${encodeURIComponent(params[key] as string)}`)
       .join("&");
@@ -45,7 +48,7 @@ export default async function Page({
   });
 
   const response = await fetch(url, {
-    next: { revalidate: 1 },
+    cache: "no-store",
   }).then((res) => res.json());
   return (
     <div className="flex flex-col ml-32 justify-center lg:w-[1200px]">

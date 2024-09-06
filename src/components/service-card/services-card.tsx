@@ -10,6 +10,7 @@ import {
   Martini,
   Sparkles,
   Utensils,
+  Croissant,
 } from "lucide-react";
 import { space } from "postcss/lib/list";
 
@@ -18,7 +19,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
   gimnasio: <Dumbbell className="m-2 size-4" />,
   ecológico: <Leaf className="m-2 size-4" />,
   seguro: <Lock className="m-2 size-4" />,
-  breackfast: <Utensils className="m-2 size-4" />,
+  fast: <Croissant className="m-2 size-4" />,
   spa: <Sparkles className="m-2 size-4" />,
   Bar: <Martini className="m-2 size-4" />,
 };
@@ -30,7 +31,7 @@ const getIcon = (name: string) => {
   if (lowerCaseName.includes("gimnasio")) return iconMap.gimnasio;
   if (lowerCaseName.includes("ecológico")) return iconMap.ecológico;
   if (lowerCaseName.includes("seguro")) return iconMap.seguro;
-  if (lowerCaseName.includes("breackfast")) return iconMap.breackfast;
+  if (lowerCaseName.includes("fast")) return iconMap.fast;
   if (lowerCaseName.includes("spa")) return iconMap.spa;
   if (lowerCaseName.includes("bar")) return iconMap.Bar;
 

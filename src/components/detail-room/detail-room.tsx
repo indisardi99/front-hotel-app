@@ -10,6 +10,7 @@ import {
   BedDouble,
   Wind,
   Droplet,
+  Croissant,
 } from "lucide-react";
 import Image from "next/image";
 import ServiceCard from "@/components/service-card/services-card";
@@ -22,6 +23,7 @@ const featureIconMap: { [key: string]: React.ReactNode } = {
   "Cama King Size": <BedDouble className="m-2 size-4" />,
   "Balcón Privado": <Wind className="m-2 size-4" />,
   Jacuzzi: <Droplet className="m-2 size-4" />,
+  fast: <Croissant className="m-2 size-4" />,
 };
 
 const iconMap: { [key: string]: React.ReactNode } = {
@@ -31,6 +33,10 @@ const iconMap: { [key: string]: React.ReactNode } = {
   leaf: <Leaf className="m-2 size-4" />,
   lock: <Lock className="m-2 size-4" />,
   tv: <Tv className="m-2 size-4" />,
+  cama: <BedDouble className="m-2 size-4" />,
+  wind: <Wind className="m-2 size-4" />,
+  droplet: <Droplet className="m-2 size-4" />,
+  fast: <Croissant className="m-2 size-4" />,
 };
 
 const getServiceIcon = (serviceName: string): React.ReactNode => {

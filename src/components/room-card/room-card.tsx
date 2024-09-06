@@ -3,24 +3,48 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { CalendarIcon, Wifi, Dumbbell, Leaf, Lock, Tv } from "lucide-react";
+import {
+  CalendarIcon,
+  Wifi,
+  Dumbbell,
+  Leaf,
+  Lock,
+  Tv,
+  BedDouble,
+} from "lucide-react";
 import { RoomCardProps, ServicesProps } from "@/lib/interfaces";
 import { useCart } from "@/app/context/cart-context";
+import { Wind, Droplet } from "lucide-react";
 
 const iconMap: { [key: string]: React.ReactNode } = {
-  calendar: <CalendarIcon className="m-2 size-4" />,
   wifi: <Wifi className="m-2 size-4" />,
-  dumbbell: <Dumbbell className="m-2 size-4" />,
-  leaf: <Leaf className="m-2 size-4" />,
-  lock: <Lock className="m-2 size-4" />,
+  gimnasio: <Dumbbell className="m-2 size-4" />,
+  seguro: <Lock className="m-2 size-4" />,
   tv: <Tv className="m-2 size-4" />,
+  cama: <BedDouble className="m-2 size-4" />,
+  balcon: <Wind className="m-2 size-4" />,
+  jacuzzi: <Droplet className="m-2 size-4" />,
 };
 
-const Services: React.FC<ServicesProps> = ({ title, icon }) => {
+const getIcon = (title: string) => {
+  const lowerCaseTitle = title.toLowerCase();
+
+  if (lowerCaseTitle.includes("wifi")) return iconMap.wifi;
+  if (lowerCaseTitle.includes("gimnasio")) return iconMap.gimnasio;
+  if (lowerCaseTitle.includes("seguro")) return iconMap.seguro;
+  if (lowerCaseTitle.includes("tv")) return iconMap.tv;
+  if (lowerCaseTitle.includes("cama")) return iconMap.cama;
+  if (lowerCaseTitle.includes("balcón")) return iconMap.balcon;
+  if (lowerCaseTitle.includes("jacuzzi")) return iconMap.jacuzzi;
+
+  return <CalendarIcon className="m-2 size-4" />;
+};
+
+const Services: React.FC<ServicesProps> = ({ id, title }) => {
   return (
     <div className="flex size-20 flex-col items-center rounded-md border text-black">
       <h1 className="mt-2 text-xs">{title}</h1>
-      <h1>{iconMap[icon]}</h1>
+      <h1>{getIcon(title)}</h1>
     </div>
   );
 };
@@ -63,7 +87,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
         <p className="mb-4 text-lg text-gray-500">{`Habitación número ${number} con las siguientes características:`}</p>
         <div className="mb-4 flex flex-wrap gap-2">
           {services.map((service) => (
-            <Services key={service.id} {...service} />
+            <Services key={service.id} id={service.id} title={service.title} />
           ))}
         </div>
         <Button

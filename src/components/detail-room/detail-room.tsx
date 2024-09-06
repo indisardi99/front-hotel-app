@@ -1,6 +1,14 @@
 "use client";
 import { useState } from "react";
-import { CalendarIcon, Wifi, Dumbbell, Leaf, Lock, Tv } from "lucide-react";
+import {
+  CalendarIcon,
+  Wifi,
+  Dumbbell,
+  Leaf,
+  Lock,
+  Tv,
+  BedDouble,
+} from "lucide-react";
 import Image from "next/image";
 import ServiceCard from "@/components/service-card/services-card";
 import { Feature, RoomSearch, Service } from "@/lib/interfaces";
@@ -9,8 +17,8 @@ import { Wind, Droplet } from "lucide-react";
 import { useCart } from "@/app/context/cart-context";
 
 const featureIconMap: { [key: string]: React.ReactNode } = {
-  "Dos camas individuales": <Leaf className="m-2 size-4" />,
-  "Cama King Size": <Leaf className="m-2 size-4" />,
+  "Dos camas individuales": <BedDouble className="m-2 size-4" />,
+  "Cama King Size": <BedDouble className="m-2 size-4" />,
   "Balcón Privado": <Wind className="m-2 size-4" />,
   Jacuzzi: <Droplet className="m-2 size-4" />,
 };
@@ -19,7 +27,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
   calendar: <CalendarIcon className="m-2 size-4" />,
   wifi: <Wifi className="m-2 size-4" />,
   dumbbell: <Dumbbell className="m-2 size-4" />,
-  leaf: <Leaf className="m-2 size-4" />,
+  leaf: <BedDouble className="m-2 size-4" />,
   lock: <Lock className="m-2 size-4" />,
   tv: <Tv className="m-2 size-4" />,
 };

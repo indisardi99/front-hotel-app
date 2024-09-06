@@ -113,7 +113,7 @@ export function Guests({ category }: { category: string }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-wrap w-full justify-around items-center "
+        className="flex flex-wrap w-full justify-around "
       >
         <FormField
           control={form.control}
@@ -218,7 +218,7 @@ export function Guests({ category }: { category: string }) {
           )}
         />{" "}
         <Button
-          className=" mt-3 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
+          className=" mb-8 w-[290px] mt-7 shadow-lg hover:bg-orange-200 bg-white border border-orange-300 text-black "
           type="submit"
         >
           Enviar

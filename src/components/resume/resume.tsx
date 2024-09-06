@@ -190,7 +190,7 @@ const Summary: React.FC<SummaryProps> = ({
   };
 
   return (
-    <div className="flex min-w-[310px] h-full shadow-lg flex-col rounded-lg bg-[#fffdf9] border border-orange-300 p-4">
+    <div className="flex min-w-[310px] h-full max-h-[600px] shadow-lg flex-col rounded-lg bg-[#fffdf9] border border-orange-300 p-4">
       <h1 className="text-2xl mb-4 font-bold">Resumen de la estadia</h1>
       <h2 className="font-semibold">{title}</h2>
       <p>Precio de habitación: ${basePrice.toFixed(2)} por dia.</p>

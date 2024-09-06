@@ -175,7 +175,10 @@ const RoomDetails: React.FC<{
               ))}
             </div>
           </div>
-          <div className="flex mt-3 w-[500px]">
+          <div className="flex m-2 flex-col mt-3 w-[800px]">
+            <h1 className="flex text-lg font-semibold">
+              Nombre y apellido de los acompañantes por favor.
+            </h1>
             <Guests category={room.category} />
           </div>
         </div>

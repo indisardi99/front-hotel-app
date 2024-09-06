@@ -37,7 +37,7 @@ const getIcon = (title: string) => {
   if (lowerCaseTitle.includes("balcón")) return iconMap.balcon;
   if (lowerCaseTitle.includes("jacuzzi")) return iconMap.jacuzzi;
 
-  return <CalendarIcon className="m-2 size-4" />;
+  return <Leaf className="m-2 size-4" />;
 };
 
 const Services: React.FC<ServicesProps> = ({ id, title }) => {
@@ -84,7 +84,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
       <div className="ml-5 flex flex-1 flex-col">
         <h2 className="mb-2 text-xl font-semibold">{title}</h2>
         <p className="mb-2 text-lg text-gray-600">$ {price}</p>
-        <p className="mb-4 text-lg text-gray-500">{`Habitación número ${number} con las siguientes características:`}</p>
+        <p className="mb-4 text-lg text-gray-500">{`Habitación número ${number} con las siguientes Características:`}</p>
         <div className="mb-4 flex flex-wrap gap-2">
           {services.map((service) => (
             <Services key={service.id} id={service.id} title={service.title} />

@@ -51,8 +51,8 @@ export default async function Page({
     cache: "no-store",
   }).then((res) => res.json());
   return (
-    <div className="flex flex-col ml-32 justify-center lg:w-[1200px]">
-      <div className="flex flex-row w-full">
+    <div className="flex flex-col lg:w-[1300px] ml-28 mt-4 justify-center ">
+      <div className="flex flex-row w-full justify-center  lg:flex-row lg:flex border border-orange-300 rounded-md bg-[#faf9f5] p-2">
         <FilterDate />
         {searchParams && <Search searchParams={searchParams} />}
       </div>

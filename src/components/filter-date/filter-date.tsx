@@ -250,7 +250,7 @@ const FilterDate: React.FC = () => {
           </div>
 
           <Button
-            className=" bg-[#faf9f5] border border-orange-300 p-2 text-gray-700"
+            className=" bg-[#faf9f5] border shadow-lg border-orange-300 p-2 text-gray-700"
             variant="outline"
             type="submit"
           >

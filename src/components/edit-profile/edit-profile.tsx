@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/app/context/auth-context";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z
@@ -64,6 +66,8 @@ export function ProfileEditForm() {
       phone: user?.phone?.toString() || "",
     },
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!user) {
@@ -143,7 +147,6 @@ export function ProfileEditForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="oldPassword"
@@ -151,12 +154,21 @@ export function ProfileEditForm() {
             <FormItem className="mb-6">
               <FormLabel>Contraseña Antigua</FormLabel>
               <FormControl>
-                <Input
-                  className="w-full bg-[#faf9f5] border border-orange-300"
-                  type="password"
-                  placeholder="Contraseña antigua"
-                  {...field}
-                />
+                <div className="relative">
+                  <Input
+                    className="w-full bg-[#faf9f5] border border-orange-300"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Contraseña antigua"
+                    {...field}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </div>
               </FormControl>
               <FormMessage className="mt-1" />
             </FormItem>
@@ -169,12 +181,21 @@ export function ProfileEditForm() {
             <FormItem className="mb-6">
               <FormLabel>Nueva Contraseña</FormLabel>
               <FormControl>
-                <Input
-                  className="w-full bg-[#faf9f5] border border-orange-300"
-                  type="password"
-                  placeholder="Nueva contraseña"
-                  {...field}
-                />
+                <div className="relative">
+                  <Input
+                    className="w-full bg-[#faf9f5] border border-orange-300"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Nueva contraseña"
+                    {...field}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </div>
               </FormControl>
               <FormMessage className="mt-1" />
             </FormItem>

@@ -16,10 +16,10 @@ type Reserve = {
   services?: Array<{ name: string; price: number }>;
   startDate?: string;
   endDate?: string;
-  guests?: Array<string>;
+  guests?: Array<Guest>;
 };
 
-type Guest = {
+export type Guest = {
   firstName: string;
   lastName: string;
 };

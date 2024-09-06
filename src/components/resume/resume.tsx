@@ -51,6 +51,15 @@ const Summary: React.FC<SummaryProps> = ({
 
   const createReservation = async () => {
     console.log("reservando: ", user, reserve);
+    let guestWithNumbers = {};
+    reserve?.guests?.forEach((item, i) => {
+      guestWithNumbers = {
+        ...guestWithNumbers,
+        [`firstName${i + 1}`]: item.firstName,
+        [`lastName${i + 1}`]: item.lastName,
+      };
+    });
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/reservation/create-reservation/${user?.id}`,
@@ -64,6 +73,7 @@ const Summary: React.FC<SummaryProps> = ({
             services: newservices,
             startDate: reserve?.startDate,
             endDate: reserve?.endDate,
+            ...guestWithNumbers,
           }),
         }
       );

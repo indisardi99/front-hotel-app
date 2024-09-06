@@ -16,7 +16,7 @@ import Image from "next/image";
 import ServiceCard from "@/components/service-card/services-card";
 import { Feature, RoomSearch, Service } from "@/lib/interfaces";
 import Summary from "../resume/resume";
-import { useCart } from "@/app/context/cart-context";
+import { Guests } from "../gusts/guests";
 
 const featureIconMap: { [key: string]: React.ReactNode } = {
   "Dos camas individuales": <BedDouble className="m-2 size-4" />,
@@ -55,9 +55,6 @@ const RoomDetails: React.FC<{
   services: Array<Service>;
   id: string;
 }> = ({ room, services, id }) => {
-  const [guestNames, updateGuestNames] = useState<Array<string>>([]);
-  const { reserve, updateReserve } = useCart();
-
   const [selectedServices, setSelectedServices] = useState<
     Array<{ name: string; price: number }>
   >([]);
@@ -87,41 +84,6 @@ const RoomDetails: React.FC<{
     }
   };
 
-  const renderGuestFields = (category: string) => {
-    if (category.includes("suite") || category.includes("loft")) {
-      return (
-        <>
-          {[...Array(category.includes("suite") ? 2 : 4)].map((_, index) => (
-            <div key={index}>
-              <label className="block text-sm font-medium text-gray-700">
-                Nombre completo {index + 1}
-              </label>
-              <input
-                type="text"
-                className="mt-1 block w-[310px]  px-3 py-2 rounded-md shadow-sm bg-[#faf9f5] border border-orange-300  sm:text-sm"
-                placeholder="Nombre completo"
-                value={guestNames[index] || ""}
-                onChange={(e) => {
-                  const updatedNames = [...guestNames];
-                  updatedNames[index] = e.target.value;
-                  updateGuestNames(updatedNames);
-                }}
-              />
-            </div>
-          ))}
-        </>
-      );
-    }
-    return null;
-  };
-
-  const handleGuestsChange = () => {
-    updateReserve({
-      ...reserve,
-      guests: guestNames,
-    });
-  };
-
   return (
     <div className="flex flex-col justify-around lg:flex-row w-full mb-4 rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
       <div className="flex-row ">
@@ -138,17 +100,8 @@ const RoomDetails: React.FC<{
                 />
               )}
             </div>
-            <div className="">
-              <h3 className="text-lg font-semibold">
-                Información de Huespedes:
-              </h3>
-              {renderGuestFields(room.category)}
-              <button
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
-                onClick={handleGuestsChange}
-              >
-                guardar
-              </button>
+            <div className="flex w-[500px]">
+              <Guests category={room.category} />
             </div>
           </div>
           <div className="ml-5 flex flex-1 flex-col gap-5">

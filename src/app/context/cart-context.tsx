@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useState, ReactNode, useContext } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useEffect,
+} from "react";
 
 type Reserve = {
   roomId?: string;
@@ -36,15 +42,22 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [reserve, setReserve] = useState<Reserve | null>(null);
+
+  // Al montarse, carga los datos desde localStorage
+  useEffect(() => {
+    const storedReserve = localStorage.getItem("reserve");
+    if (storedReserve) {
+      setReserve(JSON.parse(storedReserve));
+    }
+  }, []);
+
+  const updateReserve = (newReserve: Reserve) => {
+    setReserve(newReserve);
+    localStorage.setItem("reserve", JSON.stringify(newReserve));
+  };
+
   return (
-    <CartContext.Provider
-      value={{
-        reserve,
-        updateReserve: (reserve: Reserve) => {
-          setReserve(reserve);
-        },
-      }}
-    >
+    <CartContext.Provider value={{ reserve, updateReserve }}>
       {children}
     </CartContext.Provider>
   );

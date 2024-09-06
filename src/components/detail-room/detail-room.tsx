@@ -8,12 +8,13 @@ import {
   Lock,
   Tv,
   BedDouble,
+  Wind,
+  Droplet,
 } from "lucide-react";
 import Image from "next/image";
 import ServiceCard from "@/components/service-card/services-card";
 import { Feature, RoomSearch, Service } from "@/lib/interfaces";
 import Summary from "../resume/resume";
-import { Wind, Droplet } from "lucide-react";
 import { useCart } from "@/app/context/cart-context";
 
 const featureIconMap: { [key: string]: React.ReactNode } = {
@@ -27,9 +28,20 @@ const iconMap: { [key: string]: React.ReactNode } = {
   calendar: <CalendarIcon className="m-2 size-4" />,
   wifi: <Wifi className="m-2 size-4" />,
   dumbbell: <Dumbbell className="m-2 size-4" />,
-  leaf: <BedDouble className="m-2 size-4" />,
+  leaf: <Leaf className="m-2 size-4" />,
   lock: <Lock className="m-2 size-4" />,
   tv: <Tv className="m-2 size-4" />,
+};
+
+const getServiceIcon = (serviceName: string): React.ReactNode => {
+  const lowerCaseName = serviceName.toLowerCase();
+
+  if (lowerCaseName.includes("wifi")) return iconMap.wifi;
+  if (lowerCaseName.includes("gimnasio")) return iconMap.dumbbell;
+  if (lowerCaseName.includes("tv")) return iconMap.tv;
+  if (lowerCaseName.includes("seguro")) return iconMap.lock;
+
+  return <Leaf className="m-2 size-4" />;
 };
 
 const RoomDetails: React.FC<{
@@ -172,9 +184,7 @@ const RoomDetails: React.FC<{
                     <ServiceCard
                       name={service.name}
                       price={service.price}
-                      icon={
-                        iconMap[service.name] || <Leaf className="m-2 size-4" />
-                      }
+                      icon={getServiceIcon(service.name)}
                     />
                   </div>
                 ))}

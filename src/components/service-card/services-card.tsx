@@ -4,10 +4,14 @@ import {
   Dumbbell,
   Leaf,
   Lock,
+  Tv,
+  BedDouble,
+  CalendarIcon,
   Martini,
   Sparkles,
   Utensils,
 } from "lucide-react";
+import { space } from "postcss/lib/list";
 
 const iconMap: { [key: string]: React.ReactNode } = {
   wifi: <Wifi className="m-2 size-4" />,
@@ -32,10 +36,10 @@ const getIcon = (name: string) => {
 
   return <Leaf className="m-2 size-4" />;
 };
-
 interface ServiceCardProps {
   name: string;
   price: number;
+  icon: React.ReactNode;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ name, price }) => {

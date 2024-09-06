@@ -55,6 +55,9 @@ const RoomDetails: React.FC<{
   services: Array<Service>;
   id: string;
 }> = ({ room, services, id }) => {
+  const [guestNames, updateGuestNames] = useState<Array<string>>([]);
+  const { reserve, updateReserve } = useCart();
+
   const [selectedServices, setSelectedServices] = useState<
     Array<{ name: string; price: number }>
   >([]);
@@ -85,31 +88,24 @@ const RoomDetails: React.FC<{
   };
 
   const renderGuestFields = (category: string) => {
-    if (category.includes("suite")) {
-      return (
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Nombre completo del acompañante
-          </label>
-          <input
-            type="text"
-            className="mt-1 block w-full px-3 py-2 bg-[#faf9f5] border border-orange-300  rounded-md shadow-sm focus:outline-none  sm:text-sm"
-            placeholder="Nombre completo"
-          />
-        </div>
-      );
-    } else if (category.includes("loft")) {
+    if (category.includes("suite") || category.includes("loft")) {
       return (
         <>
-          {[...Array(3)].map((_, index) => (
+          {[...Array(category.includes("suite") ? 2 : 4)].map((_, index) => (
             <div key={index}>
               <label className="block text-sm font-medium text-gray-700">
-                Nombre completo del acompañante {index + 1}
+                Nombre completo {index + 1}
               </label>
               <input
                 type="text"
-                className="mt-1 block w-full px-3 py-2 rounded-md shadow-sm focus:outline-none bg-[#faf9f5] border border-orange-300  sm:text-sm"
-                placeholder={`Nombre completo`}
+                className="mt-1 block w-[310px]  px-3 py-2 rounded-md shadow-sm bg-[#faf9f5] border border-orange-300  sm:text-sm"
+                placeholder="Nombre completo"
+                value={guestNames[index] || ""}
+                onChange={(e) => {
+                  const updatedNames = [...guestNames];
+                  updatedNames[index] = e.target.value;
+                  updateGuestNames(updatedNames);
+                }}
               />
             </div>
           ))}
@@ -119,25 +115,40 @@ const RoomDetails: React.FC<{
     return null;
   };
 
+  const handleGuestsChange = () => {
+    updateReserve({
+      ...reserve,
+      guests: guestNames,
+    });
+  };
+
   return (
     <div className="flex flex-col justify-around lg:flex-row w-full mb-4 rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
       <div className="flex-row ">
         <div className="flex flex-row">
-          <div className=" w-[600px] h-96 flex mt-2 flex-col justify-center items-center">
-            {room?.images && (
-              <Image
-                src={room.images[0]}
-                alt={room.category}
-                width={600}
-                height={0}
-                className="rounded-lg object-cover"
-              />
-            )}
-            <div className="mt-5">
+          <div className="flex flex-col">
+            <div className=" w-[600px] h-96 flex mt-2 flex-col justify-center items-center">
+              {room?.images && (
+                <Image
+                  src={room.images[0]}
+                  alt={room.category}
+                  width={600}
+                  height={0}
+                  className="rounded-lg object-cover"
+                />
+              )}
+            </div>
+            <div className="">
               <h3 className="text-lg font-semibold">
-                Información de los acompañantes:
+                Información de Huespedes:
               </h3>
               {renderGuestFields(room.category)}
+              <button
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+                onClick={handleGuestsChange}
+              >
+                guardar
+              </button>
             </div>
           </div>
           <div className="ml-5 flex flex-1 flex-col gap-5">

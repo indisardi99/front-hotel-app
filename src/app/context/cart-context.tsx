@@ -16,7 +16,7 @@ type Reserve = {
   services?: Array<{ name: string; price: number }>;
   startDate?: string;
   endDate?: string;
-  guest?: Guest[];
+  guests?: Array<string>;
 };
 
 type Guest = {
@@ -43,7 +43,10 @@ export const useCart = () => useContext(CartContext);
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [reserve, setReserve] = useState<Reserve | null>(null);
 
-  // Al montarse, carga los datos desde localStorage
+  useEffect(() => {
+    console.log(reserve);
+  }, [reserve]);
+
   useEffect(() => {
     const storedReserve = localStorage.getItem("reserve");
     if (storedReserve) {

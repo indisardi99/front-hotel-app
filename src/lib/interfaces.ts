@@ -27,7 +27,6 @@ export interface RoomSearch {
 export interface ServicesProps {
   id: string;
   title: string;
-  icon: string;
 }
 
 export interface RoomCardProps {
@@ -41,7 +40,7 @@ export interface RoomCardProps {
 
 export interface Service {
   id: string;
-  type: string;
+  name: string;
   price: number;
 }
 

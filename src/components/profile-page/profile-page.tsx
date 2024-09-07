@@ -18,7 +18,7 @@ export function ProfilePage() {
           <strong>Correo:</strong> {user?.email}
         </p>
         <p>
-          <strong>Dirección:</strong> {user?.address}
+          <strong>Dirección:</strong> {user?.adress}
         </p>
         <p>
           <strong>Teléfono:</strong> {user?.phone}

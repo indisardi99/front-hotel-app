@@ -182,7 +182,7 @@ const RoomDetailPage: React.FC = () => {
             formData.append('file', selectedImage)
 
             const imageRes = await fetch(
-              `http://localhost:3000/files/uploadRoomImage/${id}`,
+              `${process.env.NEXT_PUBLIC_API_URL}/files/uploadRoomImage/${id}`,
               {
                 method: 'POST',
                 body: formData,

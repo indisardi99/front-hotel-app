@@ -35,6 +35,7 @@
     "react-icons": "^5.3.0",
     "react-loader-spinner": "^6.1.6",
     "react-toastify": "^10.0.5",
+    "sharp": "^0.33.5",
     "spinner": "^0.3.4",
     "swal": "^0.1.0",
     "sweetalert2": "^11.13.2",

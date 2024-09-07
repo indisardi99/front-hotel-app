@@ -31,7 +31,9 @@ const CreateRoom: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:3000/room/getInfoToCreate')
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/room/getInfoToCreate`
+        )
         const data = await res.json()
         setAvailableCategories(data.availableCategories)
         setAvailableFeatures(data.availableFeatures)
@@ -49,7 +51,9 @@ const CreateRoom: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:3000/room/getInfoToCreate')
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/room/getInfoToCreate`
+        )
         const data = await res.json()
 
         if (Array.isArray(data.notAvailableNumbers)) {
@@ -101,13 +105,16 @@ const CreateRoom: React.FC = () => {
         category,
       }
 
-      const res = await fetch('http://localhost:3000/room/createRoom', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(createRoomBody),
-      })
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/room/createRoom`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(createRoomBody),
+        }
+      )
 
       if (!res.ok) throw new Error('Error al crear la habitación.')
 
@@ -115,20 +122,23 @@ const CreateRoom: React.FC = () => {
 
       // Step 2: Fetch the created room by number to get its ID
       const roomRes = await fetch(
-        `http://localhost:3000/room/getRoomByNumber?number=${number}`
+        `${process.env.NEXT_PUBLIC_API_URL}/room/getRoomByNumber?number=${number}`
       )
       const roomData = await roomRes.json()
       const roomId = roomData.id
 
       // Step 3: Add features to the room
       if (selectedFeatures.length > 0) {
-        await fetch(`http://localhost:3000/room/addFeatures/${roomId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ featuresId: selectedFeatures }),
-        })
+        await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/room/addFeatures/${roomId}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ featuresId: selectedFeatures }),
+          }
+        )
       }
 
       // Step 4: Upload the room image (if selected)
@@ -136,10 +146,13 @@ const CreateRoom: React.FC = () => {
         const formData = new FormData()
         formData.append('file', image)
 
-        await fetch(`http://localhost:3000/files/uploadRoomImage/${roomId}`, {
-          method: 'POST',
-          body: formData,
-        })
+        await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/files/uploadRoomImage/${roomId}`,
+          {
+            method: 'POST',
+            body: formData,
+          }
+        )
       }
 
       Swal.fire(

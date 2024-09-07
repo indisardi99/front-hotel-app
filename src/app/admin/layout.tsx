@@ -1,5 +1,4 @@
 'use client'
-import Navbar from '@/components/navbar/navbar' // Asegúrate de importar tu componente de Navbar
 import VerticalNavbar from '@/components/admin-navbar/vertical-navbar'
 import NavbarAdmin from '@/components/navbarAdmin/navbarA'
 

@@ -51,6 +51,15 @@ const Summary: React.FC<SummaryProps> = ({
 
   const createReservation = async () => {
     console.log("reservando: ", user, reserve);
+    let guestWithNumbers = {};
+    reserve?.guests?.forEach((item, i) => {
+      guestWithNumbers = {
+        ...guestWithNumbers,
+        [`firstName${i + 1}`]: item.firstName,
+        [`lastName${i + 1}`]: item.lastName,
+      };
+    });
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/reservation/create-reservation/${user?.id}`,
@@ -64,6 +73,7 @@ const Summary: React.FC<SummaryProps> = ({
             services: newservices,
             startDate: reserve?.startDate,
             endDate: reserve?.endDate,
+            ...guestWithNumbers,
           }),
         }
       );
@@ -125,7 +135,7 @@ const Summary: React.FC<SummaryProps> = ({
       return;
     }
 
-    if (!user.phone || !user.address) {
+    if (!user.phone || !user.adress) {
       toast.error("Por favor completa tu perfil");
       router.push("/update-information");
       return;
@@ -180,7 +190,7 @@ const Summary: React.FC<SummaryProps> = ({
   };
 
   return (
-    <div className="flex min-w-[310px] h-full shadow-lg flex-col rounded-lg bg-[#fffdf9] border border-orange-300 p-4">
+    <div className="flex min-w-[310px] h-full max-h-[600px] shadow-lg flex-col rounded-lg bg-[#fffdf9] border border-orange-300 p-4">
       <h1 className="text-2xl mb-4 font-bold">Resumen de la estadia</h1>
       <h2 className="font-semibold">{title}</h2>
       <p>Precio de habitación: ${basePrice.toFixed(2)} por dia.</p>

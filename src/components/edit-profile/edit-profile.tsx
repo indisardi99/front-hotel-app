@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/app/context/auth-context";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z
@@ -29,7 +31,7 @@ const formSchema = z.object({
   }),
   password: z.string().optional(),
   oldPassword: z.string().optional(),
-  address: z.string().min(5, {
+  adress: z.string().min(5, {
     message: "La dirección debe tener al menos 5 caracteres.",
   }),
   role: z.string().optional(),
@@ -60,10 +62,12 @@ export function ProfileEditForm() {
       email: user?.email || "",
       password: "",
       oldPassword: "",
-      address: user?.address || "",
+      adress: user?.adress || "",
       phone: user?.phone?.toString() || "",
     },
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!user) {
@@ -85,7 +89,7 @@ export function ProfileEditForm() {
             email: values.email,
             password: values.password,
             oldPassword: values.oldPassword,
-            address: values.address,
+            adress: values.adress,
             phone: values.phone,
           }),
         }
@@ -145,35 +149,26 @@ export function ProfileEditForm() {
         />
         <FormField
           control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="mb-6">
-              <FormLabel>Nueva Contraseña</FormLabel>
-              <FormControl>
-                <Input
-                  className="w-full bg-[#faf9f5] border border-orange-300"
-                  type="password"
-                  placeholder="Nueva contraseña"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="oldPassword"
           render={({ field }) => (
             <FormItem className="mb-6">
               <FormLabel>Contraseña Antigua</FormLabel>
               <FormControl>
-                <Input
-                  className="w-full bg-[#faf9f5] border border-orange-300"
-                  type="password"
-                  placeholder="Contraseña antigua"
-                  {...field}
-                />
+                <div className="relative">
+                  <Input
+                    className="w-full bg-[#faf9f5] border border-orange-300"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Contraseña antigua"
+                    {...field}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </div>
               </FormControl>
               <FormMessage className="mt-1" />
             </FormItem>
@@ -181,7 +176,34 @@ export function ProfileEditForm() {
         />
         <FormField
           control={form.control}
-          name="address"
+          name="password"
+          render={({ field }) => (
+            <FormItem className="mb-6">
+              <FormLabel>Nueva Contraseña</FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Input
+                    className="w-full bg-[#faf9f5] border border-orange-300"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Nueva contraseña"
+                    {...field}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </div>
+              </FormControl>
+              <FormMessage className="mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="adress"
           render={({ field }) => (
             <FormItem className="mb-6">
               <FormLabel>Dirección</FormLabel>

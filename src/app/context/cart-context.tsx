@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useState, ReactNode, useContext } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useEffect,
+} from "react";
 
 type Reserve = {
   roomId?: string;
@@ -10,10 +16,10 @@ type Reserve = {
   services?: Array<{ name: string; price: number }>;
   startDate?: string;
   endDate?: string;
-  guest?: Guest[];
+  guests?: Array<Guest>;
 };
 
-type Guest = {
+export type Guest = {
   firstName: string;
   lastName: string;
 };
@@ -36,15 +42,25 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [reserve, setReserve] = useState<Reserve | null>(null);
+
+  useEffect(() => {
+    console.log(reserve);
+  }, [reserve]);
+
+  useEffect(() => {
+    const storedReserve = localStorage.getItem("reserve");
+    if (storedReserve) {
+      setReserve(JSON.parse(storedReserve));
+    }
+  }, []);
+
+  const updateReserve = (newReserve: Reserve) => {
+    setReserve(newReserve);
+    localStorage.setItem("reserve", JSON.stringify(newReserve));
+  };
+
   return (
-    <CartContext.Provider
-      value={{
-        reserve,
-        updateReserve: (reserve: Reserve) => {
-          setReserve(reserve);
-        },
-      }}
-    >
+    <CartContext.Provider value={{ reserve, updateReserve }}>
       {children}
     </CartContext.Provider>
   );

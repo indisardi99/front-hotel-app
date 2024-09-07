@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation' // Importa el hook para obtener la ruta actual
+import { usePathname } from 'next/navigation' //* Importa el hook para obtener la ruta actual
 
 const Footer: React.FC = () => {
   const pathname = usePathname() // Obtiene la ruta actual

@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { toast } from "react-hot-toast";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { toast } from 'react-hot-toast'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -12,63 +12,63 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/context/auth-context";
-import { FaGoogle } from "react-icons/fa";
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/app/context/auth-context'
+import { FaGoogle } from 'react-icons/fa'
+import { Eye, EyeOff } from 'lucide-react'
+import { useState } from 'react'
 
 const formSchema = z.object({
   email: z
     .string()
-    .email({ message: "Debe ser un correo electrónico válido." }),
+    .email({ message: 'Debe ser un correo electrónico válido.' }),
   password: z
     .string()
-    .min(3, { message: "La contraseña debe tener por lo menos 8 caracteres." })
+    .min(3, { message: 'La contraseña debe tener por lo menos 8 caracteres.' })
     .regex(/[a-z]/, {
-      message: "La contraseña debe contener al menos una letra minúscula.",
+      message: 'La contraseña debe contener al menos una letra minúscula.',
     })
     .regex(/[A-Z]/, {
-      message: "La contraseña debe contener al menos una letra mayúscula.",
+      message: 'La contraseña debe contener al menos una letra mayúscula.',
     })
     .regex(/[0-9]/, {
-      message: "La contraseña debe contener al menos un número.",
+      message: 'La contraseña debe contener al menos un número.',
     })
     .regex(/[^a-zA-Z0-9]/, {
-      message: "La contraseña debe contener al menos un carácter especial.",
+      message: 'La contraseña debe contener al menos un carácter especial.',
     }),
-});
+})
 
 export default function Login() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-  });
+  })
 
-  const { login } = useAuth();
-  const router = useRouter();
+  const { login } = useAuth()
+  const router = useRouter()
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false)
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(values),
         }
-      );
+      )
 
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json()
         login(
           {
             email: values.email,
@@ -79,24 +79,24 @@ export default function Login() {
             address: data.user.adress,
           },
           data.token
-        );
-        toast.success("ingresando a Eclipse Royal");
-        router.push("/");
+        )
+        toast.success('ingresando a Eclipse Royal')
+        router.push('/')
       } else {
-        const errorData = await response.json();
-        toast.error("correo o contraseña incorrectos", errorData.message);
+        const errorData = await response.json()
+        toast.error('correo o contraseña incorrectos', errorData.message)
       }
     } catch (error) {
-      toast.error("Error de servidor, intenta mas tarde");
+      toast.error('Error de servidor, intenta mas tarde')
     }
   }
 
   function onRegister() {
-    router.push("/register");
+    router.push('/register')
   }
 
   function handleGoogleLogin() {
-    router.push(`${process.env.NEXT_PUBLIC_API_URL}/auth/googleLogin`);
+    router.push(`${process.env.NEXT_PUBLIC_API_URL}/auth/googleLogin`)
   }
 
   return (
@@ -134,7 +134,7 @@ export default function Login() {
                 <FormControl>
                   <Input
                     className="w-[310px] bg-[#faf9f5] border border-orange-300 pr-10"
-                    type={passwordVisible ? "text" : "password"}
+                    type={passwordVisible ? 'text' : 'password'}
                     placeholder="Tu contraseña"
                     {...field}
                   />
@@ -178,5 +178,5 @@ export default function Login() {
         </Button>
       </div>
     </Form>
-  );
+  )
 }

@@ -67,3 +67,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* En tu archivo CSS global o en el módulo CSS correspondiente */
+.vertical-navbar {
+  position: fixed;
+  top: 138px; /* Ajusta según la altura de la barra de navegación principal */
+  left: 0;
+  width: 256px; /* Ajusta según el ancho de tu barra de navegación */
+  height: calc(
+    100vh - 64px
+  ); /* Resta la altura de la barra de navegación principal */
+  background-color: #1f2937; /* Color de fondo de la barra de navegación */
+  color: #ffffff; /* Color del texto */
+  overflow-y: auto; /* Permite desplazamiento en la barra de navegación si es necesario */
+  z-index: 10; /* Menor que el z-index de la barra de navegación principal */
+}

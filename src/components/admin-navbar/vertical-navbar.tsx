@@ -64,6 +64,18 @@ const VerticalNavbar: React.FC = () => {
               Ganancias
             </Link>
           </li>
+          <li>
+            <Link
+              href="/reservations"
+              className={`p-2 rounded ${
+                isActive('/admin/ganancias')
+                  ? 'bg-gray-600 font-bold'
+                  : 'hover:bg-gray-700'
+              }`}
+            >
+              Reservas
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

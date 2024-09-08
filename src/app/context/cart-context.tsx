@@ -44,10 +44,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [reserve, setReserve] = useState<Reserve | null>(null);
 
   useEffect(() => {
-    console.log(reserve);
-  }, [reserve]);
-
-  useEffect(() => {
     const storedReserve = localStorage.getItem("reserve");
     if (storedReserve) {
       setReserve(JSON.parse(storedReserve));

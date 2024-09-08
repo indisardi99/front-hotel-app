@@ -60,10 +60,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
-
-  useEffect(() => {
     const loadAuthState = async () => {
       const storedUser = getCookie("user");
       if (storedUser) {

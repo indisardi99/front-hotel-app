@@ -1,3 +1,4 @@
+
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -21,6 +22,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
   gimnasio: <Dumbbell className="m-2 size-4" />,
   seguro: <Lock className="m-2 size-4" />,
   tv: <Tv className="m-2 size-4" />,
+
   cama: <BedDouble className="m-2 size-4" />,
   balcon: <Wind className="m-2 size-4" />,
   jacuzzi: <Droplet className="m-2 size-4" />,
@@ -46,8 +48,8 @@ const Services: React.FC<ServicesProps> = ({ id, title }) => {
       <h1 className="mt-2 text-xs">{title}</h1>
       <h1>{getIcon(title)}</h1>
     </div>
-  );
-};
+  )
+}
 
 const RoomCard: React.FC<RoomCardProps> = ({
   id,
@@ -57,8 +59,8 @@ const RoomCard: React.FC<RoomCardProps> = ({
   number,
   services,
 }) => {
-  const router = useRouter();
-  const { updateReserve, reserve } = useCart();
+  const router = useRouter()
+  const { updateReserve, reserve } = useCart()
 
   const handleViewDetails = () => {
     updateReserve({
@@ -66,9 +68,9 @@ const RoomCard: React.FC<RoomCardProps> = ({
       roomId: id,
       roomPrice: price,
       category: title,
-    });
-    router.push(`/detail-room/${id}`);
-  };
+    })
+    router.push(`/detail-room/${id}`)
+  }
 
   return (
     <div className="flex flex-col w-full mb-4 lg:flex-row rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
@@ -99,7 +101,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RoomCard;
+export default RoomCard

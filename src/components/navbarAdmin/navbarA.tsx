@@ -6,20 +6,9 @@ import { MenuIcon, XIcon } from 'lucide-react'
 import { useAuth } from '@/app/context/auth-context'
 import ComboboxDemo from '../ui/bombobox-demo'
 import { usePathname } from 'next/navigation'
-
-const Navbar: React.FC = () => {
+const NavbarAdmin: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { isAuthenticated } = useAuth()
-  const pathname = usePathname()
-
-  // Condicionamos el renderizado para rutas específicas
-  if (
-    pathname === '/admin/habitaciones' ||
-    pathname === '/admin' ||
-    pathname.startsWith('/admin/detailRoom/')
-  ) {
-    return null
-  }
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -94,4 +83,4 @@ const Navbar: React.FC = () => {
   )
 }
 
-export default Navbar
+export default NavbarAdmin

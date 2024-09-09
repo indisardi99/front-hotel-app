@@ -2,6 +2,7 @@ import FilterDate from "@/components/filter-date/filter-date";
 import Image from "next/image";
 import Inicio from "./inicio/page";
 import ScrollButton from "@/components/scroll-bottom/scroll-buttom";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -28,12 +29,16 @@ export default function Home() {
           </div>
 
           <div className="hidden justify-between flex-col lg:flex-row lg:flex border border-orange-300 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-md bg-[#faf9f5] p-2">
-            <FilterDate />
+            <Suspense>
+              <FilterDate />
+            </Suspense>
           </div>
         </div>
 
         <div className="flex flex-col items-center p-2 justify-center bg-[#faf9f5] border border-orange-300 max-w-[320px] lg:hidden mt-4">
-          <FilterDate />
+          <Suspense>
+            <FilterDate />
+          </Suspense>
         </div>
         <div>
           <Inicio />

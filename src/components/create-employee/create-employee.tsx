@@ -102,7 +102,7 @@ export function CreateEmployee() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col w-full justify-center items-center "
+        className="flex flex-col justify-center items-center "
       >
         <FormField
           control={form.control}
@@ -113,7 +113,7 @@ export function CreateEmployee() {
               <FormControl>
                 <Input
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
-                  placeholder="Tu nombre"
+                  placeholder="nombre y apellido"
                   {...field}
                 />
               </FormControl>
@@ -150,7 +150,7 @@ export function CreateEmployee() {
                   <Input
                     className="w-[310px] bg-[#faf9f5] border border-orange-300"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Tu contraseña"
+                    placeholder="Contraseña"
                     {...field}
                   />
                   <div
@@ -177,7 +177,7 @@ export function CreateEmployee() {
                   <Input
                     className="w-[310px] bg-[#faf9f5] border border-orange-300"
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirma tu contraseña"
+                    placeholder="Confirma la contraseña"
                     {...field}
                   />
                   <div

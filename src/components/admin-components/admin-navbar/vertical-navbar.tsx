@@ -4,8 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const VerticalNavbar: React.FC = () => {
-  const pathname = usePathname()
-
+  const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
 
@@ -15,7 +14,7 @@ const VerticalNavbar: React.FC = () => {
         <Link
           href="/admin"
           className={`p-2 rounded ${
-            isActive('/admin') ? 'bg-gray-600 font-bold' : 'hover:bg-gray-700'
+            isActive("/admin") ? "bg-gray-600 font-bold" : "hover:bg-gray-700"
           }`}
         >
           Administrador
@@ -39,9 +38,9 @@ const VerticalNavbar: React.FC = () => {
             <Link
               href="/admin/users"
               className={`p-2 rounded ${
-                isActive('/admin/users')
-                  ? 'bg-gray-600 font-bold'
-                  : 'hover:bg-gray-700'
+                isActive("/admin/users")
+                  ? "bg-gray-600 font-bold"
+                  : "hover:bg-gray-700"
               }`}
             >
               Usuarios
@@ -93,6 +92,18 @@ const VerticalNavbar: React.FC = () => {
               }`}
             >
               Reservas
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/admin/create-employee"
+              className={`p-2 rounded ${
+                isActive("/admin/create-employee")
+                  ? "bg-gray-600 font-bold"
+                  : "hover:bg-gray-700"
+              }`}
+            >
+              Crear empleado
             </Link>
           </li>
         </ul>

@@ -191,35 +191,70 @@ const Summary: React.FC<SummaryProps> = ({
 
   return (
     <div className="flex min-w-[310px] h-full max-h-[600px] shadow-lg flex-col rounded-lg bg-[#fffdf9] border border-orange-300 p-4">
-      <h1 className="text-2xl mb-4 font-bold">Resumen de la estadia</h1>
-      <h2 className="font-semibold">{title}</h2>
-      <p>Precio de habitación: ${basePrice.toFixed(2)} por dia.</p>
+      <h1 className="text-3xl font-bold text-orange-500 mb-6">
+        Resumen de la estancia
+      </h1>{" "}
+      <div>
+        <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+        <p className="text-gray-600">
+          Precio de habitación por día:{" "}
+          <span className="font-semibold text-black">
+            ${basePrice.toFixed(2)}
+          </span>
+        </p>
+      </div>{" "}
       {additionalItems.length > 0 && (
         <div className="additional-items">
-          <h3 className="font-semibold mt-4">Servicios adicionales:</h3>
-          <ul>
+          <h3 className="text-lg font-semibold text-gray-800 mt-4">
+            Servicios adicionales:
+          </h3>
+          <ul className="pl-4 list-disc text-gray-600">
             {additionalItems.map((item, index) => (
-              <li key={index}>
-                {item.name}: ${item.price.toFixed(2)}
+              <li key={index} className="text-sm">
+                {item.name}:{" "}
+                <span className="font-semibold text-black">
+                  ${item.price.toFixed(2)}
+                </span>
               </li>
             ))}
           </ul>
         </div>
       )}
       {reserve && (
-        <div className="mt-4">
-          <h4 className="font-semibold">Estadia:</h4>
-          <p>{reserve.category}</p>
-          <p>Check-in: {reserve.startDate}</p>
-          <p>Check-out: {reserve.endDate}</p>
-          <p>Cantidad de huéspedes: {reserve.guestsNumber}</p>
+        <div className="reserve-details mt-4 space-y-2">
+          <h4 className="text-lg font-semibold text-gray-800">Estancia:</h4>
+          <p className="text-sm text-gray-600">
+            Categoría:{" "}
+            <span className="font-semibold text-black">{reserve.category}</span>
+          </p>
+          <p className="text-sm text-gray-600">
+            Check-in:{" "}
+            <span className="font-semibold text-black">
+              {reserve.startDate}
+            </span>
+          </p>
+          <p className="text-sm text-gray-600">
+            Check-out:{" "}
+            <span className="font-semibold text-black">{reserve.endDate}</span>
+          </p>
+          <p className="text-sm text-gray-600">
+            Cantidad de huéspedes:{" "}
+            <span className="font-semibold text-black">
+              {reserve.guestsNumber}
+            </span>
+          </p>
           {reserve.services && reserve.services.length > 0 && (
-            <div>
-              <h4>Servicios extras seleccionados:</h4>
-              <ul>
+            <div className="services mt-2">
+              <h4 className="text-sm font-semibold text-gray-800">
+                Servicios extras seleccionados:
+              </h4>
+              <ul className="pl-4 list-disc text-gray-600">
                 {reserve.services.map((service, index) => (
-                  <li key={index}>
-                    {service.name}: ${service.price.toFixed(2)}
+                  <li key={index} className="text-sm">
+                    {service.name}:{" "}
+                    <span className="font-semibold text-black">
+                      ${service.price.toFixed(2)}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -227,7 +262,9 @@ const Summary: React.FC<SummaryProps> = ({
           )}
         </div>
       )}
-      <h3 className="font-semibold mt-4 ">Total: ${totalPrice.toFixed(2)} </h3>
+      <h3 className="text-xl p-2 m-2 font-semibold text-gray-800 mt-4">
+        Total: <span className="text-black">${totalPrice.toFixed(2)}</span>
+      </h3>
       <Button onClick={handleContinue} disabled={loading} className="relative">
         {loading && <Spinner />}
         {!loading && "Presiona para reservar"}

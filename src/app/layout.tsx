@@ -28,8 +28,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="es">
       <body
         className={cn(
-          "flex flex-col w-full min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          `${fontSans.className} flex flex-col w-full min-h-screen bg-background antialiased `
         )}
       >
         <Toaster position="top-center" />

@@ -90,19 +90,12 @@ export function CreateEmployee() {
       if (response.ok) {
         const data = await response.json();
         toast.success("Registro exitoso: por favor ingresa");
-        router.push("/login");
       } else {
         toast.error("Error en el registro, intenta de nuevo");
       }
     } catch (error) {
       toast.error("Error del servidor, intenta mas tarde");
     }
-  }
-
-  const router = useRouter();
-
-  function onLogin() {
-    router.push("/login");
   }
 
   return (
@@ -207,16 +200,6 @@ export function CreateEmployee() {
           Enviar
         </Button>
       </form>
-      <div className="mt-4 text-center">
-        <p className="text-black">¿Ya estas Registrado?</p>
-        <Button
-          className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
-          onClick={onLogin}
-          type="button"
-        >
-          Ingresar
-        </Button>
-      </div>
     </Form>
   );
 }

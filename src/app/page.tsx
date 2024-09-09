@@ -11,10 +11,10 @@ export default function Home() {
         <div className="relative bg-black">
           <div className="hidden lg:block">
             <Image
-              className="opacity-50"
+              className="opacity-50 w-full"
               src="/hero.png"
               alt="Home"
-              width={1550}
+              width={0}
               height={0}
             />
           </div>

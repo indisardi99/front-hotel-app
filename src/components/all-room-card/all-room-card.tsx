@@ -54,7 +54,7 @@ const AllRoomCard: React.FC<{ room: Room }> = ({ room }) => {
               {room.category}
             </h2>
             <p className="text-lg text-black font-semibold m-2">
-              $ {room.price}
+              $ {room.price} por noche.
             </p>
             <h2 className="text-xl font-semibold text-gray-600 m-2">
               Habitación Nro. {room.number}

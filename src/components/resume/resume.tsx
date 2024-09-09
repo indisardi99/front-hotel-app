@@ -212,7 +212,7 @@ const Summary: React.FC<SummaryProps> = ({
             {additionalItems.map((item, index) => (
               <li key={index} className="text-sm">
                 {item.name}:{" "}
-                <span className="font-semibold text-black">
+                <span className="font-semibold  text-black">
                   ${item.price.toFixed(2)}
                 </span>
               </li>
@@ -268,7 +268,7 @@ const Summary: React.FC<SummaryProps> = ({
       <Button
         onClick={handleContinue}
         disabled={loading}
-        className="bg-amber-50 border text-md bg:hover-amber-100 border-orange-400 relative text-black font-bold"
+        className="bg-amber-50 border text-md hover:bg-amber-100 shadow-2xl border-orange-400 relative text-orange-500 font-bold"
       >
         {loading && <Spinner />}
         {!loading && "Presiona para reservar"}

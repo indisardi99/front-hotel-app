@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Wifi,
   Dumbbell,
@@ -11,8 +11,8 @@ import {
   Sparkles,
   Utensils,
   Croissant,
-} from 'lucide-react'
-import { space } from 'postcss/lib/list'
+} from "lucide-react";
+import { space } from "postcss/lib/list";
 
 const iconMap: { [key: string]: React.ReactNode } = {
   wifi: <Wifi className="m-2 size-4" />,
@@ -22,25 +22,25 @@ const iconMap: { [key: string]: React.ReactNode } = {
   fast: <Croissant className="m-2 size-4" />,
   spa: <Sparkles className="m-2 size-4" />,
   Bar: <Martini className="m-2 size-4" />,
-}
+};
 
 const getIcon = (name: string) => {
-  const lowerCaseName = name.toLowerCase()
+  const lowerCaseName = name.toLowerCase();
 
-  if (lowerCaseName.includes('wifi')) return iconMap.wifi
-  if (lowerCaseName.includes('gimnasio')) return iconMap.gimnasio
-  if (lowerCaseName.includes('ecológico')) return iconMap.ecológico
-  if (lowerCaseName.includes('seguro')) return iconMap.seguro
-  if (lowerCaseName.includes('fast')) return iconMap.fast
-  if (lowerCaseName.includes('spa')) return iconMap.spa
-  if (lowerCaseName.includes('bar')) return iconMap.Bar
+  if (lowerCaseName.includes("wifi")) return iconMap.wifi;
+  if (lowerCaseName.includes("gimnasio")) return iconMap.gimnasio;
+  if (lowerCaseName.includes("ecológico")) return iconMap.ecológico;
+  if (lowerCaseName.includes("seguro")) return iconMap.seguro;
+  if (lowerCaseName.includes("fast")) return iconMap.fast;
+  if (lowerCaseName.includes("spa")) return iconMap.spa;
+  if (lowerCaseName.includes("bar")) return iconMap.Bar;
 
-  return <Leaf className="m-2 size-4" />
-}
+  return <Leaf className="m-2 size-4" />;
+};
 interface ServiceCardProps {
-  name: string
-  price: number
-  icon: React.ReactNode
+  name: string;
+  price: number;
+  icon: React.ReactNode;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ name, price }) => {
@@ -52,7 +52,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ name, price }) => {
         <p className="text-gray-600">${price}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ServiceCard
+export default ServiceCard;

@@ -160,8 +160,8 @@ const RoomDetails: React.FC<{
                 <div
                   className={`cursor-pointer rounded-lg ${
                     isSelected(service.name)
-                      ? "bg-orange-300 hover:translate-y-2 transition-all duration-300 shadow-lg py-2 px-3  mt-2"
-                      : "bg-white shadow-lg py-2 px-3 mt-2 hover:translate-y-2 transition-all duration-300"
+                      ? "bg-orange-300 border border-orange-500 hover:translate-y-2 transition-all duration-300 shadow-lg py-2 px-3  mt-2"
+                      : "bg-white border border-orange-500 shadow-lg py-2 px-3 mt-2 hover:translate-y-2 transition-all duration-300"
                   }`}
                   key={service.id}
                   onClick={() => handleServiceClick(service)}
@@ -175,7 +175,7 @@ const RoomDetails: React.FC<{
               ))}
             </div>
           </div>
-          <div className="flex m-2 flex-col mt-3 w-[800px]">
+          <div className="flex m-2 flex-col mt-3 mb-3 w-[500px] items-center">
             <h1 className="flex text-lg font-semibold">
               Nombre y apellido de los acompañantes por favor.
             </h1>

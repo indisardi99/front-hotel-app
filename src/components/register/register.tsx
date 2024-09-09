@@ -152,7 +152,7 @@ export function Register() {
               <FormControl>
                 <Input
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
-                  placeholder="Calle y Altura"
+                  placeholder="Direccion"
                   {...field}
                 />
               </FormControl>

@@ -92,7 +92,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
           ))}
         </div>
         <Button
-          className="bg-[#faf9f5] border shadow-md border-orange-300 text-orange-600 hover:bg-orange-100 mt-auto w-32 self-end p-2 rounded-lg transition-all duration-300"
+          className="bg-[#faf9f5] font-semibold border shadow-md border-orange-300 text-orange-600 hover:bg-orange-100 mt-auto w-32 self-end p-2 rounded-lg transition-all duration-300"
           variant="outline"
           onClick={handleViewDetails}
         >

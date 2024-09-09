@@ -265,7 +265,11 @@ const Summary: React.FC<SummaryProps> = ({
       <h3 className="text-xl p-2 m-2 font-semibold text-gray-800 mt-4">
         Total: <span className="text-black">${totalPrice.toFixed(2)}</span>
       </h3>
-      <Button onClick={handleContinue} disabled={loading} className="relative">
+      <Button
+        onClick={handleContinue}
+        disabled={loading}
+        className="bg-amber-50 border text-md bg:hover-amber-100 border-orange-400 relative text-black font-bold"
+      >
         {loading && <Spinner />}
         {!loading && "Presiona para reservar"}
       </Button>

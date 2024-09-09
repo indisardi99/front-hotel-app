@@ -58,7 +58,7 @@ const MyReservations = () => {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/reservation/cancel/${reservationId}`,
         {
-          method: "DELETE",
+          method: "PUT",
         }
       );
 

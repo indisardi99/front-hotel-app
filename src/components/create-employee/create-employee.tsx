@@ -74,7 +74,7 @@ export function CreateEmployee() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register-employee`,
         {
           method: "POST",
           headers: {

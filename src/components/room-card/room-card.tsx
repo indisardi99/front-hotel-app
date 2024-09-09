@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -48,8 +47,8 @@ const Services: React.FC<ServicesProps> = ({ id, title }) => {
       <h1 className="mt-2 text-xs">{title}</h1>
       <h1>{getIcon(title)}</h1>
     </div>
-  )
-}
+  );
+};
 
 const RoomCard: React.FC<RoomCardProps> = ({
   id,
@@ -59,8 +58,8 @@ const RoomCard: React.FC<RoomCardProps> = ({
   number,
   services,
 }) => {
-  const router = useRouter()
-  const { updateReserve, reserve } = useCart()
+  const router = useRouter();
+  const { updateReserve, reserve } = useCart();
 
   const handleViewDetails = () => {
     updateReserve({
@@ -68,32 +67,32 @@ const RoomCard: React.FC<RoomCardProps> = ({
       roomId: id,
       roomPrice: price,
       category: title,
-    })
-    router.push(`/detail-room/${id}`)
-  }
+    });
+    router.push(`/detail-room/${id}`);
+  };
 
   return (
-    <div className="flex flex-col w-full mb-4 lg:flex-row rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
+    <div className="flex flex-col mt-5 w-full mb-4 lg:flex-row rounded-lg bg-[#faf9f5] border border-orange-300 p-4 gap-4">
       <div className="shrink-0">
         <Image
           src={imageUrl}
           alt={title}
           width={450}
-          height={0}
+          height={300}
           className="rounded-lg object-cover"
         />
       </div>
       <div className="ml-5 flex flex-1 flex-col">
-        <h2 className="mb-2 text-xl font-semibold">{title}</h2>
-        <p className="mb-2 text-lg text-gray-600">$ {price}</p>
-        <p className="mb-4 text-lg text-gray-500">{`Habitación número ${number} con las siguientes Características:`}</p>
+        <h2 className="mb-2 text-xl font-semibold text-gray-800">{title}</h2>
+        <p className="mb-2 text-lg text-orange-500 font-semibold">$ {price}</p>
+        <p className="mb-4 text-lg text-gray-500">{`Habitación número ${number} con las siguientes características:`}</p>
         <div className="mb-4 flex flex-wrap gap-2">
           {services.map((service) => (
             <Services key={service.id} id={service.id} title={service.title} />
           ))}
         </div>
         <Button
-          className="bg-[#faf9f5] border border-orange-300 mt-auto w-32 self-end p-2"
+          className="bg-[#faf9f5] border shadow-md border-orange-300 text-orange-600 hover:bg-orange-100 mt-auto w-32 self-end p-2 rounded-lg transition-all duration-300"
           variant="outline"
           onClick={handleViewDetails}
         >
@@ -101,7 +100,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RoomCard
+export default RoomCard;

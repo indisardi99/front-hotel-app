@@ -12,12 +12,8 @@ const Navbar: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
   const pathname = usePathname();
 
-  if (
-    pathname === "/admin/habitaciones" ||
-    pathname === "/admin" ||
-    pathname.startsWith("/admin/detailRoom/")
-  ) {
-    return null;
+  if (pathname.startsWith('/admin')) {
+    return null
   }
 
   const toggleMenu = () => {

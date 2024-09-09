@@ -38,7 +38,7 @@ const HabitacionesPage: React.FC = () => {
   }, [])
 
   return (
-    <div className="p-4 pt-16 mt-20">
+    <div className="p-7 pt-20 mt-20">
       <h1 className="text-2xl font-bold mb-4">Gestión de Habitaciones</h1>
       <p className="mb-4">Aquí puedes ver y editar las habitaciones.</p>
       <Link
@@ -49,7 +49,7 @@ const HabitacionesPage: React.FC = () => {
           crear habitación
         </button>
       </Link>
-      <div className="flex flex-wrap gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {data.length > 0 ? (
           data.map((room) => (
             <RoomCardAdmin

@@ -1,18 +1,25 @@
-"use client"; // Asegúrate de que el componente sea cliente
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const VerticalNavbar: React.FC = () => {
-  const pathname = usePathname(); // Obtiene la ruta actual
+  const pathname = usePathname()
 
-  // Función para verificar si la ruta está activa
+
   const isActive = (path: string) => pathname === path;
 
   return (
     <div className="w-64 h-screen bg-gray-900 text-white fixed flex flex-col">
       <div className="p-4 text-lg font-bold border-b border-gray-700">
-        <Link href="/admin">Administrador</Link>
+        <Link
+          href="/admin"
+          className={`p-2 rounded ${
+            isActive('/admin') ? 'bg-gray-600 font-bold' : 'hover:bg-gray-700'
+          }`}
+        >
+          Administrador
+        </Link>
       </div>
       <div className="flex-1 p-4">
         <ul className="space-y-4">
@@ -26,6 +33,18 @@ const VerticalNavbar: React.FC = () => {
               }`}
             >
               Habitaciones
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/admin/users"
+              className={`p-2 rounded ${
+                isActive('/admin/users')
+                  ? 'bg-gray-600 font-bold'
+                  : 'hover:bg-gray-700'
+              }`}
+            >
+              Usuarios
             </Link>
           </li>
           <li>

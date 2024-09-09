@@ -29,67 +29,54 @@ const RoomDetailPage: React.FC = () => {
           if (!res.ok) {
             throw new Error("Error al obtener los detalles de la habitación");
           }
-          const data = await res.json();
-          setRoomDetails(data.room);
-          setAvailableFeatures(data.availableFeatures);
-          setAvailableCategories(data.availableCategories);
-          setCurrentImage(data.room.images[0]);
-        } catch (error) {
-          console.error("Error fetching room details:", error);
-          Swal.fire({
-            icon: "error",
-            title: "¡Oops!",
-            text: "No se pudieron obtener los detalles de la habitación.",
-            confirmButtonText: "Aceptar",
-          });
-        }
-      };
-      fetchRoomDetails();
+          const data = await res.json()
+          setRoomDetails(data.room)
+          setAvailableFeatures(data.availableFeatures)
+          setAvailableCategories(data.availableCategories)
+          setCurrentImage(data.room.images[0])
+          console.log(data)
+        } catch (error) {}
+      }
+      fetchRoomDetails()
+
     }
   }, [id]);
 
   const handleToggleFeature = (featureId: string) => {
-    // Mover una característica de "Características en la habitación" a "Características disponibles"
     const removedFeature = roomDetails.features.find(
       (feature: any) => feature.id === featureId
     );
 
     if (removedFeature) {
-      // Eliminar de las características actuales de la habitación
       setRoomDetails({
         ...roomDetails,
         features: roomDetails.features.filter(
           (feature: any) => feature.id !== featureId
         ),
       });
-      // Añadir a las características disponibles
       setAvailableFeatures([...availableFeatures, removedFeature]);
 
-      // Actualizar arrays de selección y eliminación
-      setSelectedFeatures(selectedFeatures.filter((id) => id !== featureId)); // Eliminar de las seleccionadas
-      setFeaturesToDelete([...featuresToDelete, removedFeature.name]); // Añadir a eliminar
+      setSelectedFeatures(selectedFeatures.filter((id) => id !== featureId));
+      setFeaturesToDelete([...featuresToDelete, removedFeature.name]);
     }
   };
 
   const handleToggleAvailableFeature = (featureId: string) => {
-    // Mover una característica de "Características disponibles" a "Características en la habitación"
     const selectedFeature = availableFeatures.find(
       (feature: any) => feature.id === featureId
     );
 
     if (selectedFeature) {
-      // Eliminar de las características disponibles
       setAvailableFeatures(
         availableFeatures.filter((feature: any) => feature.id !== featureId)
       );
-      // Añadir a las características actuales de la habitación
+     
       setRoomDetails({
         ...roomDetails,
         features: [...roomDetails.features, selectedFeature],
       });
 
-      // Actualizar arrays de selección y eliminación
-      setSelectedFeatures([...selectedFeatures, featureId]); // Añadir a las seleccionadas
+      setSelectedFeatures([...selectedFeatures, featureId]); 
       setFeaturesToDelete(
         featuresToDelete.filter((id) => id !== selectedFeature.name)
       );
@@ -101,7 +88,6 @@ const RoomDetailPage: React.FC = () => {
       const file = e.target.files[0];
       setSelectedImage(file);
 
-      // Crear una URL para la imagen seleccionada y actualizar el estado currentImage
       const reader = new FileReader();
       reader.onload = () => {
         setCurrentImage(reader.result as string);
@@ -203,7 +189,7 @@ const RoomDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="p-2 max-w-5xl mx-auto pt-7 mt-20">
+    <div className="p-7 pt-20 mt-20">
       <Link
         href="/admin/habitaciones"
         className="text-black underline mb-2 block text-sm"

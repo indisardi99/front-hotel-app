@@ -1,10 +1,8 @@
-// pages/guide.tsx
-
-import React from 'react'
+import React from "react";
 
 const AdminPage: React.FC = () => {
   return (
-    <div className="bg-gray-900 text-white p-8" style={{ paddingTop: '11rem' }}>
+    <div className="bg-gray-900 text-white p-8" style={{ paddingTop: "11rem" }}>
       <h1 className="text-4xl font-bold border-b-2 border-gray-600 pb-4 mb-8">
         Guía del Administrador del Hotel
       </h1>
@@ -28,7 +26,7 @@ const AdminPage: React.FC = () => {
         características y más.
       </p>
       <p className="mb-4">
-        Cada habitación está acompañada por un botón verde de{' '}
+        Cada habitación está acompañada por un botón verde de{" "}
         <strong>editar</strong>, que te permitirá acceder a un panel donde
         podrás modificar la información de la habitación de manera detallada.
       </p>
@@ -191,7 +189,7 @@ const AdminPage: React.FC = () => {
         programadores.
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default AdminPage
+export default AdminPage;

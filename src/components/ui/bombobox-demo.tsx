@@ -41,6 +41,7 @@ export default function ComboboxDemo() {
   const [value, setValue] = React.useState("");
   const { logout } = useAuth();
   const router = useRouter();
+
   const handleSelect = (currentValue: string) => {
     setValue(currentValue === value ? "" : currentValue);
     setOpen(false);
@@ -55,6 +56,7 @@ export default function ComboboxDemo() {
     if (currentValue === "Cerrar Sesion") {
       toast.success("cerrando session de Eclipse Royal");
       logout();
+      router.push("/");
     }
   };
 

@@ -1,41 +1,41 @@
-'use client'
-import { useEffect, useState } from 'react'
-import RoomCardAdmin from '@/components/all-rooms-admin/all-rooms-admin'
-import Link from 'next/link'
+"use client";
+import { useEffect, useState } from "react";
+import RoomCardAdmin from "@/components/admin-components/all-rooms-admin/all-rooms-admin";
+import Link from "next/link";
 
 interface Room {
-  id: string
-  number: number
-  price: number
-  category: string
-  images: string[]
-  features: { id: string; name: string }[]
+  id: string;
+  number: number;
+  price: number;
+  category: string;
+  images: string[];
+  features: { id: string; name: string }[];
 }
 
 const HabitacionesPage: React.FC = () => {
-  const [data, setData] = useState<Room[]>([])
+  const [data, setData] = useState<Room[]>([]);
 
   const fetchRooms = async () => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/room/getAllRooms?page=1&limit=80`
-      )
+      );
 
       if (!res.ok) {
-        throw new Error('Error al obtener las habitaciones')
+        throw new Error("Error al obtener las habitaciones");
       }
 
-      const { data }: { data: Room[] } = await res.json()
-      const sortedRooms = data.sort((a, b) => a.number - b.number)
-      setData(sortedRooms)
+      const { data }: { data: Room[] } = await res.json();
+      const sortedRooms = data.sort((a, b) => a.number - b.number);
+      setData(sortedRooms);
     } catch (error) {
-      console.error('Error fetching rooms:', error)
+      console.error("Error fetching rooms:", error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchRooms()
-  }, [])
+    fetchRooms();
+  }, []);
 
   return (
     <div className="p-7 pt-20 mt-20">
@@ -65,7 +65,7 @@ const HabitacionesPage: React.FC = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HabitacionesPage
+export default HabitacionesPage;

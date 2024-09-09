@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/service-card"
+    "src/components/service-card",
+    "src/components/guest-list"
   ],
   "exclude": ["node_modules"]
 }

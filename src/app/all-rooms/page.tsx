@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import FilterDate from "@/components/filter-date/filter-date";
 import AllRoomCard from "@/components/all-room-card/all-room-card";
 import PaginationComponent from "@/components/pagination/pagination";
@@ -68,7 +68,9 @@ const Page = () => {
   return (
     <div className="w-full items-center justify-center flex flex-col mt-5 lg:mt-2 p-1">
       <div className="flex flex-row justify-between border border-orange-300 m-2 rounded-md bg-[#faf9f5] p-2">
-        <FilterDate />
+        <Suspense>
+          <FilterDate />
+        </Suspense>
       </div>
       <div className="m-2 p-2">
         <PaginationComponent

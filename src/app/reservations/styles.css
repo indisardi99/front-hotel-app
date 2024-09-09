@@ -1,0 +1,278 @@
+table {
+    width: 80%; /* Ajusta el ancho de la tabla */
+    margin: 20px auto; /* Agrega margen a los lados y centra la tabla */
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #f4f4f4;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.cancel-column {
+    width: 100px; /* Ajusta el ancho de la columna de cancelar */
+    text-align: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  
+  .dropdown-content p:hover {background-color: #f1f1f1;}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown:hover .dropbtn {
+    background-color: #586659;
+  }
+
+.dropdown2:hover .dropdown-content2 {
+    display: block;
+  }
+
+.dropdown2:hover .dropbtn2 {
+    background-color: #586659;
+  }
+
+.dropdown-content2 p:hover {background-color: #f1f1f1;}
+
+.dropdown2 {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content2 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content2 p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+
+  .dropdown3:hover .dropdown-content3 {
+    display: block;
+  }
+
+.dropdown3:hover .dropbtn3 {
+    background-color: #586659;
+  }
+
+.dropdown-content3 p:hover {background-color: #f1f1f1;}
+
+.dropdown3 {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content3 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content3 p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+
+  .dropdown4:hover .dropdown-content4 {
+    display: block;
+  }
+
+.dropdown4:hover .dropbtn4 {
+    background-color: #586659;
+  }
+
+.dropdown-content4 p:hover {background-color: #f1f1f1;}
+
+.dropdown4 {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content4 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content4 p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+.filter-container a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.filter-container a:hover {background-color: #f1f1f1;}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.pagination-button {
+  border: none;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  margin: 0 5px;
+  padding: 4px 12px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s, border-radius 0.3s;
+  border-radius: 50%; /* Asegúrate de que el borde redondeado esté siempre aplicado */
+}
+
+.pagination-button:hover {
+  background-color: #e0e0e0;
+
+}
+
+.pagination-button.active {
+  background-color: #2f3b46;
+  color: white;
+
+}
+
+.pagination-button.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+
+}
+
+.pagination-ellipsis {
+  padding: 4px 12px;
+  color: #777;
+  font-size: 16px;
+}
+
+.modal {
+  display: block; /* Mostrar el modal */
+  position: fixed;
+  z-index: 1000; /* Asegura que el modal esté encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro semitransparente */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* Centramos el contenido modal */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%; /* Puedes ajustar el ancho */
+  text-align: center;
+}
+
+.close-btn {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #ff0000;
+}
+
+.confirm-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background-color: #45a049;
+}
+
+.button-detail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px; /* Ajusta el ancho según tu necesidad */
+  height: 20px; /* Ajusta la altura según tu necesidad */
+  background: linear-gradient(45deg, #f0f0f0, #d6d6d6); /* Tonos grises claros */
+  border: none;
+  border-radius: 30px; /* Borde redondeado */
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: background 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+.button-detail:hover {
+  background: linear-gradient(45deg, #e0e0e0, #c4c4c4); /* Tonos grises más oscuros al hacer hover */
+  transform: translateY(-2px); /* Efecto de levantar el botón */
+}
+
+.button-detail:active {
+  transform: translateY(1px); /* Efecto de presionado */
+}
+
+.button-detail .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid white; /* Borde blanco alrededor del círculo */
+  border-radius: 50%;
+  margin-left: auto; /* Para que el ícono se coloque a la derecha */
+}
+
+.button-detail .icon:before {
+  content: "›"; /* Símbolo de flecha */
+  font-size: 20px;
+  color: white; /* Color blanco del símbolo */
+}

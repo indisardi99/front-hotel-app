@@ -1,13 +1,13 @@
-'use client' // Asegúrate de que el componente sea cliente
+"use client";
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const VerticalNavbar: React.FC = () => {
   const pathname = usePathname()
 
-  // Función para verificar si la ruta está activa
-  const isActive = (path: string) => pathname === path
+
+  const isActive = (path: string) => pathname === path;
 
   return (
     <div className="w-64 h-screen bg-gray-900 text-white fixed flex flex-col">
@@ -27,9 +27,9 @@ const VerticalNavbar: React.FC = () => {
             <Link
               href="/admin/habitaciones"
               className={`p-2 rounded ${
-                isActive('/admin/habitaciones')
-                  ? 'bg-gray-600 font-bold'
-                  : 'hover:bg-gray-700'
+                isActive("/admin/habitaciones")
+                  ? "bg-gray-600 font-bold"
+                  : "hover:bg-gray-700"
               }`}
             >
               Habitaciones
@@ -51,9 +51,9 @@ const VerticalNavbar: React.FC = () => {
             <Link
               href="/admin/caracteristicas"
               className={`p-2 rounded ${
-                isActive('/admin/caracteristicas')
-                  ? 'bg-gray-600 font-bold'
-                  : 'hover:bg-gray-700'
+                isActive("/admin/caracteristicas")
+                  ? "bg-gray-600 font-bold"
+                  : "hover:bg-gray-700"
               }`}
             >
               Características
@@ -63,9 +63,9 @@ const VerticalNavbar: React.FC = () => {
             <Link
               href="/admin/servicios"
               className={`p-2 rounded ${
-                isActive('/admin/servicios')
-                  ? 'bg-gray-600 font-bold'
-                  : 'hover:bg-gray-700'
+                isActive("/admin/servicios")
+                  ? "bg-gray-600 font-bold"
+                  : "hover:bg-gray-700"
               }`}
             >
               Servicios
@@ -75,18 +75,30 @@ const VerticalNavbar: React.FC = () => {
             <Link
               href="/admin/ganancias"
               className={`p-2 rounded ${
-                isActive('/admin/ganancias')
-                  ? 'bg-gray-600 font-bold'
-                  : 'hover:bg-gray-700'
+                isActive("/admin/ganancias")
+                  ? "bg-gray-600 font-bold"
+                  : "hover:bg-gray-700"
               }`}
             >
               Ganancias
             </Link>
           </li>
+          <li>
+            <Link
+              href="/reservations"
+              className={`p-2 rounded ${
+                isActive("/admin/ganancias")
+                  ? "bg-gray-600 font-bold"
+                  : "hover:bg-gray-700"
+              }`}
+            >
+              Reservas
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default VerticalNavbar
+export default VerticalNavbar;

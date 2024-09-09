@@ -1,25 +1,24 @@
-'use client'
-import { useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { MenuIcon, XIcon } from 'lucide-react'
-import { useAuth } from '@/app/context/auth-context'
-import ComboboxDemo from '../ui/bombobox-demo'
-import { usePathname } from 'next/navigation'
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { MenuIcon, XIcon } from "lucide-react";
+import { useAuth } from "@/app/context/auth-context";
+import { usePathname } from "next/navigation";
+import ComboboxDemo from "../ui/bombobox-demo";
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const { isAuthenticated } = useAuth()
-  const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated, user } = useAuth();
+  const pathname = usePathname();
 
-  // Condicionamos el renderizado para rutas específicas
   if (pathname.startsWith('/admin')) {
     return null
   }
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className="relative z-50 flex flex-row w-full justify-between text-white items-center bg-black p-4">
@@ -44,20 +43,21 @@ const Navbar: React.FC = () => {
       <div className="hidden pr-20 items-center lg:flex space-x-4">
         <Link href="/">Inicio</Link>
         <Link href="/all-rooms">Habitaciones</Link>
-        <Link href="/admin" onClick={toggleMenu}>
-          Admin
-        </Link>
+
+        {isAuthenticated &&
+          (user?.role === "admin" || user?.role === "employee") && (
+            <Link href="/admin">Admin Panel</Link>
+          )}
+
         {isAuthenticated ? (
           <ComboboxDemo />
         ) : (
-          <>
-            <Link
-              className="border border-orange-300 p-2 m-2 rounded-md"
-              href="/login"
-            >
-              Ingresar
-            </Link>
-          </>
+          <Link
+            className="border border-orange-300 p-2 m-2 rounded-md"
+            href="/login"
+          >
+            Ingresar
+          </Link>
         )}
       </div>
 
@@ -71,9 +71,17 @@ const Navbar: React.FC = () => {
           </Link>
 
           {isAuthenticated ? (
-            <Link href="/profile" onClick={toggleMenu}>
-              Mi Perfil
-            </Link>
+            <>
+              <Link href="/profile" onClick={toggleMenu}>
+                Mi Perfil
+              </Link>
+
+              {user?.role === "admin" || user?.role === "employee" ? (
+                <Link href="/admin" onClick={toggleMenu}>
+                  Admin Panel
+                </Link>
+              ) : null}
+            </>
           ) : (
             <>
               <Link href="/register" onClick={toggleMenu}>
@@ -87,7 +95,7 @@ const Navbar: React.FC = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

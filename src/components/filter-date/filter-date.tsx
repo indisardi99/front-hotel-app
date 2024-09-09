@@ -1,19 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CalendarIcon, CheckIcon, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Input } from "../ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon, CheckIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { Command, CommandGroup, CommandItem, CommandList } from "../ui/command";
 import {
   Form,
   FormField,
@@ -21,16 +22,16 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { Input } from "../ui/input";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Command, CommandGroup, CommandItem, CommandList } from "../ui/command";
 
 const FilterDate: React.FC = () => {
   const today = new Date();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
-  const [category, setcategory] = React.useState("");
+  const [category, setCategory] = React.useState(
+    searchParams.get("category") || ""
+  );
 
   const guestOptions = [
     { value: "4", label: "4 personas" },
@@ -45,34 +46,33 @@ const FilterDate: React.FC = () => {
     category: z.string(),
     date: z
       .object({
-        from: z.date({ required_error: "La fecha de inicio es obligatoria" }),
-        to: z.date({
-          required_error: "La fecha de finalización es obligatoria",
-        }),
+        from: z.date(),
+        to: z.date(),
       })
-      .refine((data) => data.from && data.to, {
-        message: "Ambas fechas son obligatorias",
-        path: ["date"],
-      }),
+      .optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      minPrice: "",
-      maxPrice: "",
-      date: undefined,
-      category: "",
+      minPrice: searchParams.get("minPrice") || "",
+      maxPrice: searchParams.get("maxPrice") || "",
+      category: searchParams.get("category") || "",
+      date:
+        searchParams.get("startingDate") && searchParams.get("endingDate")
+          ? {
+              from: new Date(searchParams.get("startingDate")!),
+              to: new Date(searchParams.get("endingDate")!),
+            }
+          : undefined,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const startingDate = format(values.date.from, "yyyy-MM-dd");
-    const endingDate = format(values.date.to, "yyyy-MM-dd");
+    const startingDate = format(values.date?.from!, "yyyy-MM-dd");
+    const endingDate = format(values.date?.to!, "yyyy-MM-dd");
     router.push(
-      `/search?startingDate=${startingDate}&endingDate=${endingDate}&maxPrice=${
-        values?.maxPrice ?? ""
-      }&minPrice=${values?.minPrice ?? ""}&category=${values.category}`
+      `/search?startingDate=${startingDate}&endingDate=${endingDate}&maxPrice=${values.maxPrice}&minPrice=${values.minPrice}&category=${values.category}`
     );
   }
 
@@ -126,13 +126,6 @@ const FilterDate: React.FC = () => {
                           onSelect={field.onChange}
                           numberOfMonths={2}
                           disabled={[{ before: today }]}
-                          classNames={{
-                            day_disabled: "text-gray-450",
-                            day_range_start: "bg-gray-400 text-black",
-                            day_range_middle: "bg-gray-300 text-black",
-                            day_range_end: "bg-gray-400 text-black",
-                            day_selected: "",
-                          }}
                         />
                       </PopoverContent>
                     </Popover>
@@ -142,6 +135,7 @@ const FilterDate: React.FC = () => {
               )}
             />
           </div>
+
           <div className="w-64">
             <FormField
               control={form.control}
@@ -172,7 +166,7 @@ const FilterDate: React.FC = () => {
                                   key={option.value}
                                   value={option.value}
                                   onSelect={(currentValue) => {
-                                    setcategory(
+                                    setCategory(
                                       currentValue === category
                                         ? ""
                                         : currentValue
@@ -183,12 +177,11 @@ const FilterDate: React.FC = () => {
                                 >
                                   {option.label} huéspedes
                                   <CheckIcon
-                                    className={cn(
-                                      "ml-auto h-4 w-4",
+                                    className={`ml-auto h-4 w-4 ${
                                       category === option.value
                                         ? "opacity-100"
                                         : "opacity-0"
-                                    )}
+                                    }`}
                                   />
                                 </CommandItem>
                               ))}
@@ -202,6 +195,7 @@ const FilterDate: React.FC = () => {
               )}
             />
           </div>
+
           <div className="w-64">
             <FormField
               control={form.control}
@@ -225,6 +219,7 @@ const FilterDate: React.FC = () => {
               )}
             />
           </div>
+
           <div className="w-64">
             <FormField
               control={form.control}
@@ -250,7 +245,7 @@ const FilterDate: React.FC = () => {
           </div>
 
           <Button
-            className=" bg-[#faf9f5] border shadow-lg border-orange-300 p-2 text-gray-700"
+            className=" bg-[#faf9f5]  border shadow-lg border-orange-300 p-2 text-gray-700"
             variant="outline"
             type="submit"
           >

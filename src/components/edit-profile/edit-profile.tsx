@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/app/context/auth-context";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z
@@ -68,7 +69,7 @@ export function ProfileEditForm() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
+  const router = useRouter();
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!user) {
       console.log(user), toast.error("Usuario no autenticado");
@@ -98,6 +99,7 @@ export function ProfileEditForm() {
         const updatedUser = await response.json();
         updateUser(updatedUser);
         toast.success("Perfil actualizado con éxito.");
+        router.push("/view-profile");
       } else {
         toast.error("Error al actualizar el perfil, intenta de nuevo.");
       }

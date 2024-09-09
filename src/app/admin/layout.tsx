@@ -16,7 +16,7 @@ export default function AdminLayout({
         <VerticalNavbar />
       </div>
 
-      <div className="ml-64 p-10 flex-1 overflow-y-auto">{children}</div>
+      <div className="ml-64 flex-1 overflow-y-auto">{children}</div>
     </div>
   )
 }

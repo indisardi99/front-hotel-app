@@ -37,7 +37,7 @@ const CreateRoom: React.FC = () => {
         const data = await res.json()
         setAvailableCategories(data.availableCategories)
         setAvailableFeatures(data.availableFeatures)
-        setNotAvailableNumbers(data.notAvailableNumbers)
+        setNotAvailableNumbers(data.availableNumbers)
       } catch (error) {
         console.error('Error fetching room info:', error)
         toast.error('Error al cargar la información para crear la habitación.')
@@ -47,7 +47,6 @@ const CreateRoom: React.FC = () => {
     fetchData()
   }, [])
 
-  // Enable or disable the create button based on form completion
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,10 +55,10 @@ const CreateRoom: React.FC = () => {
         )
         const data = await res.json()
 
-        if (Array.isArray(data.notAvailableNumbers)) {
-          setNotAvailableNumbers(data.notAvailableNumbers)
+        if (Array.isArray(data.availableNumbers)) {
+          setNotAvailableNumbers(data.availableNumbers)
         } else {
-          setNotAvailableNumbers([]) // Asegúrate de que siempre sea un array
+          setNotAvailableNumbers([])
           console.error('notAvailableNumbers is not an array')
         }
 
@@ -74,7 +73,6 @@ const CreateRoom: React.FC = () => {
     fetchData()
   }, [])
 
-  // Handle feature selection
   const toggleFeature = (id: string) => {
     if (selectedFeatures.includes(id)) {
       setSelectedFeatures(selectedFeatures.filter((feature) => feature !== id))
@@ -83,13 +81,11 @@ const CreateRoom: React.FC = () => {
     }
   }
 
-  // Handle room creation process
   const handleCreateRoom = async () => {
     if (!number || !price || !category) {
       return toast.error('Faltan completar algunos campos.')
     }
 
-    // Check if the room number is already taken
     if (notAvailableNumbers.includes(number)) {
       const closestAvailable = getClosestAvailableNumber(number)
       return toast.error(
@@ -97,7 +93,6 @@ const CreateRoom: React.FC = () => {
       )
     }
 
-    // Step 1: Create the room
     try {
       const createRoomBody: CreateRoomDto = {
         number,
@@ -120,14 +115,12 @@ const CreateRoom: React.FC = () => {
 
       const createdRoom = await res.json()
 
-      // Step 2: Fetch the created room by number to get its ID
       const roomRes = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/room/getRoomByNumber?number=${number}`
       )
       const roomData = await roomRes.json()
       const roomId = roomData.id
 
-      // Step 3: Add features to the room
       if (selectedFeatures.length > 0) {
         await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/room/addFeatures/${roomId}`,
@@ -141,7 +134,6 @@ const CreateRoom: React.FC = () => {
         )
       }
 
-      // Step 4: Upload the room image (if selected)
       if (image) {
         const formData = new FormData()
         formData.append('file', image)
@@ -168,7 +160,6 @@ const CreateRoom: React.FC = () => {
     }
   }
 
-  // Utility function to find the closest available room number
   const getClosestAvailableNumber = (number: number) => {
     const availableNumbers = Array.from(
       { length: 100 },
@@ -181,7 +172,7 @@ const CreateRoom: React.FC = () => {
   }
 
   return (
-    <div className="p-2 mx-auto">
+    <div className="p-7 pt-20 mt-20">
       <Link
         href="/admin/habitaciones"
         className="text-black underline mb-2 block text-sm"
@@ -283,5 +274,3 @@ const CreateRoom: React.FC = () => {
 }
 
 export default CreateRoom
-// a
-// b

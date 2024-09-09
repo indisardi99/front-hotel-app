@@ -13,11 +13,7 @@ const Navbar: React.FC = () => {
   const pathname = usePathname()
 
   // Condicionamos el renderizado para rutas específicas
-  if (
-    pathname === '/admin/habitaciones' ||
-    pathname === '/admin' ||
-    pathname.startsWith('/admin/detailRoom/')
-  ) {
+  if (pathname.startsWith('/admin')) {
     return null
   }
 

@@ -35,15 +35,7 @@ const RoomDetailPage: React.FC = () => {
           setAvailableCategories(data.availableCategories)
           setCurrentImage(data.room.images[0]) // Manteniendo la lógica de imágenes
           console.log(data)
-        } catch (error) {
-          console.error('Error fetching room details:', error)
-          Swal.fire({
-            icon: 'error',
-            title: '¡Oops!',
-            text: 'No se pudieron obtener los detalles de la habitación.',
-            confirmButtonText: 'Aceptar',
-          })
-        }
+        } catch (error) {}
       }
       fetchRoomDetails()
     }
@@ -209,7 +201,7 @@ const RoomDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="p-2 max-w-5xl mx-auto pt-7 mt-20">
+    <div className="p-7 pt-20 mt-20">
       <Link
         href="/admin/habitaciones"
         className="text-black underline mb-2 block text-sm"

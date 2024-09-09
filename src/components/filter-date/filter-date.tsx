@@ -40,7 +40,6 @@ const FilterDate: React.FC = () => {
     { value: "1", label: "1 persona" },
   ];
 
-  // Schema del formulario
   const formSchema = z.object({
     minPrice: z.string(),
     maxPrice: z.string(),
@@ -53,7 +52,6 @@ const FilterDate: React.FC = () => {
       .optional(),
   });
 
-  // Rellenar valores iniciales desde los query params
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

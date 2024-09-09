@@ -12,8 +12,8 @@ const Navbar: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
   const pathname = usePathname();
 
-  if (pathname.startsWith('/admin')) {
-    return null
+  if (pathname.startsWith("/admin")) {
+    return null;
   }
 
   const toggleMenu = () => {

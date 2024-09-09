@@ -38,7 +38,7 @@ const NavbarAdmin: React.FC = () => {
         <Link href="/">Inicio</Link>
         <Link href="/all-rooms">Habitaciones</Link>
         <Link href="/admin" onClick={toggleMenu}>
-          Admin
+          Admin Panel
         </Link>
         {isAuthenticated ? (
           <ComboboxDemo />

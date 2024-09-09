@@ -27,15 +27,11 @@ const formSchema = z.object({
     .regex(/^[^0-9]*$/, {
       message: "El nombre de usuario no puede contener números.",
     }),
-  email: z.string().email({
-    message: "Debe ser un correo electrónico válido.",
-  }),
   password: z.string().optional(),
   oldPassword: z.string().optional(),
   adress: z.string().min(5, {
     message: "La dirección debe tener al menos 5 caracteres.",
   }),
-  role: z.string().optional(),
   phone: z
     .string()
     .regex(/^\d+$/, {
@@ -50,7 +46,6 @@ const formSchema = z.object({
       message: "Debe ser una URL válida para la imagen.",
     })
     .optional(),
-  status: z.string().optional(),
 });
 
 export function ProfileEditForm() {
@@ -60,11 +55,11 @@ export function ProfileEditForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: user?.name || "",
-      email: user?.email || "",
       password: "",
       oldPassword: "",
       adress: user?.adress || "",
       phone: user?.phone?.toString() || "",
+      image: user?.image || "",
     },
   });
 
@@ -87,11 +82,11 @@ export function ProfileEditForm() {
           },
           body: JSON.stringify({
             name: values.name,
-            email: values.email,
             password: values.password,
             oldPassword: values.oldPassword,
             adress: values.adress,
             phone: values.phone,
+            image: values.image,
           }),
         }
       );
@@ -133,15 +128,14 @@ export function ProfileEditForm() {
         />
         <FormField
           control={form.control}
-          name="email"
+          name="adress"
           render={({ field }) => (
             <FormItem className="mb-6">
-              <FormLabel>Correo Electrónico</FormLabel>
+              <FormLabel>Dirección</FormLabel>
               <FormControl>
                 <Input
                   className="w-full bg-[#faf9f5] border border-orange-300"
-                  type="email"
-                  placeholder="Tu Correo"
+                  placeholder="Calle y Altura"
                   {...field}
                 />
               </FormControl>
@@ -203,23 +197,7 @@ export function ProfileEditForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="adress"
-          render={({ field }) => (
-            <FormItem className="mb-6">
-              <FormLabel>Dirección</FormLabel>
-              <FormControl>
-                <Input
-                  className="w-full bg-[#faf9f5] border border-orange-300"
-                  placeholder="Calle y Altura"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="mt-1" />
-            </FormItem>
-          )}
-        />
+
         <FormField
           control={form.control}
           name="phone"
@@ -230,6 +208,23 @@ export function ProfileEditForm() {
                 <Input
                   className="w-full bg-[#faf9f5] border border-orange-300"
                   placeholder="11 22334455"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className="mb-6">
+              <FormLabel>Imagen de Perfil (URL)</FormLabel>
+              <FormControl>
+                <Input
+                  className="w-full bg-[#faf9f5] border border-orange-300"
+                  placeholder="URL de tu imagen"
                   {...field}
                 />
               </FormControl>

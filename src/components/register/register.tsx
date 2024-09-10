@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { number, z } from "zod";
+import { z } from "zod";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import {
@@ -133,7 +133,6 @@ export function Register() {
               <FormLabel htmlFor="name">Nombre Completo</FormLabel>
               <FormControl>
                 <Input
-                  id="name"
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="Tu nombre"
                   {...field}
@@ -151,7 +150,6 @@ export function Register() {
               <FormLabel>Dirección</FormLabel>
               <FormControl>
                 <Input
-                  id="name"
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="Direccion"
                   {...field}
@@ -187,7 +185,6 @@ export function Register() {
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
                 <Input
-                  id="name"
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   type="email"
                   placeholder="Tu Correo"
@@ -207,7 +204,6 @@ export function Register() {
               <FormControl>
                 <div className="relative w-full">
                   <Input
-                    id="name"
                     className="w-[310px] bg-[#faf9f5] border border-orange-300"
                     type={showPassword ? "text" : "password"}
                     placeholder="Tu contraseña"
@@ -235,7 +231,6 @@ export function Register() {
               <FormControl>
                 <div className="relative w-full">
                   <Input
-                    id="name"
                     className="w-[310px] bg-[#faf9f5] border border-orange-300"
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Confirma tu contraseña"
@@ -258,7 +253,7 @@ export function Register() {
           className=" mt-4 w-[290px]  hover:bg-orange-200 bg-[#faf9f5] border border-orange-300 h-[40px] text-black mb-[15px]"
           type="submit"
         >
-          Enviar
+          Registrarme
         </Button>
       </form>
       <div className="mt-4 text-center">

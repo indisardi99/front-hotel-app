@@ -65,6 +65,7 @@ export function ProfileEditForm() {
 
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!user) {
       console.log(user), toast.error("Usuario no autenticado");
@@ -74,7 +75,6 @@ export function ProfileEditForm() {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}`,
-
         {
           method: "PUT",
           headers: {
@@ -102,7 +102,6 @@ export function ProfileEditForm() {
       toast.error("Error del servidor, intenta más tarde.");
     }
   }
-
   return (
     <Form {...form}>
       <form
@@ -156,7 +155,7 @@ export function ProfileEditForm() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Contraseña antigua"
                     {...field}
-                    disabled={user?.authProvider === "google"} // Deshabilitar si es Google
+                    disabled={user?.authProvider === "google"}
                   />
                   <button
                     type="button"
@@ -189,7 +188,7 @@ export function ProfileEditForm() {
                     type={showPassword ? "text" : "password"}
                     placeholder={
                       user?.authProvider === "google"
-                        ? "Crea una contraseña"
+                        ? "Crear contraseña"
                         : "Nueva contraseña"
                     }
                     {...field}

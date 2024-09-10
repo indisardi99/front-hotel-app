@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { number, z } from "zod";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,9 +31,8 @@ const formSchema = z
       message: "La dirección debe tener al menos 5 caracteres.",
     }),
     phone: z
-      .string()
-      .regex(/^\d+$/, {
-        message: "El número de teléfono solo debe contener dígitos.",
+      .number({
+        invalid_type_error: "El número de teléfono debe ser un número.",
       })
       .min(9, {
         message: "El número de teléfono debe tener al menos 9 dígitos.",
@@ -74,7 +73,7 @@ export function Register() {
     defaultValues: {
       name: "",
       adress: "",
-      phone: "",
+      phone: 0,
       email: "",
       password: "",
       confirmPassword: "",
@@ -131,9 +130,10 @@ export function Register() {
           name="name"
           render={({ field }) => (
             <FormItem className="mb-12">
-              <FormLabel>Nombre Completo</FormLabel>
+              <FormLabel htmlFor="name">Nombre Completo</FormLabel>
               <FormControl>
                 <Input
+                  id="name"
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="Tu nombre"
                   {...field}
@@ -151,6 +151,7 @@ export function Register() {
               <FormLabel>Dirección</FormLabel>
               <FormControl>
                 <Input
+                  id="name"
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="Direccion"
                   {...field}
@@ -168,6 +169,7 @@ export function Register() {
               <FormLabel>Teléfono</FormLabel>
               <FormControl>
                 <Input
+                  id="name"
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="11 22334455"
                   {...field}
@@ -186,6 +188,7 @@ export function Register() {
               <FormLabel>Correo electrónico</FormLabel>
               <FormControl>
                 <Input
+                  id="name"
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   type="email"
                   placeholder="Tu Correo"
@@ -205,6 +208,7 @@ export function Register() {
               <FormControl>
                 <div className="relative w-full">
                   <Input
+                    id="name"
                     className="w-[310px] bg-[#faf9f5] border border-orange-300"
                     type={showPassword ? "text" : "password"}
                     placeholder="Tu contraseña"
@@ -232,6 +236,7 @@ export function Register() {
               <FormControl>
                 <div className="relative w-full">
                   <Input
+                    id="name"
                     className="w-[310px] bg-[#faf9f5] border border-orange-300"
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Confirma tu contraseña"

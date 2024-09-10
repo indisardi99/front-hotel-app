@@ -15,20 +15,11 @@ function Search() {
   const stateUrl = searchParams.get("state");
   const state = stateUrl ? JSON.parse(decodeURIComponent(stateUrl)) : false;
 
-  console.log(
-    "stateUrl: ",
-    stateUrl,
-    " state: ",
-    state,
-    " searchParams: ",
-    searchParams
-  );
-
   useEffect(() => {
-    const token = jwtDecode(state.access_token);
+    const token = jwtDecode<any>(state.access_token);
     if (state?.user) {
       login(
-        { ...state.user, authProvider: "google", id: token },
+        { ...state.user, authProvider: "google", id: token?.id },
         state.access_token
       );
       toast.success("ingresando a Eclipse Royal");

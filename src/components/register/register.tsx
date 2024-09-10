@@ -76,7 +76,6 @@ export function Register() {
       phone: 0,
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
@@ -169,7 +168,6 @@ export function Register() {
               <FormLabel>Teléfono</FormLabel>
               <FormControl>
                 <Input
-                  id="name"
                   className="w-[310px] bg-[#faf9f5] border border-orange-300"
                   placeholder="11 22334455"
                   {...field}

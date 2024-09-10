@@ -84,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(user);
+    console.log("user context: ", user);
   }, [user]);
 
   const login = (user: User, accessToken: string) => {

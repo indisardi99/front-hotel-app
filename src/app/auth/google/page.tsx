@@ -4,6 +4,8 @@ import { useAuth } from "@/app/context/auth-context";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, Suspense } from "react";
 import toast from "react-hot-toast";
+import { jwtDecode } from "jwt-decode";
+import { createCardToken } from "@mercadopago/sdk-react";
 
 function Search() {
   const router = useRouter();
@@ -23,8 +25,12 @@ function Search() {
   );
 
   useEffect(() => {
+    const token = jwtDecode(state.access_token);
     if (state?.user) {
-      login({ ...state.user, authProvider: "google" }, state.access_token);
+      login(
+        { ...state.user, authProvider: "google", id: token },
+        state.access_token
+      );
       toast.success("ingresando a Eclipse Royal");
       router.push("/");
     } else {

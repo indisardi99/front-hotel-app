@@ -35,7 +35,10 @@ const formSchema = z
       .min(9, {
         message: "El número de teléfono debe tener al menos 9 dígitos.",
       })
-      .regex(/^\d+$/, {
+      .max(10, {
+        message: "El número de teléfono no debe exceder los 10 dígitos.",
+      })
+      .regex(/^\d{9,10}$/, {
         message: "El número de teléfono debe contener solo números.",
       }),
     email: z.string().email({

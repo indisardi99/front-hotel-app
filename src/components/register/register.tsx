@@ -74,7 +74,7 @@ export function Register() {
     defaultValues: {
       name: "",
       adress: "",
-      phone: 0,
+      phone: "",
       email: "",
       password: "",
     },

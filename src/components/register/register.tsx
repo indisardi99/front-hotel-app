@@ -30,13 +30,9 @@ const formSchema = z
     adress: z.string().min(5, {
       message: "La dirección debe tener al menos 5 caracteres.",
     }),
-    phone: z
-      .number({
-        invalid_type_error: "El número de teléfono debe ser un número.",
-      })
-      .min(9, {
-        message: "El número de teléfono debe tener al menos 9 dígitos.",
-      }),
+    phone: z.number({}).min(9, {
+      message: "El número de teléfono debe tener al menos 9 dígitos.",
+    }),
     email: z.string().email({
       message: "Debe ser un correo electrónico válido.",
     }),

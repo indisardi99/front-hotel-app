@@ -3,9 +3,8 @@ import ReserveCard from "../reserveCard";
 const uniqueParam = Date.now();
 
 async function getReserves2() {
-  //const res = await fetch("https://jsonplaceholder.typicode.com/posts")
   const res = await fetch(
-    `https://pf-eclipseroyale-qd2v.onrender.com/reservation/getAllReservations?page=1&limit=100&unique=${uniqueParam}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/reservation/getAllReservations?page=1&limit=100&unique=${uniqueParam}`,
     {
       method: "GET",
       headers: {

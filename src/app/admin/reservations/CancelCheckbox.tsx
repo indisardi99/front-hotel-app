@@ -18,7 +18,7 @@ export default function CancelCheckbox({ reserve }: any) {
 
   async function confirmCancel() {
     const res = await fetch(
-      `https://pf-eclipseroyale-qd2v.onrender.com/reservation/cancel/${reserve.id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/reservation/cancel/${reserve.id}`,
       {
         method: "PUT",
       }

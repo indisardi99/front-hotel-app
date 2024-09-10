@@ -27,8 +27,8 @@ const formSchema = z.object({
     .regex(/^[^0-9]*$/, {
       message: "El nombre de usuario no puede contener números.",
     }),
-  password: z.string().optional(),
-  oldPassword: z.string().optional(),
+  password: z.string(),
+  oldPassword: z.string(),
   adress: z.string().min(5, {
     message: "La dirección debe tener al menos 5 caracteres.",
   }),
@@ -155,7 +155,7 @@ export function ProfileEditForm() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Contraseña antigua"
                     {...field}
-                    disabled={user?.authProvider === "google"}
+                    // disabled={user?.authProvider === "google"}
                   />
                   <button
                     type="button"
@@ -177,20 +177,20 @@ export function ProfileEditForm() {
           render={({ field }) => (
             <FormItem className="mb-6">
               <FormLabel>
-                {user?.authProvider === "google"
+                {/* {user?.authProvider === "google"
                   ? "Crea una contraseña"
-                  : "Nueva Contraseña"}
+                  : "Nueva Contraseña"} */}
               </FormLabel>
               <FormControl>
                 <div className="relative">
                   <Input
                     className="w-full bg-[#faf9f5] border border-orange-300"
                     type={showPassword ? "text" : "password"}
-                    placeholder={
-                      user?.authProvider === "google"
-                        ? "Crear contraseña"
-                        : "Nueva contraseña"
-                    }
+                    // placeholder={
+                    //   user?.authProvider === "google"
+                    //     ? "Crear contraseña"
+                    //     : "Nueva contraseña"
+                    // }
                     {...field}
                   />
                   <button

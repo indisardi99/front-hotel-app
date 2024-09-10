@@ -4,12 +4,7 @@ import CancelCheckbox from "./CancelCheckbox";
 
 const uniqueParam = Date.now();
 
-//let page = 1;
-
 async function getReserves() {
-  //const res = await fetch("https://jsonplaceholder.typicode.com/posts")
-  //const res = await fetch("http://localhost:3001/reservation/getReservations")
-  // Genera un número único basado en la hora actual
   const page = 1;
   const res = await fetch(
     `https://pf-eclipseroyale-qd2v.onrender.com/reservation/getAllReservations?page=${page}&limit=100&unique=${uniqueParam}`,
@@ -33,21 +28,6 @@ async function Reserves() {
   const reserves = reserves1.data;
   console.log("longitud array reservas", reserves.length);
   const cont = reserves.length;
-
-  // const RenderPaginationButtons = () => {
-  //     const buttons = [];
-  //     const totalPages = Math.ceil(12/10)
-
-  //     for (let i = 1; i <= totalPages; i++) {
-  //       buttons.push(
-  //         <Link key = {i} href={`/reservations?page=${i}&limit=10&unique=${uniqueParam}`}>
-  //           <button className="pagination-button">{i}</button>
-  //         </Link>
-  //       );
-  //     }
-
-  //     return buttons;
-  //   }
 
   return (
     <div>

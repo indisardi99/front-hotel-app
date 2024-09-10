@@ -13,6 +13,15 @@ function Search() {
   const stateUrl = searchParams.get("state");
   const state = stateUrl ? JSON.parse(decodeURIComponent(stateUrl)) : false;
 
+  console.log(
+    "stateUrl: ",
+    stateUrl,
+    " state: ",
+    state,
+    " searchParams: ",
+    searchParams
+  );
+
   useEffect(() => {
     if (state?.user) {
       login({ ...state.user, authProvider: "google" }, state.access_token);

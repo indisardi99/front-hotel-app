@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import UserCardAdmin from "@/components/admin-components/all-users-admin/user-card-admin";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import { useAuth } from "@/app/context/auth-context";
 
 interface User {
   id: string;
@@ -16,17 +17,24 @@ interface User {
 
 const UsuariosPage: React.FC = () => {
   const [data, setData] = useState<User[]>([]);
-
+  const page = 1;
+  const limit = 20;
+  const { accessToken } = useAuth();
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users?page=${page}&limit=${limit}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Error al obtener los usuarios");
       }
-
       const users: User[] = await res.json();
-      // Ordenar los usuarios primero por role ('admin' o 'employee') y luego por nombre
       const sortedUsers = users.sort((a, b) => {
         if (a.role === "admin" || a.role === "employee") {
           return -1;
@@ -39,6 +47,7 @@ const UsuariosPage: React.FC = () => {
 
       setData(sortedUsers);
     } catch (error) {
+      console.error(error);
       Swal.fire({
         icon: "error",
         title: "Error",

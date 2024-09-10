@@ -84,7 +84,7 @@ const VerticalNavbar: React.FC = () => {
           </li>
           <li>
             <Link
-              href="/reservations"
+              href="/admin/reservations"
               className={`p-2 rounded ${
                 isActive("/admin/ganancias")
                   ? "bg-gray-600 font-bold"

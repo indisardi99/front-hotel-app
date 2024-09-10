@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 interface UserCardProps {
-  id: string
-  name: string
-  email: string
-  phone?: number
-  role: string
-  status: string
-  adress?: string
-  onSuspend: (id: string) => void
-  onReactivate: (id: string) => void
-  onUpdate: (id: string, updatedData: any) => void
+  id: string;
+  name: string;
+  email: string;
+  phone?: number;
+  role: string;
+  status: string;
+  adress?: string;
+  onSuspend: (id: string) => void;
+  onReactivate: (id: string) => void;
+  onUpdate: (id: string, updatedData: any) => void;
 }
 
 const UserCardAdmin: React.FC<UserCardProps> = ({
@@ -25,56 +25,56 @@ const UserCardAdmin: React.FC<UserCardProps> = ({
   onReactivate,
   onUpdate,
 }) => {
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({
     name,
     email,
     phone,
     role,
     adress,
-  })
+  });
   const [originalData, setOriginalData] = useState({
     name,
     email,
     phone,
     role,
     adress,
-  })
-  const [hasChanges, setHasChanges] = useState(false)
+  });
+  const [hasChanges, setHasChanges] = useState(false);
 
   const handleEditClick = () => {
-    setIsEditing(true)
-    setOriginalData({ ...editedData }) // Guardar los datos originales al iniciar la edición
-  }
+    setIsEditing(true);
+    setOriginalData({ ...editedData });
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setEditedData((prev) => ({ ...prev, [name]: value }))
-    setHasChanges(true)
-  }
+    const { name, value } = e.target;
+    setEditedData((prev) => ({ ...prev, [name]: value }));
+    setHasChanges(true);
+  };
 
   const handleUpdateClick = () => {
-    onUpdate(id, editedData)
-    setIsEditing(false)
-    setHasChanges(false)
-  }
+    onUpdate(id, editedData);
+    setIsEditing(false);
+    setHasChanges(false);
+  };
 
   const handleCancelClick = () => {
-    setEditedData(originalData) // Restablecer los datos originales al cancelar
-    setIsEditing(false)
-    setHasChanges(false)
-  }
+    setEditedData(originalData);
+    setIsEditing(false);
+    setHasChanges(false);
+  };
 
   const cardStyle =
-    role === 'admin' || role === 'employee' ? 'bg-blue-100' : 'bg-white'
+    role === "admin" || role === "employee" ? "bg-blue-100" : "bg-white";
 
   return (
     <div
       className={`p-4 border rounded-md shadow-md w-full ${cardStyle} flex flex-col justify-between`}
-      style={{ minHeight: '120px', width: '100%' }}
+      style={{ minHeight: "120px", width: "100%" }}
     >
       <h2 className="text-xl font-semibold mb-2">
-        Usuario:{' '}
+        Usuario:{" "}
         {isEditing ? (
           <input
             type="text"
@@ -89,7 +89,7 @@ const UserCardAdmin: React.FC<UserCardProps> = ({
       </h2>
       <div className="flex justify-between items-center mb-2">
         <p className="text-gray-700">
-          Email:{' '}
+          Email:{" "}
           {isEditing ? (
             <input
               type="email"
@@ -103,51 +103,51 @@ const UserCardAdmin: React.FC<UserCardProps> = ({
           )}
         </p>
         <p className="text-gray-700">
-          Teléfono:{' '}
+          Teléfono:{" "}
           {isEditing ? (
             <input
               type="number"
               name="phone"
-              value={editedData.phone || ''}
+              value={editedData.phone || ""}
               onChange={handleChange}
               className="border p-1 rounded"
             />
           ) : phone ? (
             phone
           ) : (
-            'No tiene número'
+            "No tiene número"
           )}
         </p>
       </div>
 
       <div className="flex justify-between items-center mb-2">
         <p className="text-gray-700">
-          Dirección:{' '}
+          Dirección:{" "}
           {isEditing ? (
             <input
               type="text"
               name="adress"
-              value={editedData.adress || ''}
+              value={editedData.adress || ""}
               onChange={handleChange}
               className="border p-1 rounded"
             />
           ) : adress ? (
             adress
           ) : (
-            'No tiene dirección'
+            "No tiene dirección"
           )}
         </p>
         <p className="text-gray-700">Rol: {role}</p>
       </div>
 
       <div className="flex justify-end gap-2">
-        {status === 'active' ? (
+        {status === "active" ? (
           <button
             onClick={() => onSuspend(id)}
             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-            disabled={role === 'admin'}
+            disabled={role === "admin"}
           >
-            {role === 'admin' ? 'Admin - No se puede suspender' : 'Suspender'}
+            {role === "admin" ? "Admin - No se puede suspender" : "Suspender"}
           </button>
         ) : (
           <button
@@ -187,7 +187,7 @@ const UserCardAdmin: React.FC<UserCardProps> = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserCardAdmin
+export default UserCardAdmin;

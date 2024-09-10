@@ -11,7 +11,9 @@ function Search() {
 
   const searchParams = useSearchParams();
   const stateUrl = searchParams.get("state");
+  console.log("stateUrl: ", stateUrl);
   const state = stateUrl ? JSON.parse(decodeURIComponent(stateUrl)) : false;
+  console.log("state google parseado: ", state);
 
   useEffect(() => {
     if (state?.user) {

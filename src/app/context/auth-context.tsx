@@ -83,6 +83,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loadAuthState();
   }, []);
 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   const login = (user: User, accessToken: string) => {
     setCookie("accessToken", accessToken);
     setAccessToken(accessToken);

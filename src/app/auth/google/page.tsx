@@ -11,13 +11,11 @@ function Search() {
 
   const searchParams = useSearchParams();
   const stateUrl = searchParams.get("state");
-  console.log("stateUrl: ", stateUrl);
   const state = stateUrl ? JSON.parse(decodeURIComponent(stateUrl)) : false;
-  console.log("state google parseado: ", state);
 
   useEffect(() => {
     if (state?.user) {
-      login(state.user, state.access_token);
+      login({ ...state.user, authProvider: "google" }, state.access_token);
       toast.success("ingresando a Eclipse Royal");
       router.push("/");
     } else {

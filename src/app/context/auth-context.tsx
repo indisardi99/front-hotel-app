@@ -10,6 +10,8 @@ import {
 import { setCookie, deleteCookie, getCookie } from "cookies-next";
 
 type Role = "user" | "admin" | "employee";
+type AuthProvider = "google" | "email";
+
 type User = {
   id: string;
   email: string;
@@ -19,6 +21,7 @@ type User = {
   name?: string;
   image?: string;
   status?: string;
+  authProvider?: AuthProvider;
 };
 
 export type AuthContextType = {

@@ -156,33 +156,7 @@ export function ProfileEditForm() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Contraseña antigua"
                     {...field}
-                  />
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff /> : <Eye />}
-                  </button>
-                </div>
-              </FormControl>
-              <FormMessage className="mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="mb-6">
-              <FormLabel>Nueva Contraseña</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input
-                    className="w-full bg-[#faf9f5] border border-orange-300"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Nueva contraseña"
-                    {...field}
+                    disabled={user?.authProvider === "google"} // Deshabilitar si es Google
                   />
                   <button
                     type="button"
@@ -198,6 +172,41 @@ export function ProfileEditForm() {
           )}
         />
 
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem className="mb-6">
+              <FormLabel>
+                {user?.authProvider === "google"
+                  ? "Crea una contraseña"
+                  : "Nueva Contraseña"}
+              </FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Input
+                    className="w-full bg-[#faf9f5] border border-orange-300"
+                    type={showPassword ? "text" : "password"}
+                    placeholder={
+                      user?.authProvider === "google"
+                        ? "Crea una contraseña"
+                        : "Nueva contraseña"
+                    }
+                    {...field}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </div>
+              </FormControl>
+              <FormMessage className="mt-1" />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="phone"

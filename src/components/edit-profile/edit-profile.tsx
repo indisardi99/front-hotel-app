@@ -27,8 +27,8 @@ const formSchema = z.object({
     .regex(/^[^0-9]*$/, {
       message: "El nombre de usuario no puede contener números.",
     }),
-  password: z.string(),
-  oldPassword: z.string(),
+  password: z.string().optional(),
+  oldPassword: z.string().optional(),
   adress: z.string().min(5, {
     message: "La dirección debe tener al menos 5 caracteres.",
   }),
@@ -47,7 +47,6 @@ const formSchema = z.object({
     })
     .optional(),
 });
-
 export function ProfileEditForm() {
   const { user, updateUser } = useAuth();
 
@@ -68,7 +67,7 @@ export function ProfileEditForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!user) {
-      console.log(user), toast.error("Usuario no autenticado");
+      toast.error("Usuario no autenticado");
       return;
     }
 
@@ -102,6 +101,7 @@ export function ProfileEditForm() {
       toast.error("Error del servidor, intenta más tarde.");
     }
   }
+
   return (
     <Form {...form}>
       <form
@@ -142,70 +142,67 @@ export function ProfileEditForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="oldPassword"
-          render={({ field }) => (
-            <FormItem className="mb-6">
-              <FormLabel>Contraseña Antigua</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input
-                    className="w-full bg-[#faf9f5] border border-orange-300"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Contraseña antigua"
-                    {...field}
-                    // disabled={user?.authProvider === "google"}
-                  />
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff /> : <Eye />}
-                  </button>
-                </div>
-              </FormControl>
-              <FormMessage className="mt-1" />
-            </FormItem>
-          )}
-        />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="mb-6">
-              <FormLabel>
-                {/* {user?.authProvider === "google"
-                  ? "Crea una contraseña"
-                  : "Nueva Contraseña"} */}
-              </FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input
-                    className="w-full bg-[#faf9f5] border border-orange-300"
-                    type={showPassword ? "text" : "password"}
-                    // placeholder={
-                    //   user?.authProvider === "google"
-                    //     ? "Crear contraseña"
-                    //     : "Nueva contraseña"
-                    // }
-                    {...field}
-                  />
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff /> : <Eye />}
-                  </button>
-                </div>
-              </FormControl>
-              <FormMessage className="mt-1" />
-            </FormItem>
-          )}
-        />
+        {user?.authProvider !== "google" && (
+          <>
+            <FormField
+              control={form.control}
+              name="oldPassword"
+              render={({ field }) => (
+                <FormItem className="mb-6">
+                  <FormLabel>Contraseña Antigua</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        className="w-full bg-[#faf9f5] border border-orange-300"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Contraseña antigua"
+                        {...field}
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff /> : <Eye />}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage className="mt-1" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="mb-6">
+                  <FormLabel>Nueva Contraseña</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        className="w-full bg-[#faf9f5] border border-orange-300"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Nueva contraseña"
+                        {...field}
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff /> : <Eye />}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage className="mt-1" />
+                </FormItem>
+              )}
+            />
+          </>
+        )}
+
         <FormField
           control={form.control}
           name="phone"

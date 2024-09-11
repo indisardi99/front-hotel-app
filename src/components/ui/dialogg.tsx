@@ -52,7 +52,7 @@ const CancelReservationModal = ({
           {isCanceled ? "Reserva Cancelada" : "Cancelar Reserva"}
         </Button>
       </DialogTrigger>
-      <DialogContent className="absolute flex flex-col items-center justify-center w-[320px] h-[250px] bg-white p-6  rounded-lg">
+      <DialogContent className="absolute shadow-lg border-red-400 flex flex-col items-center justify-center w-[320px] h-[250px] bg-white p-6  rounded-lg">
         <DialogHeader>
           <DialogTitle>Cancelar Reserva</DialogTitle>
           <DialogDescription>

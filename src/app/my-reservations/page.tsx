@@ -49,7 +49,13 @@ const MyReservations = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/reservation/getUserReservations/${user.email}`
       )
         .then((res) => res.json())
-        .then((data) => setReservations(data.data))
+        .then((data) => {
+          const sortedReservations = data.data.sort(
+            (a: Reservation, b: Reservation) =>
+              new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+          );
+          setReservations(sortedReservations);
+        })
         .catch((error) => console.error("Error fetching reservations:", error));
     }
   }, [user, isAuthenticated, router]);

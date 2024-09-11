@@ -31,50 +31,58 @@ async function Reserves() {
 
   return (
     <div>
-      <div
-        style={{ display: "flex", alignItems: "center", padding: "10px 20px" }}
-        className="flex flex-col mt-36"
-      >
+      <div className="flex flex-col justify-center items-center mt-36 ">
         <Link href="/admin/reservations">
-          <h1
-            style={{ fontSize: "30px", marginLeft: "150px", marginTop: "55px" }}
-          >
-            Reservas
+          <h1 className="text-3xl font-bold text-black m-2 text-center">
+            Todas las Reservas
           </h1>
         </Link>
-        <div
-          className="dropdown"
-          style={{
-            position: "relative",
-            paddingTop: "40px",
-            paddingLeft: "30px",
-          }}
-        >
-          <div className="filter-container">
+        <div className="flex flex-row w-full justify-around ">
+          <div className="filter-container flex flex-row w-full justify-around">
             <div
               className="dropdown4"
               style={{
                 paddingLeft: "10px",
-                paddingTop: "25px",
+                paddingTop: "20px",
                 paddingRight: "20px",
               }}
             >
-              <button style={{ fontSize: "20px" }}>Estatus</button>
+              <button
+                className="border border-blue-950 m-2 p-2 rounded-md"
+                style={{ fontSize: "20px" }}
+              >
+                Filtro por Estado
+              </button>
               <div className="dropdown-content4">
                 <Link href="/admin/reservations/pending/">
-                  <p> Pending</p>
+                  <p className="rounded-md border border-yellow-500 bg-yellow-400 ">
+                    {" "}
+                    Pendiente
+                  </p>
                 </Link>
                 <Link href="/admin/reservations/cancelled/">
-                  <p> Cancelled</p>
+                  <p className="rounded-md border border-red-600 bg-red-400 ">
+                    {" "}
+                    Cancelada
+                  </p>
                 </Link>
                 <Link href="/admin/reservations/paid/">
-                  <p> Paid</p>
+                  <p className="rounded-md border border-blue-600 bg-blue-400  ">
+                    {" "}
+                    Pagada
+                  </p>
                 </Link>
                 <Link href="/admin/reservations/completed/">
-                  <p> Completed</p>
+                  <p className="rounded-md border border-green-600 bg-green-400  ">
+                    {" "}
+                    Completada
+                  </p>
                 </Link>
                 <Link href="/admin/reservations/inprogress/">
-                  <p> In Progress</p>
+                  <p className="rounded-md border border-gray-600 bg-gray-400  ">
+                    {" "}
+                    En progreso
+                  </p>
                 </Link>
               </div>
             </div>
@@ -86,33 +94,63 @@ async function Reserves() {
                 paddingRight: "20px",
               }}
             >
-              <button style={{ fontSize: "20px" }}>Categoría</button>
+              <button
+                className="border border-blue-950 m-2 p-2 rounded-md"
+                style={{ fontSize: "20px" }}
+              >
+                Filtro por Categoría
+              </button>
               <div className="dropdown-content2">
                 <Link href="/admin/reservations/suite/">
-                  <p>Suite</p>
+                  <p className="rounded-md border border-blue-500 ">Suite</p>
                 </Link>
                 <Link href="/admin/reservations/suite_premium/">
-                  <p>Suite Premium</p>
+                  <p className="rounded-md border border-blue-500 ">
+                    Suite Premium
+                  </p>
                 </Link>
                 <Link href="/admin/reservations/loft/">
-                  <p> Loft</p>
+                  <p className="rounded-md border border-blue-500 "> Loft</p>
                 </Link>
                 <Link href="/admin/reservations/loft_premium/">
-                  <p> Loft Premium</p>
+                  <p className="rounded-md border border-blue-500 ">
+                    Loft Premium
+                  </p>
                 </Link>
               </div>
             </div>
-            <div className="dropdown3">
-              <button style={{ fontSize: "20px" }}>Precio</button>
+            <div
+              className="dropdown3"
+              style={{
+                paddingLeft: "10px",
+                paddingTop: "20px",
+                paddingRight: "20px",
+              }}
+            >
+              <button
+                className="border border-blue-950 m-2 p-2 rounded-md"
+                style={{ fontSize: "20px" }}
+              >
+                Filtro por Precio
+              </button>
               <div className="dropdown-content3">
                 <Link href="/admin/reservations/menos300/">
-                  <p> Menos de $300</p>
+                  <p className="rounded-md border border-green-500 ">
+                    {" "}
+                    Menos de $300
+                  </p>
                 </Link>
                 <Link href="/admin/reservations/betwenn3001000/">
-                  <p> $300 - $1000</p>
+                  <p className="rounded-md border border-green-500 ">
+                    {" "}
+                    de $300 a $1000
+                  </p>
                 </Link>
                 <Link href="/admin/reservations/more1000/">
-                  <p> Más de $1000</p>
+                  <p className="rounded-md border border-green-500 ">
+                    {" "}
+                    Más de $1000
+                  </p>
                 </Link>
               </div>
             </div>
@@ -125,14 +163,14 @@ async function Reserves() {
           <tr>
             <th></th>
             <th>Email</th>
-            <th>Estatus </th>
+            <th>Estado</th>
             <th>Categoría</th>
             <th>Habitación</th>
             <th>Precio</th>
             <th>Fecha Inicio</th>
-            <th>Fecha Finalización </th>
+            <th>Fecha Finalización</th>
             <th>Ver detalle</th>
-            <th className="cancel-column"> Cancelar</th>
+            <th className="cancel-column">Cancelar</th>
           </tr>
         </thead>
         <tbody>
@@ -140,7 +178,15 @@ async function Reserves() {
             <tr key={reserve.id}>
               <td>{index + 1}</td>
               <td>{reserve.user.email}</td>
-              <td>
+              <td
+                className={`
+            ${reserve.status === "pending" && "text-yellow-500"} 
+            ${reserve.status === "canceled" && "text-red-500"}
+            ${reserve.status === "paid" && "text-blue-500"}
+            ${reserve.status === "in_progress" && "text-gray-500"}
+            ${reserve.status === "completed" && "text-green-500"}
+          `}
+              >
                 {reserve.status === "pending" && "Pendiente"}
                 {reserve.status === "canceled" && "Cancelada"}
                 {reserve.status === "paid" && "Pagado"}
@@ -160,7 +206,6 @@ async function Reserves() {
                 </Link>
               </td>
               <td>
-                {" "}
                 <CancelCheckbox reserve={reserve} />
               </td>
             </tr>

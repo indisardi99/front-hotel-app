@@ -26,7 +26,7 @@ async function ReservesById({ params }: any) {
   );
 
   return (
-    <div className="w-full flex flex-col mt-5 lg:mt-20 p-1 lg:px-32">
+    <div className="w-full flex flex-col mt-36 lg:mt-20 p-1 lg:px-32">
       <ReserveCard reserve={reserva_id} key={reserva_id.id} />
     </div>
   );

@@ -40,7 +40,7 @@ export default function CancelCheckbox({ reserve }: any) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col mt-36">
       <input
         type="checkbox"
         checked={isChecked}

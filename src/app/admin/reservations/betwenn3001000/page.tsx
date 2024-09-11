@@ -43,8 +43,9 @@ async function ReservesPending({ params }: any) {
     <div>
       <div
         style={{ display: "flex", alignItems: "center", padding: "10px 20px" }}
+        className="flex flex-col mt-36"
       >
-        <Link href="/reservations">
+        <Link href="/admin/reservations">
           <h1
             style={{ fontSize: "30px", marginLeft: "150px", marginTop: "55px" }}
           >
@@ -70,19 +71,19 @@ async function ReservesPending({ params }: any) {
             >
               <button style={{ fontSize: "20px" }}>Estatus</button>
               <div className="dropdown-content4">
-                <Link href="/reservations/pending/">
+                <Link href="/admin/reservations/pending/">
                   <p> Pending</p>
                 </Link>
-                <Link href="/reservations/cancelled/">
+                <Link href="/admin/reservations/cancelled/">
                   <p> Cancelled</p>
                 </Link>
-                <Link href="/reservations/paid/">
+                <Link href="/admin/reservations/paid/">
                   <p> Paid</p>
                 </Link>
-                <Link href="/reservations/completed/">
+                <Link href="/admin/reservations/completed/">
                   <p> Completed</p>
                 </Link>
-                <Link href="/reservations/inprogress/">
+                <Link href="/admin/reservations/inprogress/">
                   <p> In Progress</p>
                 </Link>
               </div>
@@ -97,16 +98,16 @@ async function ReservesPending({ params }: any) {
             >
               <button style={{ fontSize: "20px" }}>Categoría</button>
               <div className="dropdown-content2">
-                <Link href="/reservations/suite/">
+                <Link href="/admin/reservations/suite/">
                   <p>Suite</p>
                 </Link>
-                <Link href="/reservations/suite_premium/">
+                <Link href="/admin/reservations/suite_premium/">
                   <p>Suite Premium</p>
                 </Link>
-                <Link href="/reservations/loft/">
+                <Link href="/admin/reservations/loft/">
                   <p> Loft</p>
                 </Link>
-                <Link href="/reservations/loft_premium/">
+                <Link href="/admin/reservations/loft_premium/">
                   <p> Loft Premium</p>
                 </Link>
               </div>
@@ -114,13 +115,13 @@ async function ReservesPending({ params }: any) {
             <div className="dropdown3">
               <button style={{ fontSize: "20px" }}>Precio</button>
               <div className="dropdown-content3">
-                <Link href="/reservations/menos300/">
+                <Link href="/admin/reservations/menos300/">
                   <p> Menos de $300</p>
                 </Link>
-                <Link href="/reservations/betwenn3001000/">
+                <Link href="/admin/reservations/betwenn3001000/">
                   <p> $300 - $1000</p>
                 </Link>
-                <Link href="/reservations/more1000/">
+                <Link href="/admin/reservations/more1000/">
                   <p> Más de $1000</p>
                 </Link>
               </div>
@@ -162,7 +163,7 @@ async function ReservesPending({ params }: any) {
               <td>{reserve.startDate}</td>
               <td>{reserve.endDate}</td>
               <td>
-                <Link href={`/reservations/${reserve.id}`}>
+                <Link href={`/admin/reservations/${reserve.id}`}>
                   <button className="button-detail">
                     <span className="icon"></span>
                   </button>

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect,useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import VerticalNavbar from "@/components/admin-components/admin-navbar/vertical-navbar";
 import NavbarAdmin from "@/components/admin-components/navbarAdmin/navbarA";
 

@@ -1,43 +1,46 @@
-"use client";
-import { useEffect, useState } from "react";
-import ServiceCardAdmin from "@/components/admin-components/all-services-admin/service-card-admin";
-import Swal from "sweetalert2";
-import Link from "next/link";
-import "sweetalert2/src/sweetalert2.scss";
+'use client'
+import { useEffect, useState } from 'react'
+import ServiceCardAdmin from '@/components/admin-components/all-services-admin/service-card-admin'
+import Swal from 'sweetalert2'
+import Link from 'next/link'
+import 'sweetalert2/src/sweetalert2.scss'
+import { useAuth } from '@/app/context/auth-context'
 
 interface Service {
-  id: string;
-  name: string;
-  price: number;
+  id: string
+  name: string
+  price: number
 }
 
 const ServicesPage: React.FC = () => {
-  const [services, setServices] = useState<Service[]>([]);
+  const [services, setServices] = useState<Service[]>([])
+
+  const { accessToken } = useAuth()
 
   const fetchServices = async () => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/services/getAllServices`
-      );
+      )
 
       if (!res.ok) {
-        throw new Error("Error al obtener los servicios");
+        throw new Error('Error al obtener los servicios')
       }
 
-      const services: Service[] = await res.json();
-      setServices(services);
+      const services: Service[] = await res.json()
+      setServices(services)
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un problema al obtener los servicios.",
-      });
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al obtener los servicios.',
+      })
     }
-  };
+  }
 
   useEffect(() => {
-    fetchServices();
-  }, []);
+    fetchServices()
+  }, [])
 
   const handleUpdateService = async (
     id: string,
@@ -47,32 +50,33 @@ const ServicesPage: React.FC = () => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/services/updateService/${id}`,
         {
-          method: "PUT",
+          method: 'PUT',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify(updatedData),
         }
-      );
+      )
 
       if (!res.ok) {
-        throw new Error("Error al actualizar el servicio");
+        throw new Error('Error al actualizar el servicio')
       }
 
       Swal.fire({
-        icon: "success",
-        title: "Servicio actualizado",
-        text: "El servicio ha sido actualizado con éxito.",
-      });
-      fetchServices(); // Actualizar la lista después de la acción
+        icon: 'success',
+        title: 'Servicio actualizado',
+        text: 'El servicio ha sido actualizado con éxito.',
+      })
+      fetchServices() // Actualizar la lista después de la acción
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un problema al actualizar el servicio.",
-      });
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al actualizar el servicio.',
+      })
     }
-  };
+  }
 
   return (
     <div className="p-7 pt-20 mt-20">
@@ -97,7 +101,7 @@ const ServicesPage: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ServicesPage;
+export default ServicesPage

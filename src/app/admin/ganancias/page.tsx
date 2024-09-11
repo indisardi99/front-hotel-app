@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { useAuth } from '@/app/context/auth-context'
 
 interface Reservation {
   id: string
@@ -32,6 +33,8 @@ const GananciasPage: React.FC = () => {
   )
   const [error, setError] = useState<string | null>(null)
 
+  const { accessToken } = useAuth()
+
   const handleFetchProfit = async () => {
     if (year === null || month === null) {
       setError('Por favor selecciona un mes y un año.')
@@ -45,6 +48,7 @@ const GananciasPage: React.FC = () => {
           method: 'POST', // Cambiado a POST
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             year,

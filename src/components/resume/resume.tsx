@@ -51,6 +51,7 @@ const Summary: React.FC<SummaryProps> = ({
 
   const createReservation = async () => {
     console.log("reservando: ", user, reserve);
+
     let guestWithNumbers = {};
     reserve?.guests?.forEach((item, i) => {
       guestWithNumbers = {
@@ -128,6 +129,7 @@ const Summary: React.FC<SummaryProps> = ({
     }
   };
 
+  const [isReserved, setIsReserved] = useState<boolean>(false);
   const handleContinue = async () => {
     if (!user) {
       toast.error("Por favor inicia sesión para reservar");
@@ -181,6 +183,8 @@ const Summary: React.FC<SummaryProps> = ({
           id,
         });
         setPreferenceId(response.preferenceId);
+        setIsReserved(true);
+        toast.success("Reserva exitosa");
       }
     } catch (error) {
       console.error(error);
@@ -267,7 +271,7 @@ const Summary: React.FC<SummaryProps> = ({
       </h3>
       <Button
         onClick={handleContinue}
-        disabled={loading}
+        disabled={loading || isReserved}
         className="bg-amber-50 border text-md hover:bg-amber-100 shadow-2xl border-orange-400 relative text-orange-500 font-bold"
       >
         {loading && <Spinner />}

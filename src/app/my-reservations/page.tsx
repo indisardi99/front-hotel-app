@@ -51,8 +51,18 @@ const MyReservations = () => {
         .then((res) => res.json())
         .then((data) => {
           const sortedReservations = data.data.sort(
-            (a: Reservation, b: Reservation) =>
-              new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+            (a: Reservation, b: Reservation) => {
+              if (a.status === "canceled" && b.status !== "canceled") {
+                return 1;
+              }
+              if (a.status !== "canceled" && b.status === "canceled") {
+                return -1;
+              }
+              return (
+                new Date(a.startDate).getTime() -
+                new Date(b.startDate).getTime()
+              );
+            }
           );
           setReservations(sortedReservations);
         })

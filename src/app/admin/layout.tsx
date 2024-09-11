@@ -20,7 +20,7 @@ export default function AdminLayout({
   useEffect(() => {
     if (!user) {
       router.push("/unauthorized"); // Si no hay usuario, redirigimos
-    } else if (user.role !== "admin") {
+    } else if (user.role !== "admin" && user.role !== "employee") {
       router.push("/unauthorized"); // Si el usuario no es admin, redirigimos
     } else {
       setLoading(false); // Si todo está bien, dejamos de cargar

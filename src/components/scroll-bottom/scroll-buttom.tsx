@@ -27,7 +27,7 @@ export default function ScrollButton() {
       {showScrollButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-5 p-3 rounded-full bg-orange-300 hover:bg-orange-400 text-white shadow-lg focus:outline-none"
+          className="fixed mb-20 mr-4 bottom-5 right-5 p-3 rounded-full bg-orange-300 hover:bg-orange-400 text-white shadow-lg focus:outline-none"
         >
           <ArrowUp size={24} />
         </button>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Inicio from "./inicio/page";
 import ScrollButton from "@/components/scroll-bottom/scroll-buttom";
 import { Suspense } from "react";
+import Chatbot from "@/components/chat-bot/chat-bot";
 
 export default function Home() {
   return (
@@ -44,6 +45,7 @@ export default function Home() {
           <Inicio />
         </div>
       </div>
+      <Chatbot />
       <ScrollButton />
     </main>
   );

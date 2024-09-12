@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/app/context/auth-context";
 
 const formSchema = z
   .object({
@@ -70,6 +71,7 @@ export function CreateEmployee() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { accessToken } = useAuth();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -79,6 +81,7 @@ export function CreateEmployee() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             name: values.name,

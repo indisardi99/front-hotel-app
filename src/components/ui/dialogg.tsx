@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
@@ -44,7 +45,6 @@ const CancelReservationModal = ({
       toast.error("Hubo un error al cancelar la reserva.");
     }
   };
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -52,23 +52,34 @@ const CancelReservationModal = ({
           {isCanceled ? "Reserva Cancelada" : "Cancelar Reserva"}
         </Button>
       </DialogTrigger>
-      <DialogContent className="absolute shadow-lg border-red-400 flex flex-col items-center justify-center w-[320px] h-[250px] bg-white p-6  rounded-lg">
-        <DialogHeader>
-          <DialogTitle>Cancelar Reserva</DialogTitle>
-          <DialogDescription>
-            ¿Estás seguro que quieres cancelar esta reserva? Esta acción no se
-            puede deshacer.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button
-            onClick={handleCancel}
-            variant="destructive"
-            disabled={isCanceled}
-          >
-            {isCanceled ? "Reserva Cancelada" : "Sí, cancelar reserva"}
-          </Button>
-        </DialogFooter>
+      <DialogContent className="fixed inset-0 flex items-center justify-center p-4">
+        <div className="relative border border-red-600 shadow-lg  flex flex-col items-center justify-center w-[320px] h-[250px] bg-white p-6 rounded-lg">
+          <DialogHeader>
+            <DialogTitle>Cancelar Reserva</DialogTitle>
+            <DialogDescription>
+              ¿Estás seguro que quieres cancelar esta reserva? Esta acción no se
+              puede deshacer.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              onClick={handleCancel}
+              variant="destructive"
+              disabled={isCanceled}
+              className="bg-red-400 text-white mt-3 hover:bg-white hover:text-red-600"
+            >
+              {isCanceled ? "Reserva Cancelada" : "Sí, cancelar reserva"}
+            </Button>
+            <DialogClose asChild>
+              <Button
+                variant="outline"
+                className=" bg-green-400 text-white mt-3 hover:text-green-500"
+              >
+                No, no cancelar
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   );

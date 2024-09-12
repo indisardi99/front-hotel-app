@@ -29,7 +29,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="hidden justify-between flex-col lg:flex-row lg:flex border border-orange-300 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-md bg-[#faf9f5] p-2">
+          <div className="hidden border border-orange-300 m-2 justify-between flex-col lg:flex-row lg:flex  absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-md bg-[#faf9f5] p-2">
             <Suspense>
               <FilterDate />
             </Suspense>

@@ -20,6 +20,36 @@ const Navbar: React.FC = () => {
     setIsOpen(!isOpen)
   }
 
+  const renderLinks = () => (
+    <>
+      <Link href="/" onClick={isOpen ? toggleMenu : undefined}>
+        Inicio
+      </Link>
+      <Link href="/all-rooms" onClick={isOpen ? toggleMenu : undefined}>
+        Habitaciones
+      </Link>
+
+      {isAuthenticated &&
+        (user?.role === "admin" || user?.role === "employee") && (
+          <Link href="/admin" onClick={isOpen ? toggleMenu : undefined}>
+            Admin Panel
+          </Link>
+        )}
+
+      {isAuthenticated ? (
+        <ComboboxDemo />
+      ) : (
+        <Link
+          href="/login"
+          className="border border-orange-300 p-2 m-2 rounded-md"
+          onClick={isOpen ? toggleMenu : undefined}
+        >
+          Ingresar
+        </Link>
+      )}
+    </>
+  );
+
   return (
     <div className="relative z-50 flex flex-row w-full justify-between text-white items-center bg-black p-4">
       <Link href="/">
@@ -31,6 +61,8 @@ const Navbar: React.FC = () => {
           height={100}
         />
       </Link>
+
+      {/* Menu Hamburguesa para móviles */}
       <div className="lg:hidden flex items-center">
         <button onClick={toggleMenu} className="text-white focus:outline-none">
           {isOpen ? (
@@ -40,58 +72,17 @@ const Navbar: React.FC = () => {
           )}
         </button>
       </div>
+
+
+      {/* Links para escritorio */}
       <div className="hidden pr-20 items-center lg:flex space-x-4">
-        <Link href="/">Inicio</Link>
-        <Link href="/all-rooms">Habitaciones</Link>
-
-        {isAuthenticated &&
-          (user?.role === 'admin' || user?.role === 'employee') && (
-            <Link href="/admin">Admin Panel</Link>
-          )}
-
-        {isAuthenticated ? (
-          <ComboboxDemo />
-        ) : (
-          <Link
-            className="border border-orange-300 p-2 m-2 rounded-md"
-            href="/login"
-          >
-            Ingresar
-          </Link>
-        )}
+        {renderLinks()}
       </div>
 
+      {/* Links para menú hamburguesa en móvil */}
       {isOpen && (
         <div className="lg:hidden absolute top-16 left-0 w-full bg-black flex flex-col space-y-4 p-4 z-50">
-          <Link href="/" onClick={toggleMenu}>
-            Inicio
-          </Link>
-          <Link href="/rooms" onClick={toggleMenu}>
-            Habitaciones
-          </Link>
-
-          {isAuthenticated ? (
-            <>
-              <Link href="/profile" onClick={toggleMenu}>
-                Mi Perfil
-              </Link>
-
-              {user?.role === 'admin' || user?.role === 'employee' ? (
-                <Link href="/admin" onClick={toggleMenu}>
-                  Admin Panel
-                </Link>
-              ) : null}
-            </>
-          ) : (
-            <>
-              <Link href="/register" onClick={toggleMenu}>
-                Registrarse
-              </Link>
-              <Link href="/login" onClick={toggleMenu}>
-                Ingresar
-              </Link>
-            </>
-          )}
+          {renderLinks()}
         </div>
       )}
     </div>

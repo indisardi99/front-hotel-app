@@ -51,8 +51,18 @@ const MyReservations = () => {
         .then((res) => res.json())
         .then((data) => {
           const sortedReservations = data.data.sort(
-            (a: Reservation, b: Reservation) =>
-              new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+            (a: Reservation, b: Reservation) => {
+              if (a.status === "canceled" && b.status !== "canceled") {
+                return 1;
+              }
+              if (a.status !== "canceled" && b.status === "canceled") {
+                return -1;
+              }
+              return (
+                new Date(a.startDate).getTime() -
+                new Date(b.startDate).getTime()
+              );
+            }
           );
           setReservations(sortedReservations);
         })
@@ -87,7 +97,7 @@ const MyReservations = () => {
   };
 
   return (
-    <div className="text-black lg:p-10">
+    <div className="text-black lg:p-10 flex flex-col ">
       <h1 className="text-2xl font-bold mb-4">Mis Reservas</h1>
       <div className="flex flex-col space-y-7 justify-between m-2">
         {reservations.length === 0 ? (
@@ -102,7 +112,7 @@ const MyReservations = () => {
                   : "bg-[#faf9f5] border-orange-300"
               }`}
             >
-              <div className="flex flex-row">
+              <div className="flex  flex-col lg:flex-row">
                 <Image
                   src={reservation.room?.images[0] || "/default-room.jpg"}
                   alt={reservation.room?.category || "Reserva"}

@@ -118,7 +118,7 @@ const RoomDetails: React.FC<{
             </Carousel>
           )}
         </div>
-        <div className="flex flex-row ml-3 gap-x-5 mt-5">
+        <div className="flex flex-col lg:flex-row ml-3 gap-x-5 mt-5">
           <h2 className="text-xl font-bold uppercase">{room.category}</h2>
           <p className="text-xl text-black font-semibold">
             ${room.price} precio por noche.
@@ -175,8 +175,8 @@ const RoomDetails: React.FC<{
               ))}
             </div>
           </div>
-          <div className="flex m-2 flex-col mt-3 mb-3 w-[500px] items-center">
-            <h1 className="flex text-lg font-semibold">
+          <div className="flex m-2 flex-col mt-3 mb-3 lg:w-[500px] justify-center items-center">
+            <h1 className="flex justify-center items-center text-lg font-semibold">
               Nombre y apellido de los acompañantes por favor.
             </h1>
             <Guests category={room.category} />

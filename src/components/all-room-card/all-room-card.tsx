@@ -36,8 +36,8 @@ const featureIconMap: { [key: string]: React.ReactNode } = {
 const AllRoomCard: React.FC<{ room: Room }> = ({ room }) => {
   return (
     <div className="flex flex-col lg:flex-row w-full mb-4 rounded-lg bg-[#faf9f5] border border-orange-300 p-4">
-      <div className="flex flex-row">
-        <div className="flex flex-row">
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row">
           {room?.images && (
             <Image
               src={room.images[0]}

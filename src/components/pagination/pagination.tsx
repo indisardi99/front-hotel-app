@@ -20,6 +20,41 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
   totalPages,
   onPageChange,
 }) => {
+  const generatePageNumbers = () => {
+    const pages: (number | string)[] = [];
+    const maxPagesToShow = 1;
+
+    if (totalPages <= 6) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (currentPage > maxPagesToShow + 1) {
+      pages.push(1, "...");
+    } else {
+      for (let i = 1; i <= Math.min(currentPage - 1, maxPagesToShow); i++) {
+        pages.push(i);
+      }
+    }
+
+    pages.push(currentPage);
+
+    if (currentPage < totalPages - maxPagesToShow - 1) {
+      pages.push("...", totalPages);
+    } else {
+      for (
+        let i = Math.max(currentPage + 1, totalPages - maxPagesToShow + 1);
+        i <= totalPages;
+        i++
+      ) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
+  };
+
+  const pageNumbers = generatePageNumbers();
+
   return (
     <Pagination>
       <PaginationContent>
@@ -27,19 +62,23 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
           <PaginationPrevious
             onClick={() => onPageChange(currentPage - 1)}
             className={currentPage <= 1 ? "opacity-50 cursor-not-allowed" : ""}
-            aria-disabled={currentPage <= 1}
+            aria-disabled={currentPage <= 2}
           />
         </PaginationItem>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-          <PaginationItem key={pageNum}>
-            <PaginationLink
-              onClick={() => onPageChange(pageNum)}
-              className={
-                pageNum === currentPage ? "bg-orange-400 text-white" : ""
-              }
-            >
-              {pageNum}
-            </PaginationLink>
+        {pageNumbers.map((pageNum, index) => (
+          <PaginationItem key={index}>
+            {typeof pageNum === "number" ? (
+              <PaginationLink
+                onClick={() => onPageChange(pageNum)}
+                className={
+                  pageNum === currentPage ? "bg-orange-400 text-white" : ""
+                }
+              >
+                {pageNum}
+              </PaginationLink>
+            ) : (
+              <span className="px-3">...</span>
+            )}
           </PaginationItem>
         ))}
         <PaginationItem>

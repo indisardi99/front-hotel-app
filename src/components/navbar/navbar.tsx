@@ -1,24 +1,24 @@
-"use client";
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { MenuIcon, XIcon } from "lucide-react";
-import { useAuth } from "@/app/context/auth-context";
-import { usePathname } from "next/navigation";
-import ComboboxDemo from "../ui/bombobox-demo";
+'use client'
+import { useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { MenuIcon, XIcon } from 'lucide-react'
+import { useAuth } from '@/app/context/auth-context'
+import { usePathname } from 'next/navigation'
+import ComboboxDemo from '../ui/bombobox-demo'
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated, user } = useAuth();
-  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false)
+  const { isAuthenticated, user } = useAuth()
+  const pathname = usePathname()
 
-  if (pathname.startsWith("/admin")) {
-    return null;
+  if (pathname.startsWith('/admin') || pathname.startsWith('/activate')) {
+    return null
   }
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+    setIsOpen(!isOpen)
+  }
 
   const renderLinks = () => (
     <>
@@ -73,6 +73,7 @@ const Navbar: React.FC = () => {
         </button>
       </div>
 
+
       {/* Links para escritorio */}
       <div className="hidden pr-20 items-center lg:flex space-x-4">
         {renderLinks()}
@@ -85,7 +86,7 @@ const Navbar: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

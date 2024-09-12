@@ -130,10 +130,26 @@ const Summary: React.FC<SummaryProps> = ({
   };
 
   const [isReserved, setIsReserved] = useState<boolean>(false);
+
   const handleContinue = async () => {
     if (!user) {
       toast.error("Por favor inicia sesión para reservar");
       router.push("/login");
+      return;
+    }
+
+    if (user.status === "pending") {
+      toast.error("Confirma tu email en tu correo para reservar");
+      return;
+    }
+
+    if (user.status === "suspend") {
+      toast.error("Un usuario suspendido no puede reservar");
+      return;
+    }
+
+    if (user.status !== "active") {
+      toast.error("Tu cuenta no está activa para reservar");
       return;
     }
 

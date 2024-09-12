@@ -11,6 +11,7 @@ import { setCookie, deleteCookie, getCookie } from "cookies-next";
 
 type Role = "user" | "admin" | "employee";
 type AuthProvider = "google" | "email";
+type Status = "active" | "pending" | "suspend";
 
 type User = {
   id: string;
@@ -20,7 +21,7 @@ type User = {
   adress?: string;
   name?: string;
   image?: string;
-  status?: string;
+  status?: Status;
   authProvider?: AuthProvider;
 };
 

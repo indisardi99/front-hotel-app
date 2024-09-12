@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
           <Link href="/" onClick={toggleMenu}>
             Inicio
           </Link>
-          <Link href="/rooms" onClick={toggleMenu}>
+          <Link href="/all-rooms" onClick={toggleMenu}>
             Habitaciones
           </Link>
 
@@ -84,9 +84,6 @@ const Navbar: React.FC = () => {
             </>
           ) : (
             <>
-              <Link href="/register" onClick={toggleMenu}>
-                Registrarse
-              </Link>
               <Link href="/login" onClick={toggleMenu}>
                 Ingresar
               </Link>

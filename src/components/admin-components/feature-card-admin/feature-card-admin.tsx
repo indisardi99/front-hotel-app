@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Swal from 'sweetalert2'
+import { useAuth } from '@/app/context/auth-context'
 
 interface FeatureCardProps {
   id: string
@@ -16,6 +17,8 @@ const FeatureCardAdmin: React.FC<FeatureCardProps> = ({
   const [editedName, setEditedName] = useState(name)
   const [originalName, setOriginalName] = useState(name)
   const [hasChanges, setHasChanges] = useState(false)
+
+  const { accessToken } = useAuth()
 
   const handleEditClick = () => {
     setIsEditing(true)
@@ -35,6 +38,7 @@ const FeatureCardAdmin: React.FC<FeatureCardProps> = ({
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({ name: editedName }),
         }

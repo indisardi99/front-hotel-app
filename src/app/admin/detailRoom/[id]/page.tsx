@@ -1,33 +1,41 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
-import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+'use client'
+import { useEffect, useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { toast } from 'react-toastify'
+import Swal from 'sweetalert2'
+import { useAuth } from '@/app/context/auth-context'
 
 const RoomDetailPage: React.FC = () => {
-  const { id } = useParams();
-  const router = useRouter();
-  const [roomDetails, setRoomDetails] = useState<any>(null);
-  const [availableFeatures, setAvailableFeatures] = useState<any[]>([]);
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
-  const [featuresToDelete, setFeaturesToDelete] = useState<string[]>([]);
-  const [number, setNumber] = useState<number | undefined>(undefined);
-  const [price, setPrice] = useState<number | undefined>(undefined);
-  const [category, setCategory] = useState<string | undefined>(undefined);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+  const { id } = useParams()
+  const router = useRouter()
+  const [roomDetails, setRoomDetails] = useState<any>(null)
+  const [availableFeatures, setAvailableFeatures] = useState<any[]>([])
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
+  const [featuresToDelete, setFeaturesToDelete] = useState<string[]>([])
+  const [number, setNumber] = useState<number | undefined>(undefined)
+  const [price, setPrice] = useState<number | undefined>(undefined)
+  const [category, setCategory] = useState<string | undefined>(undefined)
+  const [selectedImage, setSelectedImage] = useState<File | null>(null)
+  const [currentImage, setCurrentImage] = useState<string | null>(null)
+  const [availableCategories, setAvailableCategories] = useState<string[]>([])
+
+  const { accessToken } = useAuth()
 
   useEffect(() => {
     if (id) {
       const fetchRoomDetails = async () => {
         try {
           const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/room/getRoomByIdAdmin/${id}`
-          );
+            `${process.env.NEXT_PUBLIC_API_URL}/room/getRoomByIdAdmin/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          )
           if (!res.ok) {
-            throw new Error("Error al obtener los detalles de la habitación");
+            throw new Error('Error al obtener los detalles de la habitación')
           }
           const data = await res.json()
           setRoomDetails(data.room)
@@ -38,14 +46,13 @@ const RoomDetailPage: React.FC = () => {
         } catch (error) {}
       }
       fetchRoomDetails()
-
     }
-  }, [id]);
+  }, [id])
 
   const handleToggleFeature = (featureId: string) => {
     const removedFeature = roomDetails.features.find(
       (feature: any) => feature.id === featureId
-    );
+    )
 
     if (removedFeature) {
       setRoomDetails({
@@ -53,48 +60,48 @@ const RoomDetailPage: React.FC = () => {
         features: roomDetails.features.filter(
           (feature: any) => feature.id !== featureId
         ),
-      });
-      setAvailableFeatures([...availableFeatures, removedFeature]);
+      })
+      setAvailableFeatures([...availableFeatures, removedFeature])
 
-      setSelectedFeatures(selectedFeatures.filter((id) => id !== featureId));
-      setFeaturesToDelete([...featuresToDelete, removedFeature.name]);
+      setSelectedFeatures(selectedFeatures.filter((id) => id !== featureId))
+      setFeaturesToDelete([...featuresToDelete, removedFeature.name])
     }
-  };
+  }
 
   const handleToggleAvailableFeature = (featureId: string) => {
     const selectedFeature = availableFeatures.find(
       (feature: any) => feature.id === featureId
-    );
+    )
 
     if (selectedFeature) {
       setAvailableFeatures(
         availableFeatures.filter((feature: any) => feature.id !== featureId)
-      );
-     
+      )
+
       setRoomDetails({
         ...roomDetails,
         features: [...roomDetails.features, selectedFeature],
-      });
+      })
 
-      setSelectedFeatures([...selectedFeatures, featureId]); 
+      setSelectedFeatures([...selectedFeatures, featureId])
       setFeaturesToDelete(
         featuresToDelete.filter((id) => id !== selectedFeature.name)
-      );
+      )
     }
-  };
+  }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setSelectedImage(file);
+      const file = e.target.files[0]
+      setSelectedImage(file)
 
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = () => {
-        setCurrentImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+        setCurrentImage(reader.result as string)
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const handleApply = async (applyToAll: boolean) => {
     if (
@@ -103,25 +110,25 @@ const RoomDetailPage: React.FC = () => {
     ) {
       if (applyToAll) {
         toast.error(
-          "Si modificas un número o categoría no puedes aplicar los cambios a todas las habitaciones"
-        );
-        return;
+          'Si modificas un número o categoría no puedes aplicar los cambios a todas las habitaciones'
+        )
+        return
       }
     }
 
     Swal.fire({
       title: applyToAll
-        ? "Aplicar a todas las habitaciones de la clase?"
-        : "Aplicar cambios a esta habitación?",
+        ? 'Aplicar a todas las habitaciones de la clase?'
+        : 'Aplicar cambios a esta habitación?',
       text: applyToAll
-        ? "¿Estás seguro de que quieres aplicar estos cambios a todas las habitaciones de la clase?"
-        : "¿Estás seguro de que quieres aplicar estos cambios solo a esta habitación?",
-      icon: "warning",
+        ? '¿Estás seguro de que quieres aplicar estos cambios a todas las habitaciones de la clase?'
+        : '¿Estás seguro de que quieres aplicar estos cambios solo a esta habitación?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí",
-      cancelButtonText: "Cancelar",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar',
     }).then(async (result) => {
       if (result.isConfirmed) {
         const body: UpdateRoomDto = {
@@ -139,53 +146,54 @@ const RoomDetailPage: React.FC = () => {
               : undefined,
           featuresToDelete:
             featuresToDelete.length > 0 ? featuresToDelete : undefined,
-        };
+        }
 
         const url = applyToAll
           ? `${process.env.NEXT_PUBLIC_API_URL}/room/updateRoom/${id}?applyToAll=true`
-          : `${process.env.NEXT_PUBLIC_API_URL}/room/updateRoom/${id}`;
+          : `${process.env.NEXT_PUBLIC_API_URL}/room/updateRoom/${id}`
 
         try {
           const res = await fetch(url, {
-            method: "PUT",
+            method: 'PUT',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`,
             },
             body: JSON.stringify(body),
-          });
+          })
           if (!res.ok) {
-            throw new Error("Error al actualizar la habitación");
+            throw new Error('Error al actualizar la habitación')
           }
 
           if (selectedImage) {
-            const formData = new FormData();
-            formData.append("file", selectedImage);
+            const formData = new FormData()
+            formData.append('file', selectedImage)
 
             const imageRes = await fetch(
               `${process.env.NEXT_PUBLIC_API_URL}/files/uploadRoomImage/${id}`,
               {
-                method: "POST",
+                method: 'POST',
                 body: formData,
               }
-            );
+            )
             if (!imageRes.ok) {
-              throw new Error("Error al subir la imagen");
+              throw new Error('Error al subir la imagen')
             }
           }
 
-          Swal.fire("¡Hecho!", "Cambios aplicados", "success").then(() => {
-            window.location.reload();
-          });
+          Swal.fire('¡Hecho!', 'Cambios aplicados', 'success').then(() => {
+            router.refresh()
+          })
         } catch (error) {
-          console.error("Error updating room:", error);
-          toast.error("Error al aplicar los cambios");
+          console.error('Error updating room:', error)
+          toast.error('Error al aplicar los cambios')
         }
       }
-    });
-  };
+    })
+  }
 
   if (!roomDetails) {
-    return <p>Cargando detalles de la habitación...</p>;
+    return <p>Cargando detalles de la habitación...</p>
   }
 
   return (
@@ -209,7 +217,7 @@ const RoomDetailPage: React.FC = () => {
             id="roomNumber"
             type="text"
             placeholder={roomDetails.number}
-            value={number || ""}
+            value={number || ''}
             onChange={(e) => setNumber(parseInt(e.target.value) || undefined)}
             className="p-1 border border-gray-300 rounded-md text-sm"
           />
@@ -221,7 +229,7 @@ const RoomDetailPage: React.FC = () => {
             id="roomPrice"
             type="text"
             placeholder={`$${roomDetails.price}`}
-            value={price || ""}
+            value={price || ''}
             onChange={(e) => setPrice(parseInt(e.target.value) || undefined)}
             className="p-1 border border-gray-300 rounded-md text-sm"
           />
@@ -306,7 +314,7 @@ const RoomDetailPage: React.FC = () => {
             <img
               src={currentImage}
               alt="Imagen de la habitación"
-              style={{ maxWidth: "100%", maxHeight: "100%" }}
+              style={{ maxWidth: '100%', maxHeight: '100%' }}
               className="object-contain"
             />
           ) : (
@@ -315,15 +323,15 @@ const RoomDetailPage: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RoomDetailPage;
+export default RoomDetailPage
 
 interface UpdateRoomDto {
-  number?: number;
-  price?: number;
-  category?: string;
-  featuresNames?: string[];
-  featuresToDelete?: string[];
+  number?: number
+  price?: number
+  category?: string
+  featuresNames?: string[]
+  featuresToDelete?: string[]
 }

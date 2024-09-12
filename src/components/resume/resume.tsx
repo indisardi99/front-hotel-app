@@ -143,7 +143,7 @@ const Summary: React.FC<SummaryProps> = ({
       return;
     }
 
-    if (user.status === "suspend") {
+    if (user.status === "suspended") {
       toast.error("Un usuario suspendido no puede reservar");
       return;
     }

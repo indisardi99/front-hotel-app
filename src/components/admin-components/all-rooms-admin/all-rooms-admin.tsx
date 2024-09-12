@@ -14,10 +14,13 @@ const RoomCardAdmin: React.FC<RoomCardProps> = ({
   category,
 }) => {
   return (
-    <div className="p-4 border rounded-md shadow-md w-64">
-      <h2 className="text-xl font-semibold mb-2">Habitación {number}</h2>
-      <p className="text-gray-700 mb-2">Categoría: {category}</p>
-      <p className="text-gray-700 mb-4">Precio: ${price}</p>
+    <div className="p-4 border rounded-md shadow-md w-full mx-auto flex justify-between items-center gap-8">
+      {' '}
+      <div className="flex w-full justify-between">
+        <h2 className="text-xl font-semibold">Habitación {number}</h2>
+        <p className="text-gray-700">Categoría: {category}</p>
+        <p className="text-gray-700">Precio: ${price}</p>
+      </div>
       <Link
         href={`/admin/detailRoom/${id}`}
         className="bg-green-500 text-white px-4 py-2 rounded"

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
+import { useAuth } from '@/app/context/auth-context'
 
 interface Service {
   name: string
@@ -13,6 +14,8 @@ const CreateServicePage: React.FC = () => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState<number>(0)
   const [services, setServices] = useState<Service[]>([])
+
+  const { accessToken } = useAuth()
 
   const fetchServices = async () => {
     try {
@@ -56,6 +59,7 @@ const CreateServicePage: React.FC = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({ name, price }),
         }

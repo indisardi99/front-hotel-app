@@ -1,25 +1,25 @@
-"use client";
-import { useEffect, useState } from "react";
-import UserCardAdmin from "@/components/admin-components/all-users-admin/user-card-admin";
-import Swal from "sweetalert2";
-import "sweetalert2/src/sweetalert2.scss";
-import { useAuth } from "@/app/context/auth-context";
+'use client'
+import { useEffect, useState } from 'react'
+import UserCardAdmin from '@/components/admin-components/all-users-admin/user-card-admin'
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
+import { useAuth } from '@/app/context/auth-context'
 
 interface User {
-  id: string;
-  name: string;
-  phone?: number;
-  email: string;
-  role: string;
-  status: string;
-  adress?: string;
+  id: string
+  name: string
+  phone?: number
+  email: string
+  role: string
+  status: string
+  adress?: string
 }
 
 const UsuariosPage: React.FC = () => {
-  const [data, setData] = useState<User[]>([]);
-  const page = 1;
-  const limit = 20;
-  const { accessToken } = useAuth();
+  const [data, setData] = useState<User[]>([])
+  const page = 1
+  const limit = 20
+  const { accessToken } = useAuth()
   const fetchUsers = async () => {
     try {
       const res = await fetch(
@@ -29,124 +29,130 @@ const UsuariosPage: React.FC = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         }
-      );
+      )
 
       if (!res.ok) {
-        throw new Error("Error al obtener los usuarios");
+        throw new Error('Error al obtener los usuarios')
       }
-      const users: User[] = await res.json();
+      const users: User[] = await res.json()
       const sortedUsers = users.sort((a, b) => {
-        if (a.role === "admin" || a.role === "employee") {
-          return -1;
+        if (a.role === 'admin' || a.role === 'employee') {
+          return -1
         }
-        if (b.role === "admin" || b.role === "employee") {
-          return 1;
+        if (b.role === 'admin' || b.role === 'employee') {
+          return 1
         }
-        return a.name.localeCompare(b.name);
-      });
+        return a.name.localeCompare(b.name)
+      })
 
-      setData(sortedUsers);
+      setData(sortedUsers)
     } catch (error) {
-      console.error(error);
+      console.error(error)
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un problema al obtener los usuarios.",
-      });
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al obtener los usuarios.',
+      })
     }
-  };
+  }
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    fetchUsers()
+  }, [])
 
   const handleSuspend = async (id: string) => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/users/suspend/${id}`,
         {
-          method: "PUT",
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
-      );
+      )
 
       if (!res.ok) {
-        throw new Error("Error al suspender el usuario");
+        throw new Error('Error al suspender el usuario')
       }
 
       Swal.fire({
-        icon: "success",
-        title: "Usuario suspendido",
-        text: "El usuario ha sido suspendido con éxito.",
-      });
-      fetchUsers(); // Actualizar la lista después de la acción
+        icon: 'success',
+        title: 'Usuario suspendido',
+        text: 'El usuario ha sido suspendido con éxito.',
+      })
+      fetchUsers() // Actualizar la lista después de la acción
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un problema al suspender el usuario.",
-      });
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al suspender el usuario.',
+      })
     }
-  };
+  }
 
   const handleReactivate = async (id: string) => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/users/restore/${id}`,
         {
-          method: "PUT",
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
-      );
+      )
 
       if (!res.ok) {
-        throw new Error("Error al reactivar el usuario");
+        throw new Error('Error al reactivar el usuario')
       }
 
       Swal.fire({
-        icon: "success",
-        title: "Usuario reactivado",
-        text: "El usuario ha sido reactivado con éxito.",
-      });
-      fetchUsers(); // Actualizar la lista después de la acción
+        icon: 'success',
+        title: 'Usuario reactivado',
+        text: 'El usuario ha sido reactivado con éxito.',
+      })
+      fetchUsers() // Actualizar la lista después de la acción
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un problema al reactivar el usuario.",
-      });
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al reactivar el usuario.',
+      })
     }
-  };
+  }
 
   const handleUpdate = async (id: string, updatedData: Partial<User>) => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${id}`,
         {
-          method: "PUT",
+          method: 'PUT',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(updatedData),
         }
-      );
+      )
 
       if (!res.ok) {
-        throw new Error("Error al actualizar el usuario");
+        throw new Error('Error al actualizar el usuario')
       }
 
       Swal.fire({
-        icon: "success",
-        title: "Usuario actualizado",
-        text: "El usuario ha sido actualizado con éxito.",
-      });
-      fetchUsers(); // Actualizar la lista después de la acción
+        icon: 'success',
+        title: 'Usuario actualizado',
+        text: 'El usuario ha sido actualizado con éxito.',
+      })
+      fetchUsers() // Actualizar la lista después de la acción
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un problema al actualizar el usuario.",
-      });
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al actualizar el usuario.',
+      })
     }
-  };
+  }
 
   return (
     <div className="p-7 pt-20 mt-20">
@@ -168,7 +174,7 @@ const UsuariosPage: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UsuariosPage;
+export default UsuariosPage

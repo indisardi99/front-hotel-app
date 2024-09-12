@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
+import { useAuth } from '@/app/context/auth-context'
 
 interface CreateRoomDto {
   number: number
@@ -24,6 +25,7 @@ const CreateRoom: React.FC = () => {
   const [notAvailableNumbers, setNotAvailableNumbers] = useState<number[]>([])
   const [image, setImage] = useState<File | null>(null)
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+  const { accessToken } = useAuth()
 
   const router = useRouter()
 
@@ -32,7 +34,12 @@ const CreateRoom: React.FC = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/room/getInfoToCreate`
+          `${process.env.NEXT_PUBLIC_API_URL}/room/getInfoToCreate`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
         )
         const data = await res.json()
         setAvailableCategories(data.availableCategories)
@@ -51,7 +58,12 @@ const CreateRoom: React.FC = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/room/getInfoToCreate`
+          `${process.env.NEXT_PUBLIC_API_URL}/room/getInfoToCreate`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
         )
         const data = await res.json()
 
@@ -106,6 +118,7 @@ const CreateRoom: React.FC = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify(createRoomBody),
         }

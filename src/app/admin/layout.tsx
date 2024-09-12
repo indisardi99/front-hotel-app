@@ -1,11 +1,9 @@
 "use client";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import VerticalNavbar from "@/components/admin-components/admin-navbar/vertical-navbar";
 import NavbarAdmin from "@/components/admin-components/navbarAdmin/navbarA";
-
-// Suponiendo que obtienes el rol del usuario de alguna forma, como un contexto global o estado de autenticación.
-import {useAuth} from "@/app/context/auth-context";
+import { useAuth } from "@/app/context/auth-context";
 import Loader from "@/components/loader-admin/loaderAdmin";
 
 export default function AdminLayout({
@@ -15,20 +13,22 @@ export default function AdminLayout({
 }) {
   const { user } = useAuth();
   const router = useRouter();
-  const [loading, setLoading] = useState(true); // Estado para mostrar el loader
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    if (!user) {
-      router.push("/unauthorized"); // Si no hay usuario, redirigimos
-    } else if (user.role !== "admin" && user.role !== "employee") {
-      router.push("/unauthorized"); // Si el usuario no es admin, redirigimos
-    } else {
-      setLoading(false); // Si todo está bien, dejamos de cargar
-    }
-  }, [user, router]);
+    const timer = setTimeout(() => {
+      if (!user) {
+        router.push("/unauthorized");
+      } else if (user.role !== "admin" && user.role !== "employee") {
+        router.push("/unauthorized");
+      } else {
+        setLoading(false);
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [user?.role, router]);
 
   if (loading) {
-    return <Loader />; // Mostramos el loader mientras verificamos el rol
+    return <Loader />;
   }
 
   return (

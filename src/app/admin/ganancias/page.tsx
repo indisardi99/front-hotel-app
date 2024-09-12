@@ -53,7 +53,7 @@ const GananciasPage: React.FC = () => {
           body: JSON.stringify({
             year,
             month,
-          }), // Enviamos los parámetros year y month en el cuerpo
+          }),
         }
       )
 
